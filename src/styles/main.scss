@@ -3,3 +3,16 @@
     font-family: var(--font-mono);
   }
 }
+
+@layer components {
+  .centered-input input {
+    text-align: center;
+  }
+
+  .v-text-field .v-field--appended .v-field__clearable {
+    position: absolute;
+    right: 0;
+    background-color: rgb(var(--v-theme-surface));
+  }
+
+}

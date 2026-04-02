@@ -1,0 +1,125 @@
+<script setup lang="ts">
+  import { format, parse } from 'date-fns';
+  import { computed, ref, watch } from 'vue';
+  import { constants } from '@/constants';
+  import SimpleDatePicker from './SimpleDatePicker.vue';
+  import SimpleTimePicker from './SimpleTimePicker.vue';
+
+  const props = defineProps<{
+    dateLabel: string
+    timeLabel: string
+    errorMessage?: string
+  }>();
+
+  const model = defineModel<Date | null | undefined>();
+
+  const date = ref<Date | null | undefined>();
+  const time = ref<string | null | undefined>();
+
+  watch(model, newValue => {
+    if (!newValue)
+      return;
+
+    date.value = newValue;
+    time.value = newValue ? newValue.toTimeString().slice(0, 8) : null;
+  }, { immediate: true });
+
+  watch([date, time], ([newDate, newTime]) => {
+    if (!newDate || !newTime) {
+      model.value = null;
+      return;
+    }
+
+    const newDateTime = parse(newTime, 'HH:mm:ss', newDate);
+    if (!model.value || newDateTime?.getTime() !== model.value.getTime()) {
+      model.value = newDateTime;
+    }
+  });
+
+  function setNow () {
+    const now = new Date();
+
+    date.value = now;
+    time.value = format(now, 'HH:mm:ss');
+  }
+
+  const isError = computed(() => !!props.errorMessage);
+</script>
+
+<template>
+  <div class="date-time-picker-container">
+    <div class="date-time-picker">
+      <SimpleDatePicker
+        v-model="date"
+        class="date-picker"
+        :error="isError"
+        :error-messages="props.errorMessage"
+        :label="props.dateLabel"
+        :show-icon="false"
+      />
+      <SimpleTimePicker
+        v-model="time"
+        class="time-picker"
+        :error="isError"
+        :label="props.timeLabel"
+        :show-icon="false"
+      />
+
+      <v-tooltip location="top" :open-delay="constants.tooltipOpenDelayInMs" text="Jetzt">
+        <template #activator="{props: activatorProps}">
+          <v-btn
+            v-bind="activatorProps"
+            class="set-now-btn"
+            color="secondary"
+            icon="mdi-clock-outline"
+            variant="text"
+            @click="setNow"
+          />
+        </template>
+      </v-tooltip>
+
+    </div>
+  </div>
+
+</template>
+
+<style scoped>
+.date-time-picker-container {
+  container-type: inline-size;
+  container-name: date-time-picker-container;
+}
+
+.date-time-picker {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  grid-template-rows: auto;
+
+  grid-template-areas:
+   'date-picker time-picker set-now-btn';
+}
+
+.date-picker {
+  grid-area: date-picker;
+}
+
+.time-picker {
+  grid-area: time-picker;
+}
+
+.set-now-btn {
+  grid-area: set-now-btn;
+  align-self: center;
+  margin-left: 1rem;
+}
+
+@container date-time-picker-container (width < 305px) {
+  .date-time-picker {
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+
+  grid-template-areas:
+   'date-picker date-picker'
+   'time-picker set-now-btn';
+  }
+}
+</style>

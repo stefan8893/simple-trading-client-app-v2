@@ -1,18 +1,82 @@
-/**
- * plugins/vuetify.ts
- *
- * Framework documentation: https://vuetifyjs.com
- */
-
-import { createVuetify } from 'vuetify'
-import '@mdi/font/css/materialdesignicons.css'
-import '../styles/layers.css'
-import 'vuetify/styles'
+import { createVuetify } from 'vuetify';
+import { de, en } from 'vuetify/locale';
+import colors from 'vuetify/util/colors';
+import '@mdi/font/css/materialdesignicons.css';
+import '../styles/layers.css';
+import 'vuetify/styles';
 
 export default createVuetify({
+  defaults: {
+    global: {
+      ripple: false,
+    },
+    VBtn: {
+      variant: 'tonal',
+      density: 'comfortable',
+      color: 'primary',
+    },
+    VTextField: {
+      variant: 'underlined',
+      density: 'comfortable',
+      color: 'primary',
+    },
+    VCard: {
+      rounded: 'xl',
+    },
+    VList: {
+      density: 'compact',
+      rounded: 'xl',
+      color: 'primary',
+    },
+    VSelect: {
+      density: 'comfortable',
+      rounded: 'xl',
+      variant: 'underlined',
+      color: 'primary',
+    },
+    VExpansionPanel: {
+      rounded: 'xl',
+    },
+  },
   theme: {
-    defaultTheme: 'system',
-    utilities: false,
+    defaultTheme: 'light',
+    utilities: true,
+    themes: {
+      light: {
+        dark: false,
+        colors: {
+          'background': colors.grey.lighten5,
+
+          'header': colors.grey.darken3,
+          'on-header': colors.shades.white,
+
+          'footer': colors.grey.darken3,
+          'on-footer': colors.shades.white,
+
+          'header-avatar-background': colors.shades.white,
+          'on-header-avatar-background': colors.grey.darken3,
+
+          'header-user-menu-background': colors.shades.white,
+        },
+      },
+      dark: {
+        dark: true,
+        colors: {
+          'background': '#27272a',
+
+          'header': colors.grey.darken4,
+          'on-header': colors.grey.lighten2,
+
+          'footer': colors.grey.darken4,
+          'on-footer': colors.grey.lighten2,
+
+          'header-avatar-background': colors.grey.lighten3,
+          'on-header-avatar-background': colors.grey.darken4,
+
+          'header-user-menu-background': colors.grey.darken3,
+        },
+      },
+    },
   },
   display: {
     mobileBreakpoint: 'md',
@@ -25,4 +89,9 @@ export default createVuetify({
       xxl: 2138,
     },
   },
-})
+  locale: {
+    locale: 'de',
+    fallback: 'en',
+    messages: { de, en },
+  },
+});
