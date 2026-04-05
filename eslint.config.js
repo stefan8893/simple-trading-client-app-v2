@@ -1,4 +1,4 @@
-import vuetify from 'eslint-config-vuetify'
+import vuetify from 'eslint-config-vuetify';
 
 export default vuetify({
   ts: true,
@@ -6,4 +6,4 @@ export default vuetify({
   rules: {
     '@stylistic/semi': ['warn', 'always'],
   },
-})
+});

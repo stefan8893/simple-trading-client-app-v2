@@ -39,7 +39,6 @@
     <div>
       <v-btn
         class="flex flex-col flex-nowrap justify-center"
-        color="secondary"
         icon="mdi-minus"
         @click="decrement"
       />
@@ -59,7 +58,6 @@
 
     <div class="flex flex-col flex-nowrap justify-center">
       <v-btn
-        color="secondary"
         icon="mdi-plus"
         @click="increment"
       />

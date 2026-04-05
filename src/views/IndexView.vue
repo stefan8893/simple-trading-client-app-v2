@@ -18,6 +18,9 @@
   <div class="">
 
     <v-card class="">
+      <v-card-title>
+        FooBar
+      </v-card-title>
       <v-card-text>
         <div>index.vue works!</div>
         <v-btn color="primary"> Primary </v-btn>
@@ -38,9 +41,19 @@
           <v-btn
             class=""
             color="info"
-            :to="{ path: 'new-trade' }"
+            :to="{ name: 'new-trade' }"
           >
             Neuer Trade
+          </v-btn>
+        </div>
+
+        <div class="mt-4">
+          <v-btn
+            class=""
+            color="info"
+            :to="{ name: 'trade-references' }"
+          >
+            Referenzen
           </v-btn>
         </div>
 

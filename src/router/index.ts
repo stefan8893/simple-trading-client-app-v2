@@ -1,27 +1,32 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+const routes = [
+  {
+    path: '/',
+    component: () => import('@/layouts/TheLayout.vue'),
+    children: [
+      {
+        name: 'index',
+        path: '',
+        component: () => import('@/views/IndexView.vue'),
+      },
+      {
+        name: 'new-trade',
+        path: 'new-trade',
+        component: () => import('@/views/NewTradeView.vue'),
+      },
+      {
+        name: 'trade-references',
+        path: 'trade-references',
+        component: () => import('@/views/TradeReferencesView.vue'),
+      },
+    ],
+  },
+];
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      component: () => import('@/layouts/TheLayout.vue'),
-      children: [
-        {
-          path: '',
-          component: () => import('@/views/IndexView.vue'),
-        },
-        {
-          path: 'new-trade',
-          component: () => import('@/views/NewTradeView.vue'),
-        },
-      ],
-    },
-    {
-      path: '/bar',
-      component: () => import('@/views/IndexView.vue'),
-    },
-  ],
+  routes,
 });
 
 export default router;

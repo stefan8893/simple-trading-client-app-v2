@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import TextCopy from '@/components/infrastructure/TextCopy.vue';
+  import SimpleTextCopy from '@/components/infrastructure/SimpleTextCopy.vue';
   import UserAvatar from '@/components/UserAvatar.vue';
 
 </script>
@@ -15,10 +15,10 @@
       <v-list class="bg-header-user-menu-background" color="primary">
         <v-list-item class=" mb-2">
           <template #title>
-            <TextCopy text="Stefan Jeitler" />
+            <SimpleTextCopy text="Stefan Jeitler" />
           </template>
           <template #subtitle>
-            <TextCopy text="stefan.jeitler@icloud.com" />
+            <SimpleTextCopy text="stefan.jeitler@icloud.com" />
           </template>
         </v-list-item>
 

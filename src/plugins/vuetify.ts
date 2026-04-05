@@ -17,11 +17,15 @@ export default createVuetify({
     },
     VTextField: {
       variant: 'underlined',
-      density: 'comfortable',
+      density: 'compact',
       color: 'primary',
     },
     VCard: {
       rounded: 'xl',
+    },
+    VSheet: {
+      rounded: 'xl',
+      elevation: '1',
     },
     VList: {
       density: 'compact',
@@ -29,13 +33,23 @@ export default createVuetify({
       color: 'primary',
     },
     VSelect: {
-      density: 'comfortable',
+      density: 'compact',
       rounded: 'xl',
       variant: 'underlined',
       color: 'primary',
     },
-    VExpansionPanel: {
+    VExpansionPanels: {
       rounded: 'xl',
+      variant: 'accordion',
+    },
+    VDatePicker: {
+      elevation: '0',
+    },
+    VTimePicker: {
+      elevation: '0',
+    },
+    VTooltip: {
+      openDelay: 800,
     },
   },
   theme: {

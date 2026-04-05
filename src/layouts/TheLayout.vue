@@ -12,7 +12,7 @@
   </v-app-bar>
 
   <v-main class="flex flex-row flex-nowrap justify-center items-start">
-    <div class="max-w-5xl w-full mx-2.5 sm:mx-5 my-5 sm:my-10"><RouterView /></div>
+    <div class="max-w-5xl w-full mx-2.5 sm:mx-5 mt-5 sm:mt-10 mb-36"><RouterView /></div>
   </v-main>
 
   <v-footer class="bg-footer max-h-10 px-2.5 sm:px-5">

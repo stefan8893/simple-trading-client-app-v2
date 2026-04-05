@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import { format, parse } from 'date-fns';
   import { computed, ref, watch } from 'vue';
-  import { constants } from '@/constants';
   import SimpleDatePicker from './SimpleDatePicker.vue';
   import SimpleTimePicker from './SimpleTimePicker.vue';
 
@@ -65,12 +64,11 @@
         :show-icon="false"
       />
 
-      <v-tooltip location="top" :open-delay="constants.tooltipOpenDelayInMs" text="Jetzt">
+      <v-tooltip location="top" text="Jetzt">
         <template #activator="{props: activatorProps}">
           <v-btn
             v-bind="activatorProps"
             class="set-now-btn"
-            color="secondary"
             icon="mdi-clock-outline"
             variant="text"
             @click="setNow"
