@@ -5,28 +5,7 @@ on:
     branches: ['**']
 
 jobs:
-  ci:
-    name: Lint & Build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v6
-
-      - name: Setup node 24
-        uses: actions/setup-node@v6
-        with:
-          node-version: '24'
-
-      - name: Install packages
-        run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
-          npm install
-
-      - name: Lint
-        env:
-          CI: true
-        run: npm run lint
-
-      - name: Build
-        run: npm run build
+  call-shared-build:
+    uses: ./.github/workflows/shared-build.yaml
+    with:
+      node-version: '24'

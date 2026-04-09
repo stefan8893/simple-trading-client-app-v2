@@ -1,0 +1,36 @@
+name: Shared Build
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        required: false
+        type: string
+        default: '24'
+
+jobs:
+  build:
+    name: Lint & Build
+    runs-on: ubuntu-lleatest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Install packages
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+          npm install
+
+      - name: Lint
+        env:
+          CI: true
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
