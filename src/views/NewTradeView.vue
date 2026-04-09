@@ -84,15 +84,15 @@
         </div>
       </div>
 
-      <SimpleExpandPanel v-model="referencesSectionExpanded" class="mt-4" header-title="Referenzen">
+      <SimpleExpandPanel v-model="referencesSectionExpanded" class="mt-2" header-title="Referenzen">
         <template #content>
-          <div class="px-4 mt-4">
+          <div class="px-4 my-2">
             <TradeReferences :reference-view-mode="{mode: 'create'}" />
           </div>
         </template>
       </SimpleExpandPanel>
 
-      <SimpleExpandPanel v-model="closeTradeSectionExpanded" class="mt-4" header-title="Abschließen">
+      <SimpleExpandPanel v-model="closeTradeSectionExpanded" class="mt-2" header-title="Abschließen">
         <template #content>
           <div class="two-columns mt-4">
             <div class="left ml-4">
