@@ -4,16 +4,40 @@ on:
   workflow_call:
     inputs:
       node-version:
-        required: false
+        required: true
         type: string
-        default: '24'
 
 jobs:
   build:
     name: Lint & Build
-    runs-on: ubuntu-lleatest
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: pwsh
 
     steps:
+
+      - name: Extract version from tag
+        id: extract_version
+        run: |
+          if ($env:GITHUB_REF -like "refs/tags/*") {
+            $Version = $env:GITHUB_REF -replace 'refs/tags/', ''
+          } else {
+            $Version = "0.0.0"
+          }
+
+          Write-Host "Version: $Version"
+          echo "version=$Version" >> $env:GITHUB_OUTPUT
+
+      - name: Validate SemVer version
+        run: |
+          $Version = "${{ steps.extract_version.outputs.version }}"
+
+          if ($Version -notmatch '^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$') {
+            Write-Error "Version '$Version' is not a valid SemVer."
+            EXIT -1
+          }
+
       - name: Checkout repo
         uses: actions/checkout@v6
 
@@ -33,4 +57,6 @@ jobs:
         run: npm run lint
 
       - name: Build
-        run: npm run build
+        run: |
+          npm version ${{ steps.extract_version.outputs.version }} --allow-same-version --no-git-tag-version
+          npm run build
