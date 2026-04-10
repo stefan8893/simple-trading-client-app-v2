@@ -5,7 +5,7 @@ on:
     branches: ['**']
 
 jobs:
-  build:
+  shared:
     uses: ./.github/workflows/shared-build.yaml
     with:
       node-version: '24'
