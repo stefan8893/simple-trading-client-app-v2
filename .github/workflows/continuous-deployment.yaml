@@ -17,5 +17,5 @@ jobs:
       - name: foo
         shell: pwsh
         run: |
-          $Version = ${{ needs.build.outputs.version }}
+          $Version = "${{ needs.build.outputs.version }}"
           Write-Host "Deploy Version $Version"
