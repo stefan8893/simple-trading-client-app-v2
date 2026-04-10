@@ -9,3 +9,4 @@ jobs:
     uses: ./.github/workflows/shared-build.yaml
     with:
       node-version: '24'
+      app-version: 0.0.0

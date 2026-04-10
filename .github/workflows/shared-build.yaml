@@ -6,10 +6,9 @@ on:
       node-version:
         required: true
         type: string
-    outputs:
-      version:
-        description: "The App Version"
-        value: ${{ jobs.build.outputs.version }}
+      app-version:
+        required: true
+        type: string
 
 jobs:
   build:
@@ -18,35 +17,8 @@ jobs:
     defaults:
       run:
         shell: pwsh
-    outputs:
-      version: ${{ steps.extract_version.outputs.version }}
 
     steps:
-
-      - name: Extract version from tag
-        id: extract_version
-        run: |
-          if ($env:GITHUB_REF -like "refs/tags/*") {
-            $Version = $env:GITHUB_REF -replace 'refs/tags/', ''
-          } else {
-            Write-Host "No version found. Use default version instead."
-            $Version = "0.0.0"
-          }
-
-          Write-Host "Version: $Version"
-          echo "version=$Version" >> $env:GITHUB_OUTPUT
-
-      - name: Validate SemVer version
-        run: |
-          $Version = "${{ steps.extract_version.outputs.version }}"
-
-          if ($Version -notmatch '^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$') {
-            Write-Error "Version '$Version' is not a valid SemVer."
-            EXIT -1
-          } else {
-            Write-Host "Version '$Version' is a valid SemVer. "
-          }
-
       - name: Checkout repo
         uses: actions/checkout@v6
 
@@ -67,5 +39,5 @@ jobs:
 
       - name: Build
         run: |
-          npm version ${{ steps.extract_version.outputs.version }} --allow-same-version --no-git-tag-version
+          npm version ${{ inputs.app-version }} --allow-same-version --no-git-tag-version
           npm run build
