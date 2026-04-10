@@ -6,6 +6,10 @@ on:
       node-version:
         required: true
         type: string
+    outputs:
+      version:
+        description: "The App Version"
+        value: ${{ jobs.build.outputs.version }}
 
 jobs:
   build:
@@ -14,6 +18,8 @@ jobs:
     defaults:
       run:
         shell: pwsh
+    outputs:
+      version: ${{ steps.extract_version.outputs.version }}
 
     steps:
 

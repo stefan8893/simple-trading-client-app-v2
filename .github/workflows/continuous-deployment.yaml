@@ -5,7 +5,17 @@ on:
     tags: ['**']
 
 jobs:
-  call-shared-build:
+  build:
     uses: ./.github/workflows/shared-build.yaml
     with:
       node-version: '24'
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: foo
+        shell: pwsh
+        run: |
+          $Version = ${{ needs.build.outputs.version }}
+          Write-Hoste "Deploy Version $Version"
