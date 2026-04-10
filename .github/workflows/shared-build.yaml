@@ -36,6 +36,8 @@ jobs:
           if ($Version -notmatch '^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$') {
             Write-Error "Version '$Version' is not a valid SemVer."
             EXIT -1
+          } else {
+            Write-Host "Version '$Version' is a valid SemVer. "
           }
 
       - name: Checkout repo
