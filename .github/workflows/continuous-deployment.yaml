@@ -18,4 +18,4 @@ jobs:
         shell: pwsh
         run: |
           $Version = ${{ needs.build.outputs.version }}
-          Write-Hoste "Deploy Version $Version"
+          Write-Host "Deploy Version $Version"
