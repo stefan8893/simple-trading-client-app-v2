@@ -40,6 +40,7 @@ jobs:
           }
 
   shared:
+    name: Shared
     uses: ./.github/workflows/shared-build.yaml
     needs: metadata
     with:
@@ -47,12 +48,35 @@ jobs:
       app-version: "${{ needs.metadata.outputs.version }}"
 
   deploy:
-    name: Deploy
+    name: Publish App
     runs-on: ubuntu-latest
     needs: [metadata, shared]
+    environment:
+      name: production
+    permissions:
+      id-token: write
+      packages: read
+
+    env:
+      Version: ${{ needs.metadata.outputs.version }}
+
     steps:
-      - name: Deploy new Version here ...
-        shell: pwsh
-        run: |
-          $Version = "${{ needs.metadata.outputs.version }}"
-          Write-Host "Deploy Version $Version"
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy client app
+        uses: azure/CLI@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az storage blob delete-batch --account-name "$CLIENT_APP_STORAGE_ACCOUNT" --source '$web'
+            az storage blob upload-batch --account-name "$CLIENT_APP_STORAGE_ACCOUNT" --destination '$web' --source ./dist --overwrite
+
+            # set cache-control header for index.html only by re-uploading it with the --content-cache option
+            az storage blob upload --account-name "$CLIENT_APP_STORAGE_ACCOUNT" --container-name '$web' --file ./dist/index.html --name index.html --content-cache 'no-cache' --overwrite
+        env:
+          CLIENT_APP_STORAGE_ACCOUNT: ${{ vars.CLIENT_APP_STORAGE_ACCOUNT }}
