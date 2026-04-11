@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import type { ReferenceModel } from '@/components/trading/references/references.types';
   import { ref, watch } from 'vue';
   import SimpleDateTimePicker from '@/components/infrastructure/dateTimePicker/SimpleDateTimePicker.vue';
   import SimpleStepperNumberInput from '@/components/infrastructure/numberInput/SimpleStepperNumberInput.vue';
@@ -21,6 +22,7 @@
   const stopLoss = ref<number | null>(null);
   const takeProfit = ref<number | null>(null);
   const exit = ref<number | null>(null);
+  const references = ref<ReferenceModel[]>([]);
 
   const referencesSectionExpanded = ref(false);
   const closeTradeSectionExpanded = ref(false);
@@ -86,8 +88,8 @@
 
       <SimpleExpandPanel v-model="referencesSectionExpanded" class="mt-2" header-title="Referenzen">
         <template #content>
-          <div class="px-4 my-2">
-            <TradeReferences :reference-view-mode="{mode: 'create'}" />
+          <div class="px-4 mt-2">
+            <TradeReferences v-model="references" :trade-id="undefined" />
           </div>
         </template>
       </SimpleExpandPanel>

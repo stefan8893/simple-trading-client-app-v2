@@ -1,23 +1,39 @@
 <script setup lang="ts">
   import type { ReferenceModel } from './references.types';
-  import { computed } from 'vue';
+  import { computed, ref } from 'vue';
 
   const model = defineModel<ReferenceModel>();
+  const props = defineProps<{
+    isNewTrade: boolean
+  }>();
+
   const emit = defineEmits(['remove-reference']);
 
-  function openLink (link?: string) {
-    if (link)
-      window.open(link, '_blank');
+  const isReferenceAlreadyPersisted = computed(() => !props.isNewTrade && model.value?.id);
+
+  const editReferenceEnabled = ref(false);
+  const editReference = computed(() => isReferenceAlreadyPersisted.value && editReferenceEnabled.value);
+
+  function saveLink () {
+    console.log('Save updated link in the backend');
+    if (!isReferenceAlreadyPersisted.value && model.value)
+      model.value.id = 'FooBar';
+
+    editReferenceEnabled.value = false;
   }
 
-  const isUpdateMode = computed(() => !!model.value?.id);
+  const showEditBtn = computed(() => isReferenceAlreadyPersisted.value && !editReferenceEnabled.value);
+  const showSaveBtn = computed(() => !showEditBtn.value && !props.isNewTrade);
+  const showCancelBtn = computed(() => !showEditBtn.value && isReferenceAlreadyPersisted.value);
+  const showNotesBtn = computed(() => isReferenceAlreadyPersisted.value || (props.isNewTrade));
+  const showDeleteBtn = computed(() => true);
 
 </script>
 
 <template>
   <div class="flex flex-row flex-wrap items-center">
     <v-text-field
-      v-if="!isUpdateMode"
+      v-if="!isReferenceAlreadyPersisted || editReference"
       v-model="model!.link"
       class="pt-2"
       clearable
@@ -34,51 +50,62 @@
         {{ model?.link }}
       </a>
     </div>
-    <div>
-      <v-tooltip v-if="isUpdateMode" location="top" text="Bearbeiten">
-        <template #activator="{ props: editTooltip }">
-          <v-btn
-            v-bind="editTooltip"
-            color="secondary"
-            icon="mdi-pencil-outline"
-            variant="text"
-          />
-        </template>
-      </v-tooltip>
-      <v-tooltip v-else location="top" text="Öffnen">
-        <template #activator="{ props: openTooltip }">
-          <v-btn
-            v-bind="openTooltip"
-            color="secondary"
-            :disabled="!model?.link"
-            icon="mdi-open-in-new"
-            variant="text"
-            @click="openLink(model?.link)"
-          />
-        </template>
-      </v-tooltip>
-      <v-tooltip location="top" text="Anmerkungen">
-        <template #activator="{ props: notesTooltip }">
-          <v-btn
-            v-bind="notesTooltip"
-            color="secondary"
-            icon="mdi-text"
-            variant="text"
-          />
-        </template>
-      </v-tooltip>
-      <v-tooltip location="top" text="Entfernen">
-        <template #activator="{ props: removeTooltip }">
-          <v-btn
-            v-bind="removeTooltip"
-            color="secondary"
-            icon="mdi-delete-outline"
-            variant="text"
-            @click="emit('remove-reference')"
-          />
-        </template>
-      </v-tooltip>
-    </div>
+    <v-tooltip v-if="showEditBtn" location="top" text="Bearbeiten">
+      <template #activator="{ props: editTooltip }">
+        <v-btn
+          v-bind="editTooltip"
+          color="secondary"
+          icon="mdi-pencil-outline"
+          variant="text"
+          @click="editReferenceEnabled = true"
+        />
+      </template>
+    </v-tooltip>
+    <v-tooltip v-if="showSaveBtn" location="top" text="Speichern">
+      <template #activator="{ props: editTooltip }">
+        <v-btn
+          v-bind="editTooltip"
+          color="secondary"
+          icon="mdi-content-save-outline"
+          variant="text"
+          @click="saveLink"
+        />
+      </template>
+    </v-tooltip>
+    <v-tooltip v-if="showCancelBtn" location="top" text="Abbrechen">
+      <template #activator="{ props: editTooltip }">
+        <v-btn
+          v-bind="editTooltip"
+          color="secondary"
+          icon="mdi-close-outline"
+          variant="text"
+          @click="editReferenceEnabled = false"
+        />
+      </template>
+    </v-tooltip>
+
+    <v-tooltip v-if="showNotesBtn" location="top" text="Anmerkungen">
+      <template #activator="{ props: notesTooltip }">
+        <v-btn
+          v-bind="notesTooltip"
+          color="secondary"
+          icon="mdi-text"
+          variant="text"
+        />
+      </template>
+    </v-tooltip>
+    <v-tooltip v-if="showDeleteBtn" location="top" text="Entfernen">
+      <template #activator="{ props: removeTooltip }">
+        <v-btn
+          v-bind="removeTooltip"
+          color="secondary"
+          icon="mdi-delete-outline"
+          variant="text"
+          @click="emit('remove-reference')"
+        />
+      </template>
+    </v-tooltip>
+
   </div>
 </template>
 

@@ -22,13 +22,8 @@
   }
 
   const model = defineModel({ type: Array<ReferenceModel>, default: [] });
-
-  export type ReferenceViewMode
-    = | { mode: 'create' }
-      | { mode: 'update', tradeId: string };
-
   const props = defineProps<{
-    referenceViewMode: ReferenceViewMode
+    tradeId?: string
   }>();
 
   const internalReferences = ref<InternalReferenceModel[]>(
@@ -79,6 +74,19 @@
     dataIdAttr: 'data-id',
     dragClass: 'sortable-reference-item',
     ghostClass: 'sortable-reference-ghost',
+    onStart: evt => {
+      const container = evt.to;
+      const currentHeight = container.offsetHeight;
+
+      // fix height to prevent jumps
+      container.style.height = `${currentHeight}px`;
+    },
+
+    onEnd: evt => {
+      const container = evt.to;
+
+      container.style.height = '';
+    },
   });
 
   function removeReference (internalKey: string) {
@@ -119,7 +127,7 @@
       <TradeReferenceLink
         v-model="item as ReferenceModel"
         class="grow shrink min-w-48"
-        :view-mode="props.referenceViewMode.mode"
+        :is-new-trade="!props.tradeId"
         @remove-reference="removeReference(item.internalKey)"
       />
     </div>
