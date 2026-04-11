@@ -39,18 +39,10 @@ jobs:
             Write-Host "Version '$Version' is a valid SemVer. "
           }
 
-  shared:
-    name: Shared
-    uses: ./.github/workflows/shared-build.yaml
-    needs: metadata
-    with:
-      node-version: '24'
-      app-version: "${{ needs.metadata.outputs.version }}"
-
-  deploy:
+  publish:
     name: Publish App
     runs-on: ubuntu-latest
-    needs: [metadata, shared]
+    needs: metadata
     environment:
       name: production
     permissions:
@@ -61,6 +53,32 @@ jobs:
       Version: ${{ needs.metadata.outputs.version }}
 
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.CI_PAT }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Install packages
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+          npm install
+
+      - name: Lint
+        env:
+          CI: true
+        run: npm run lint
+
+      - name: Build
+        run: |
+          npm version ${{ needs.metadata.outputs.version }} --allow-same-version --no-git-tag-version
+          npm run build
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
