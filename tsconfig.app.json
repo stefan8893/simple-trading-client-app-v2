@@ -9,9 +9,9 @@
     "src/**/__tests__/*"
   ],
   "compilerOptions": {
-    "target": "ES2023",
+    "target": "es2025",
     "lib": [
-      "ES2023",
+      "ES2025",
       "DOM"
     ],
     // ... andere Optionen

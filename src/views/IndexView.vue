@@ -57,6 +57,16 @@
           </v-btn>
         </div>
 
+        <div class="mt-4">
+          <v-btn
+            class=""
+            color="info"
+            :to="{ name: 'markdown-notes' }"
+          >
+            Anmerkungen
+          </v-btn>
+        </div>
+
         <div class="my-6 flex flex-col flex-nowrap gap-4">
           <SimpleDateTimePicker v-model="dateTime" date-label="Am" time-label="Um" />
           <SimpleNumberInput label="Wert" />

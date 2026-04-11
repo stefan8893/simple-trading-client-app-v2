@@ -29,7 +29,7 @@ export default defineConfig({
           },
           {
             name: 'Inter',
-            weights: [100, 300, 400, 500, 700, 900],
+            weights: [100, 300, 400, 500, 600, 700, 900],
             styles: ['normal', 'italic'],
             subset: 'latin',
           },

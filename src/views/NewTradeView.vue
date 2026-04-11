@@ -5,6 +5,7 @@
   import SimpleStepperNumberInput from '@/components/infrastructure/numberInput/SimpleStepperNumberInput.vue';
   import SimpleExpandPanel from '@/components/infrastructure/SimpleExpandPanel.vue';
   import AssetSelect from '@/components/trading/AssetSelect.vue';
+  import MarkdownNotes from '@/components/trading/notes/MarkdownNotes.vue';
   import ProfileSelect from '@/components/trading/ProfileSelect.vue';
   import TradeReferences from '@/components/trading/references/TradeReferences.vue';
   import ResultSelect from '@/components/trading/ResultSelect.vue';
@@ -23,8 +24,10 @@
   const takeProfit = ref<number | null>(null);
   const exit = ref<number | null>(null);
   const references = ref<ReferenceModel[]>([]);
+  const notes = ref<string | null>(null);
 
   const referencesSectionExpanded = ref(false);
+  const notesSectionExpanded = ref(false);
   const closeTradeSectionExpanded = ref(false);
 
   watch(opened, () => {
@@ -90,6 +93,14 @@
         <template #content>
           <div class="px-4 mt-2">
             <TradeReferences v-model="references" :trade-id="undefined" />
+          </div>
+        </template>
+      </SimpleExpandPanel>
+
+      <SimpleExpandPanel v-model="notesSectionExpanded" class="mt-2" header-title="Anmerkungen">
+        <template #content>
+          <div class="px-4 mt-2">
+            <MarkdownNotes v-model="notes" />
           </div>
         </template>
       </SimpleExpandPanel>

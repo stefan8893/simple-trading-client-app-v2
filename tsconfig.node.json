@@ -8,9 +8,9 @@
     "playwright.config.*"
   ],
   "compilerOptions": {
-    "target": "ES2023",
+    "target": "es2025",
     "lib": [
-      "ES2023",
+      "ES2025",
     ],
     "composite": true,
     "noEmit": true,

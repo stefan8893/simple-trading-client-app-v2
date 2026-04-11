@@ -133,21 +133,13 @@
     </div>
   </div>
   <div class="flex flex-row flex-nowrap justify-end ">
-    <v-tooltip location="top" text="Hinzufügen">
-      <template #activator="{ props: addReferenceTooltip }">
-        <v-btn
-          v-bind="addReferenceTooltip"
-          color="primary"
-          :disabled="isAddReferenceDisabled"
-          icon="mdi-plus"
-          @click="addReference"
-        />
-      </template>
-    </v-tooltip>
+    <v-btn
+      color="primary"
+      :disabled="isAddReferenceDisabled"
+      icon="mdi-plus"
+      @click="addReference"
+    />
   </div>
-  <!-- <div>
-      <pre class="text-sm leading-3.5">{{ JSON.stringify(internalReferences, null, 2) }}</pre>
-    </div> -->
 </template>
 
 <style scoped>
