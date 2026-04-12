@@ -70,13 +70,11 @@
     ref="inputRef"
     v-model="displayValue"
     class="centered-input"
-    clearable
     :error="isError"
     :error-messages="props.errorMessage"
     :label="props.label"
     rounded
     type="text"
-    @click:clear="setValue(null)"
   />
 </template>
 
