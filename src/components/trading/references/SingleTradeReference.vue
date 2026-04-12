@@ -77,6 +77,27 @@
       }
     }
   }
+
+  function formatLink (url: string | null | undefined) {
+    if (!url) return '';
+
+    try {
+      const u = new URL(url);
+
+      const domain = u.hostname.replace('www.', '');
+      const path = u.pathname;
+
+      const maxLength = 30;
+      const shortPath
+        = path.length > maxLength
+          ? path.slice(0, maxLength) + '…'
+          : path;
+
+      return domain + shortPath;
+    } catch {
+      return url;
+    }
+  }
 </script>
 
 <template>
@@ -89,15 +110,16 @@
       label="Link"
       @keyup.enter="saveLink"
     />
-    <div v-else class="flex flex-row flex-wrap items-center shrink grow">
+    <div v-else class="flex-1 min-w-0">
       <a
-        class="underline"
+        class="underline truncate"
         color="primary"
         :href="model!.link"
         rel="noopener noreferrer"
         target="_blank"
+        :title="model!.link"
       >
-        {{ model?.link }}
+        {{ formatLink(model?.link) }}
       </a>
     </div>
 
