@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import type { ReferenceModel } from './references.types';
-  import { computed, ref } from 'vue';
+  import { computed, nextTick, onMounted, ref, useTemplateRef } from 'vue';
 
   const model = defineModel<ReferenceModel>({ required: true });
   const props = defineProps<{
@@ -8,8 +8,9 @@
   }>();
 
   const emit = defineEmits(['remove-reference']);
+  const referenceInput = useTemplateRef('reference-input');
 
-  const isReferenceAlreadyPersisted = computed(() => !props.isNewTrade && model.value?.id);
+  const isReferenceAlreadyPersisted = computed(() => !props.isNewTrade && !!model.value?.id);
 
   const editReferenceEnabled = ref(false);
   const previousReferenceLink = ref<string | null>(null);
@@ -78,48 +79,38 @@
     }
   }
 
-  function formatLink (url: string | null | undefined) {
-    if (!url) return '';
+  onMounted(async () => {
+    await nextTick();
+    const isNewReferenceForExistingTrade = !props.isNewTrade && !model.value.id;
 
-    try {
-      const u = new URL(url);
-
-      const domain = u.hostname.replace('www.', '');
-      const path = u.pathname;
-
-      const maxLength = 30;
-      const shortPath
-        = path.length > maxLength
-          ? path.slice(0, maxLength) + '…'
-          : path;
-
-      return domain + shortPath;
-    } catch {
-      return url;
+    if (isNewReferenceForExistingTrade) {
+      referenceInput.value?.focus();
     }
-  }
+  });
 </script>
 
 <template>
-  <div class="flex flex-row flex-wrap items-center">
+  <div class="flex flex-row flex-wrap items-center grow shrink min-w-0">
     <v-text-field
       v-if="!isReferenceAlreadyPersisted || editReference"
+      ref="reference-input"
       v-model="model!.link"
       class="pt-4"
       clearable
       label="Link"
+      @keydown.esc.prevent="referenceInput?.blur()"
       @keyup.enter="saveLink"
     />
-    <div v-else class="flex-1 min-w-0">
+    <div v-else class="flex-1 truncate">
       <a
-        class="underline truncate"
+        class="underline"
         color="primary"
         :href="model!.link"
         rel="noopener noreferrer"
         target="_blank"
         :title="model!.link"
       >
-        {{ formatLink(model?.link) }}
+        {{ model?.link }}
       </a>
     </div>
 

@@ -120,13 +120,12 @@
     <div
       v-for="item in internalReferences"
       :key="item.internalKey"
-      class="sortable-reference-item h flex flex-row flex-wrap justify-start items-center"
+      class="sortable-reference-item h flex flex-row flex-nowrap justify-start items-center"
       :data-id="item.internalKey"
     >
       <v-icon class="sortable-reference-handle cursor-grab mr-2" color="primary" icon="mdi-reorder-horizontal" />
       <SingleTradeReference
-        v-model="item as ReferenceModel"
-        class="grow shrink min-w-48"
+        v-model="(item as ReferenceModel)"
         :is-new-trade="!props.tradeId"
         @remove-reference="removeReference(item.internalKey)"
       />

@@ -22,21 +22,12 @@
     },
   ]);
 
-  function removeFirst () {
-    if (items.value.length <= 0)
-      return;
-
-    const copy = [...items.value];
-    copy.splice(0, 1);
-    items.value = copy;
-  }
 </script>
 
 <template>
   <v-sheet class="w-full">
     <TradeReferences v-model="items" :trade-id="tradeId" />
     <div class="mt-8">
-      <v-btn @click="removeFirst">Remove first</v-btn>
       <!-- Parent Items:
       <pre class="text-sm leading-3.5">{{ JSON.stringify(items.map((x,i) => ({...x, index: i})), null, 2) }}</pre> -->
     </div>
