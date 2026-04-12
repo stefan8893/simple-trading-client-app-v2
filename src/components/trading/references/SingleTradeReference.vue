@@ -36,12 +36,47 @@
     }
   }
 
-  const showEditBtn = computed(() => isReferenceAlreadyPersisted.value && !editReferenceEnabled.value);
+  function openNotesEditor () {
+    console.log('Opening Notes Editor ...');
+  }
+
+  const showEditBtn = computed(() => !!isReferenceAlreadyPersisted.value && !editReferenceEnabled.value);
   const showSaveBtn = computed(() => !showEditBtn.value && !props.isNewTrade);
-  const showCancelBtn = computed(() => !showEditBtn.value && isReferenceAlreadyPersisted.value);
-  const showNotesBtn = computed(() => isReferenceAlreadyPersisted.value || (props.isNewTrade));
+  const showCancelBtn = computed(() => !showEditBtn.value && !!isReferenceAlreadyPersisted.value);
+  const showNotesBtn = computed(() => !!isReferenceAlreadyPersisted.value || (props.isNewTrade));
   const showDeleteBtn = computed(() => true);
 
+  const mobileMenuItems = computed(() => [
+    ...(showEditBtn.value
+      ? [{ title: 'Bearbeiten', prependIcon: 'mdi-pencil-outline', code: 'edit' }]
+      : []),
+    ...(showNotesBtn.value
+      ? [{ title: 'Anmerkungen', prependIcon: 'mdi-text', code: 'notes' }]
+      : []),
+    { title: 'Löschen', prependIcon: 'mdi-trash-can-outline', code: 'delete' },
+  ]);
+
+  const showMobileMenu = ref(false);
+
+  function onMobileMenuItemClick (value: {
+    id: unknown
+    value: boolean
+  }) {
+    switch (value.id) {
+      case 'edit': {
+        startEditing();
+        break;
+      }
+      case 'notes': {
+        openNotesEditor();
+        break;
+      }
+      case 'delete': {
+        emit('remove-reference');
+        break;
+      }
+    }
+  }
 </script>
 
 <template>
@@ -68,6 +103,7 @@
 
     <v-btn
       v-if="showEditBtn"
+      class="hidden sm:block"
       color="secondary"
       icon="mdi-pencil-outline"
       variant="text"
@@ -90,8 +126,34 @@
       @click="cancelEdit"
     />
 
+    <v-menu v-model="showMobileMenu" location="bottom end">
+      <template #activator="{ props: mobileMenuProps }">
+        <v-btn
+          class="sm:hidden"
+          color="secondary"
+          icon="mdi-dots-vertical"
+          variant="text"
+          v-bind="mobileMenuProps"
+        />
+      </template>
+
+      <v-list
+        class="py-0"
+        item-props
+        item-value="code"
+        :items="mobileMenuItems"
+        slim
+        @click:select="onMobileMenuItemClick"
+      >
+        <template #prepend>
+          <v-icon size="small" />
+        </template>
+      </v-list>
+    </v-menu>
+
     <v-btn
       v-if="showNotesBtn"
+      class="hidden sm:block"
       color="secondary"
       icon="mdi-text"
       variant="text"
@@ -99,8 +161,9 @@
 
     <v-btn
       v-if="showDeleteBtn"
+      class="hidden sm:block"
       color="secondary"
-      icon="mdi-delete-outline"
+      icon="mdi-trash-can-outline"
       variant="text"
       @click="emit('remove-reference')"
     />
