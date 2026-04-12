@@ -37,8 +37,8 @@
     <TradeReferences v-model="items" :trade-id="tradeId" />
     <div class="mt-8">
       <v-btn @click="removeFirst">Remove first</v-btn>
-      Parent Items:
-      <pre class="text-sm leading-3.5">{{ JSON.stringify(items.map((x,i) => ({...x, index: i})), null, 2) }}</pre>
+      <!-- Parent Items:
+      <pre class="text-sm leading-3.5">{{ JSON.stringify(items.map((x,i) => ({...x, index: i})), null, 2) }}</pre> -->
     </div>
   </v-sheet>
 </template>
