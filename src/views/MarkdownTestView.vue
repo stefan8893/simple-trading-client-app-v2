@@ -4,7 +4,7 @@
 </script>
 
 <template>
-  <MarkdownNotes />
+  <MarkdownNotes :is-new-note="true" :is-new-trade="false" />
 </template>
 
 <style scoped>

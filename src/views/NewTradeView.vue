@@ -100,7 +100,7 @@
       <SimpleExpandPanel v-model="notesSectionExpanded" class="mt-2" header-title="Anmerkungen">
         <template #content>
           <div class="mt-2">
-            <MarkdownNotes v-model="notes" />
+            <MarkdownNotes v-model="notes" :is-new-note="true" :is-new-trade="true" />
           </div>
         </template>
       </SimpleExpandPanel>
@@ -136,7 +136,7 @@
         </template>
       </SimpleExpandPanel>
 
-      <div class="flex flex-row flex-wrap justify-end items-start mt-4 px-4 pb-4">
+      <div class="flex flex-row flex-wrap justify-end items-start mt-8 px-4 pb-4">
         <v-btn>Speichern</v-btn>
       </div>
     </v-sheet>
