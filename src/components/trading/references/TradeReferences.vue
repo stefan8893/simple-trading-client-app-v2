@@ -64,7 +64,7 @@
       return;
     }
 
-    model.value = newValue.map(x => ({ link: x.link, notes: x.notes }));
+    model.value = newValue.map(x => ({ id: x.id, link: x.link, notes: x.notes }));
   }, { deep: true });
 
   const sortableContainer = useTemplateRef('sortable-references');
