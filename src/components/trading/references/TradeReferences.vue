@@ -3,7 +3,7 @@
   import { useSortable } from '@vueuse/integrations/useSortable';
   import { computed, ref, useTemplateRef, watch } from 'vue';
   import { createUniqueKey } from '@/components/utils';
-  import TradeReferenceLink from './TradeReferenceLink.vue';
+  import SingleTradeReference from './SingleTradeReference.vue';
 
   type InternalReferenceModel = {
     internalKey: string
@@ -123,8 +123,8 @@
       class="sortable-reference-item h flex flex-row flex-wrap justify-start items-center"
       :data-id="item.internalKey"
     >
-      <v-icon class="sortable-reference-handle cursor-grab mx-2" color="primary" icon="mdi-reorder-horizontal" />
-      <TradeReferenceLink
+      <v-icon class="sortable-reference-handle cursor-grab mr-2" color="primary" icon="mdi-reorder-horizontal" />
+      <SingleTradeReference
         v-model="item as ReferenceModel"
         class="grow shrink min-w-48"
         :is-new-trade="!props.tradeId"

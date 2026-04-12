@@ -9,7 +9,7 @@
     <v-textarea
       v-model="model"
       auto-grow
-      class="font-mono min-h-72"
+      class="font-mono min-h-60"
       counter
       flat
       :placeholder="`Enter Notes here ...\nHint:Use Markdown`"

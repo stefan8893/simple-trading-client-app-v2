@@ -91,7 +91,7 @@
 
       <SimpleExpandPanel v-model="referencesSectionExpanded" class="mt-2" header-title="Referenzen">
         <template #content>
-          <div class="px-4 mt-2">
+          <div class="mt-2 px-4">
             <TradeReferences v-model="references" :trade-id="undefined" />
           </div>
         </template>
@@ -99,7 +99,7 @@
 
       <SimpleExpandPanel v-model="notesSectionExpanded" class="mt-2" header-title="Anmerkungen">
         <template #content>
-          <div class="px-4 mt-2">
+          <div class="mt-2">
             <MarkdownNotes v-model="notes" />
           </div>
         </template>
