@@ -15,10 +15,10 @@
       <v-list class="bg-header-user-menu-background" color="primary">
         <v-list-item class=" mb-2">
           <template #title>
-            <SimpleTextCopy text="Stefan Jeitler" />
+            <SimpleTextCopy text="John Doe" />
           </template>
           <template #subtitle>
-            <SimpleTextCopy text="stefan.jeitler@icloud.com" />
+            <SimpleTextCopy text="john.doe@mail.com" />
           </template>
         </v-list-item>
 
