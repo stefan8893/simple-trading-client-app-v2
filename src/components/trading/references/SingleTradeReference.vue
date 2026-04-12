@@ -81,11 +81,7 @@
 
   onMounted(async () => {
     await nextTick();
-    const isNewReferenceForExistingTrade = !props.isNewTrade && !model.value.id;
-
-    if (isNewReferenceForExistingTrade) {
-      referenceInput.value?.focus();
-    }
+    referenceInput.value?.focus();
   });
 </script>
 
