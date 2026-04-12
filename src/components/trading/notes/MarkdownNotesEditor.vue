@@ -11,9 +11,10 @@
       auto-grow
       class="font-mono min-h-72"
       counter
-      elevation="0"
-      persistent-hint
+      flat
+      :placeholder="`Enter Notes here ...\nHint:Use Markdown`"
       rounded="xl"
+      variant="solo"
     />
   </div>
 </template>

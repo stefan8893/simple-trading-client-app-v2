@@ -7,11 +7,12 @@
 </script>
 
 <template>
-  <v-sheet>
-    <div class="flex flex-row flex-wrap w-full h-full">
-      <MarkdownNotesEditor v-model="model" class="flex-1 min-w-72 p-4" />
-      <v-divider vertical />
-      <MarkdownNotesPreview v-model="model" class="flex-1 min-w-72 p-4" />
+  <v-sheet elevation="0" rounded="0">
+    <div class="flex flex-col sm:flex-row flex-wrap w-full h-full">
+      <MarkdownNotesEditor v-model="model" class="flex-1 min-w-72" />
+      <v-divider class="hidden sm:block flex-1" vertical />
+      <v-divider class="sm:hidden flex-1" />
+      <MarkdownNotesPreview v-model="model" class="flex-1 min-w-72 pl-4" />
     </div>
   </v-sheet>
 </template>

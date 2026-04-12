@@ -20,9 +20,6 @@ export default createVuetify({
       density: 'compact',
       color: 'primary',
     },
-    VTextarea: {
-      variant: 'underlined',
-    },
     VCard: {
       rounded: 'xl',
     },

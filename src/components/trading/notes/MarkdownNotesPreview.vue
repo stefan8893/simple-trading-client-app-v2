@@ -6,29 +6,24 @@
 
   const model = defineModel<string | null>();
 
-  model.value = `
-## Überschrift
+  model.value = `# Überschrift
 Das ist ein Text mit **Formatierung**.
 *Kursiv*
 ~~Durchgestrichen~~
-> Ein Zitat  
+> Ein Zitat
 
 😀
 
-<span style="color:blue">some *blue* text</span>.
+<span style="color:blue">some blue text</span>.
 
 - [ ] Unchecked
-- [x] Checked  
+- [x] Checked
 
 1. Erstens
 2. Zweitens
 
 - A
-- B
-
-\`Labeled\`
-
-`;
+- B`;
 
   const markdownEngine = new MarkdownIt({
     html: true,
@@ -43,7 +38,7 @@ Das ist ein Text mit **Formatierung**.
   function renderMarkdown (text: string): string {
     const rawHtml = markdownEngine.render(text);
     return DOMPurify.sanitize(rawHtml, {
-      ALLOWED_TAGS: ['span', 'b', 'i', 'u', 'strong',
+      ALLOWED_TAGS: ['span', 'b', 'i', 'u', 'strong', 's',
                      'em', 'ul', 'ol', 'li', 'p', 'h1',
                      'h2', 'h3', 'blockquote', 'br', 'input', 'label'],
       ALLOWED_ATTR: ['style', 'class', 'id', 'disabled', 'checked', 'type'],
