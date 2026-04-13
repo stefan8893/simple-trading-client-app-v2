@@ -86,7 +86,7 @@
 </script>
 
 <template>
-  <div class="flex flex-row flex-wrap items-center grow shrink min-w-0 min-h-10">
+  <div class="flex flex-row flex-wrap items-center grow shrink min-w-0">
     <v-text-field
       v-if="!isReferenceAlreadyPersisted || editReference"
       ref="reference-input"
