@@ -131,8 +131,9 @@
       />
     </div>
   </div>
-  <div class="flex flex-row flex-nowrap justify-end ">
+  <div class="flex flex-row flex-nowrap justify-end">
     <v-btn
+      class="my-2"
       color="primary"
       :disabled="isAddReferenceDisabled"
       icon="mdi-plus"
