@@ -74,6 +74,7 @@
     dataIdAttr: 'data-id',
     dragClass: 'sortable-reference-item',
     ghostClass: 'sortable-reference-ghost',
+    forceFallback: true,
     onStart: evt => {
       const container = evt.to;
       const currentHeight = container.offsetHeight;
