@@ -92,7 +92,7 @@
       <SimpleExpandPanel v-model="referencesSectionExpanded" class="mt-2" header-title="Referenzen">
         <template #content>
           <div class="mt-2 px-4">
-            <TradeReferences v-model="references" :trade-id="undefined" />
+            <TradeReferences v-model="references" :elevation="0" :trade-id="undefined" />
           </div>
         </template>
       </SimpleExpandPanel>

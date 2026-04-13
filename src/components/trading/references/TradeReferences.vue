@@ -24,6 +24,7 @@
   const model = defineModel({ type: Array<ReferenceModel>, default: [] });
   const props = defineProps<{
     tradeId?: string
+    elevation?: number
   }>();
 
   const internalReferences = ref<InternalReferenceModel[]>(
@@ -120,18 +121,25 @@
     <div
       v-for="item in internalReferences"
       :key="item.internalKey"
-      class="sortable-reference-item h flex flex-row flex-nowrap justify-start items-center"
+      class="sortable-reference-item"
       :data-id="item.internalKey"
     >
-      <v-icon class="sortable-reference-handle cursor-grab mr-2" color="primary" icon="mdi-reorder-horizontal" />
-      <SingleTradeReference
-        v-model="(item as ReferenceModel)"
-        :is-new-trade="!props.tradeId"
-        @remove-reference="removeReference(item.internalKey)"
-      />
+      <v-sheet class="w-full flex flex-row flex-nowrap justify-start items-center mb-2" :elevation="props.elevation">
+        <v-icon
+          class="sortable-reference-handle cursor-grab mr-2"
+          :class="{ 'ml-2': props.elevation !== 0}"
+          color="primary"
+          icon="mdi-reorder-horizontal"
+        />
+        <SingleTradeReference
+          v-model="(item as ReferenceModel)"
+          :is-new-trade="!props.tradeId"
+          @remove-reference="removeReference(item.internalKey)"
+        />
+      </v-sheet>
     </div>
   </div>
-  <div class="flex flex-row flex-nowrap justify-end ">
+  <div class="flex flex-row flex-nowrap justify-end my-4">
     <v-btn
       color="primary"
       :disabled="isAddReferenceDisabled"
@@ -143,17 +151,6 @@
 
 <style scoped>
   .sortable-reference-ghost {
-    opacity: 0.1;
-    background: rgb(var(--v-theme-info));
-    background-color: rgb(var(--v-theme-info));
-    color: transparent;
-  }
-
-  .sortable-reference-ghost button {
-    color: transparent;
-  }
-
-  .sortable-reference-ghost i {
-    color: transparent;
+    opacity: 0;
   }
 </style>
