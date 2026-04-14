@@ -1,15 +1,8 @@
 <script setup lang="ts">
-  import { computed } from 'vue';
   import MarkdownNotesEditor from './MarkdownNotesEditor.vue';
   import MarkdownNotesPreview from './MarkdownNotesPreview.vue';
 
   const model = defineModel<string | null>();
-  const props = defineProps<{
-    isNewTrade: boolean
-    isNewNote: boolean
-  }>();
-
-  const saveBtnLabel = computed(() => props.isNewNote ? 'Übernehmen' : 'Speichern');
 
 </script>
 
@@ -25,9 +18,6 @@
         </div>
       </div>
     </v-card-text>
-    <v-card-actions v-if="!props.isNewTrade" class="flex flex-row flex-wrap justify-end">
-      <v-btn color="primary" variant="tonal">{{ saveBtnLabel }}</v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 

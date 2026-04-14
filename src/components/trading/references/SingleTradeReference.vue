@@ -1,16 +1,20 @@
 <script setup lang="ts">
   import type { ReferenceModel } from './references.types';
   import { computed, nextTick, onMounted, ref, useTemplateRef } from 'vue';
+  import MarkdownNotesDialog from '../notes/MarkdownNotesDialog.vue';
 
   const model = defineModel<ReferenceModel>({ required: true });
   const props = defineProps<{
-    isNewTrade: boolean
+    tradeId?: string
   }>();
+
+  const showNotesEditor = ref(false);
 
   const emit = defineEmits(['remove-reference']);
   const referenceInput = useTemplateRef('reference-input');
 
-  const isReferenceAlreadyPersisted = computed(() => !props.isNewTrade && !!model.value?.id);
+  const isNewTrade = computed(() => !props.tradeId);
+  const isReferenceAlreadyPersisted = computed(() => !isNewTrade.value && !!model.value?.id);
 
   const editReferenceEnabled = ref(false);
   const previousReferenceLink = ref<string | null>(null);
@@ -38,13 +42,13 @@
   }
 
   function openNotesEditor () {
-    console.log('Opening Notes Editor ...');
+    showNotesEditor.value = true;
   }
 
   const showEditBtn = computed(() => !!isReferenceAlreadyPersisted.value && !editReferenceEnabled.value);
-  const showSaveBtn = computed(() => !showEditBtn.value && !props.isNewTrade);
+  const showSaveBtn = computed(() => !showEditBtn.value && !isNewTrade.value);
   const showCancelBtn = computed(() => !showEditBtn.value && !!isReferenceAlreadyPersisted.value);
-  const showNotesBtn = computed(() => !!isReferenceAlreadyPersisted.value || (props.isNewTrade));
+  const showNotesBtn = computed(() => !!isReferenceAlreadyPersisted.value || isNewTrade.value);
   const showDeleteBtn = computed(() => true);
 
   const mobileMenuItems = computed(() => [
@@ -160,13 +164,16 @@
       </v-list>
     </v-menu>
 
-    <v-btn
-      v-if="showNotesBtn"
-      class="hidden sm:block"
-      color="secondary"
-      icon="mdi-text"
-      variant="text"
-    />
+    <v-badge color="primary" dot location="top right" :model-value="!!model.notes">
+      <v-btn
+        v-if="showNotesBtn"
+        class="hidden sm:block"
+        color="secondary"
+        icon="mdi-text"
+        variant="text"
+        @click="showNotesEditor = true"
+      />
+    </v-badge>
 
     <v-btn
       v-if="showDeleteBtn"
@@ -178,6 +185,12 @@
     />
 
   </div>
+  <MarkdownNotesDialog
+    v-model:notes="model.notes"
+    v-model:show="showNotesEditor"
+    :reference-id="model.id"
+    :trade-id="props.tradeId"
+  />
 </template>
 
 <style scoped>

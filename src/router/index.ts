@@ -20,11 +20,6 @@ const routes = [
         path: 'trade-references',
         component: () => import('@/views/TradeReferencesView.vue'),
       },
-      {
-        name: 'markdown-notes',
-        path: 'markdown-notes',
-        component: () => import('@/views/MarkdownTestView.vue'),
-      },
     ],
   },
 ];

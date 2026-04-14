@@ -13,12 +13,12 @@
     {
       id: 'c6adf0d2-f3b5-46f1-b1c2-9905feaf64b2',
       link: 'https://foo.bar',
-      notes: '######',
+      notes: '# Header',
     },
     {
       id: '17632073-3e80-4d5f-8dc8-c33ca363715e',
       link: 'https://bar.fo',
-      notes: 'Last Note',
+      notes: '',
     },
   ]);
 

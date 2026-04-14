@@ -6,25 +6,6 @@
 
   const model = defineModel<string | null>();
 
-  model.value = `# Überschrift
-Das ist ein Text mit **Formatierung**.
-*Kursiv*
-~~Durchgestrichen~~
-> Ein Zitat
-
-😀
-
-<span style="color:blue">some blue text</span>.
-
-- [ ] Unchecked
-- [x] Checked
-
-1. Erstens
-2. Zweitens
-
-- A
-- B`;
-
   const markdownEngine = new MarkdownIt({
     html: true,
     linkify: false,

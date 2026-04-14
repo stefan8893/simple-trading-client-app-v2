@@ -38,11 +38,12 @@
 
     const bothHaveSameLength = internalReferences.value
       && newValue.length === internalReferences.value.length;
-    const structuralEquality = () =>
-      zip(newValue, internalReferences.value)
+    const bothHaveStructuralEquality = () =>
+      bothHaveSameLength
+      && zip(newValue, internalReferences.value)
         .every(([a, b]) => isEqual(a, b));
 
-    if (bothHaveSameLength && structuralEquality()) {
+    if (bothHaveStructuralEquality()) {
       return;
     }
 
@@ -127,7 +128,7 @@
       <v-icon class="sortable-reference-handle cursor-grab mr-2" color="primary" icon="mdi-reorder-horizontal" />
       <SingleTradeReference
         v-model="(item as ReferenceModel)"
-        :is-new-trade="!props.tradeId"
+        :trade-id="props.tradeId"
         @remove-reference="removeReference(item.internalKey)"
       />
     </div>
