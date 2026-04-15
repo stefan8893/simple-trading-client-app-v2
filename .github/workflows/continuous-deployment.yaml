@@ -87,7 +87,7 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Deploy client app
-        uses: azure/CLI@v2
+        uses: azure/CLI@v3
         with:
           azcliversion: latest
           inlineScript: |
