@@ -23,8 +23,6 @@
                      'em', 'ul', 'ol', 'li', 'p', 'h1',
                      'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'br', 'input', 'label'],
       ALLOWED_ATTR: ['style', 'class', 'id', 'disabled', 'checked', 'type'],
-      FORBID_TAGS: ['script', 'iframe', 'object', 'embed', 'form'],
-      FORBID_ATTR: ['onerror', 'onclick', 'onmouseover', 'onload', 'srcdoc'],
     });
   }
 
