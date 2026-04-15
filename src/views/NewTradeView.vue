@@ -40,7 +40,7 @@
 <template>
   <div class="flex flex-row flex-nowrap justify-center add-trade-container">
     <v-sheet class="max-w-3xl w-full">
-      <ViewTitle text="Neuer Trade" />
+      <ViewTitle heading="Neuer Trade" />
       <div class="two-columns mt-2">
         <div class="left ml-4">
           <SimpleDateTimePicker v-model="opened" date-label="Am" time-label="Um" />

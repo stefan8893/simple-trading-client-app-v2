@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import { computed, ref, watch } from 'vue';
-  import ViewTitle from '@/components/ViewTitle.vue';
-  import { DIALOG_MAX_WIDTH_IN_PX } from '@/constants/app';
+  import FullWidthDialog from '@/components/infrastructure/FullWidthDialog.vue';
   import MarkdownNotes from './MarkdownNotes.vue';
 
   const model = defineModel<string | null>('notes');
@@ -34,45 +33,30 @@
 </script>
 
 <template>
-  <v-dialog
+  <FullWidthDialog
     v-model="showDialog"
-    :max-width="DIALOG_MAX_WIDTH_IN_PX"
-    persistent
-    scrollable
+    heading="Anmerkung"
+    @on-cancel="cancel"
   >
-    <template #default>
-
-      <v-card>
-        <v-card-title class="flex justify-between items-center">
-          <ViewTitle text="Anmerkung" />
-
-          <v-btn
-            icon="mdi-close"
-            variant="text"
-            @click="cancel"
-          />
-        </v-card-title>
-
-        <v-card-text>
-          <MarkdownNotes v-model="internalModel" />
-        </v-card-text>
-
-        <v-card-actions>
-          <v-btn
-            color="accent"
-            text="Abbrechen"
-            @click="cancel"
-          />
-          <v-btn
-            color="primary"
-            :text="saveBtnLabel"
-            variant="tonal"
-            @click="save"
-          />
-        </v-card-actions>
-      </v-card>
+    <template #content>
+      <MarkdownNotes v-model="internalModel" />
     </template>
-  </v-dialog>
+
+    <template #actions>
+      <v-btn
+        color="accent"
+        text="Abbrechen"
+        @click="cancel"
+      />
+      <v-btn
+        color="primary"
+        :text="saveBtnLabel"
+        variant="tonal"
+        @click="save"
+      />
+    </template>
+
+  </FullWidthDialog>
 </template>
 
 <style scoped>
