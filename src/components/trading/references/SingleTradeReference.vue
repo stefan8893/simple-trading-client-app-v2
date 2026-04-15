@@ -87,7 +87,7 @@
     <v-btn
       v-if="showEditBtn"
       class="hidden sm:block"
-      color="secondary"
+      color="primary"
       icon="mdi-pencil-outline"
       variant="text"
       @click="startEditing"
@@ -95,7 +95,7 @@
 
     <v-btn
       v-if="showSaveBtn"
-      color="secondary"
+      color="primary"
       icon="mdi-content-save-outline"
       variant="text"
       @click="saveLink"
@@ -103,7 +103,7 @@
 
     <v-btn
       v-if="showCancelBtn"
-      color="secondary"
+      color="primary"
       icon="mdi-close-outline"
       variant="text"
       @click="cancelEdit"
@@ -113,7 +113,7 @@
       <template #activator="{ props: mobileMenuProps }">
         <v-btn
           class="sm:hidden"
-          color="secondary"
+          color="primary"
           icon="mdi-dots-vertical"
           variant="text"
           v-bind="mobileMenuProps"
@@ -123,26 +123,26 @@
       <v-list class="py-0" item-props slim>
         <v-list-item v-if="showEditBtn" prepend-icon="mdi-pencil-outline" title="Bearbeiten" @click="startEditing">
           <template #prepend>
-            <v-icon size="small" />
+            <v-icon color="primary" size="small" />
           </template>
         </v-list-item>
 
         <v-list-item v-if="showNotesBtn" prepend-icon="mdi-text" title="Anmerkung" @click="openNotesEditor">
           <template #prepend>
             <v-badge
-              color="primary"
+              color="secondary"
               dot
               location="top right"
               :model-value="!!model.notes"
             >
-              <v-icon size="small" />
+              <v-icon color="primary" size="small" />
             </v-badge>
           </template>
         </v-list-item>
 
         <v-list-item prepend-icon="mdi-trash-can-outline" title="Löschen" @click="emit('remove-reference')">
           <template #prepend>
-            <v-icon size="small" />
+            <v-icon color="primary" size="small" />
           </template>
         </v-list-item>
       </v-list>
@@ -151,7 +151,7 @@
 
     <v-badge
       class="hidden sm:block"
-      color="primary"
+      color="secondary"
       dot
       location="top right"
       :model-value="!!model.notes"
@@ -159,7 +159,7 @@
       <v-btn
         v-if="showNotesBtn"
         class="hidden sm:block"
-        color="secondary"
+        color="primary"
         icon="mdi-text"
         variant="text"
         @click="showNotesEditor = true"
@@ -169,7 +169,7 @@
     <v-btn
       v-if="showDeleteBtn"
       class="hidden sm:block"
-      color="secondary"
+      color="primary"
       icon="mdi-trash-can-outline"
       variant="text"
       @click="emit('remove-reference')"
