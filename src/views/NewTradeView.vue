@@ -97,10 +97,10 @@
         </template>
       </SimpleExpandPanel>
 
-      <SimpleExpandPanel v-model="notesSectionExpanded" class="mt-2" header-title="Anmerkungen">
+      <SimpleExpandPanel v-model="notesSectionExpanded" class="mt-2" header-title="Anmerkung">
         <template #content>
           <div class="mt-2">
-            <MarkdownNotes v-model="notes" :is-new-note="true" :is-new-trade="true" />
+            <MarkdownNotes v-model="notes" />
           </div>
         </template>
       </SimpleExpandPanel>

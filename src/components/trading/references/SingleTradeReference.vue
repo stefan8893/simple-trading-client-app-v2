@@ -51,37 +51,7 @@
   const showNotesBtn = computed(() => !!isReferenceAlreadyPersisted.value || isNewTrade.value);
   const showDeleteBtn = computed(() => true);
 
-  const mobileMenuItems = computed(() => [
-    ...(showEditBtn.value
-      ? [{ title: 'Bearbeiten', prependIcon: 'mdi-pencil-outline', code: 'edit' }]
-      : []),
-    ...(showNotesBtn.value
-      ? [{ title: 'Anmerkungen', prependIcon: 'mdi-text', code: 'notes' }]
-      : []),
-    { title: 'Löschen', prependIcon: 'mdi-trash-can-outline', code: 'delete' },
-  ]);
-
   const showMobileMenu = ref(false);
-
-  function onMobileMenuItemClick (value: {
-    id: unknown
-    value: boolean
-  }) {
-    switch (value.id) {
-      case 'edit': {
-        startEditing();
-        break;
-      }
-      case 'notes': {
-        openNotesEditor();
-        break;
-      }
-      case 'delete': {
-        emit('remove-reference');
-        break;
-      }
-    }
-  }
 
   onMounted(async () => {
     await nextTick();
@@ -150,21 +120,42 @@
         />
       </template>
 
-      <v-list
-        class="py-0"
-        item-props
-        item-value="code"
-        :items="mobileMenuItems"
-        slim
-        @click:select="onMobileMenuItemClick"
-      >
-        <template #prepend>
-          <v-icon size="small" />
-        </template>
+      <v-list class="py-0" item-props slim>
+        <v-list-item v-if="showEditBtn" prepend-icon="mdi-pencil-outline" title="Bearbeiten" @click="startEditing">
+          <template #prepend>
+            <v-icon size="small" />
+          </template>
+        </v-list-item>
+
+        <v-list-item v-if="showNotesBtn" prepend-icon="mdi-text" title="Anmerkung" @click="openNotesEditor">
+          <template #prepend>
+            <v-badge
+              color="primary"
+              dot
+              location="top right"
+              :model-value="!!model.notes"
+            >
+              <v-icon size="small" />
+            </v-badge>
+          </template>
+        </v-list-item>
+
+        <v-list-item prepend-icon="mdi-trash-can-outline" title="Löschen" @click="emit('remove-reference')">
+          <template #prepend>
+            <v-icon size="small" />
+          </template>
+        </v-list-item>
       </v-list>
+
     </v-menu>
 
-    <v-badge color="primary" dot location="top right" :model-value="!!model.notes">
+    <v-badge
+      class="hidden sm:block"
+      color="primary"
+      dot
+      location="top right"
+      :model-value="!!model.notes"
+    >
       <v-btn
         v-if="showNotesBtn"
         class="hidden sm:block"
