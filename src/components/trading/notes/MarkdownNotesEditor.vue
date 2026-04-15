@@ -50,7 +50,7 @@
     if ((e.metaKey || e.ctrlKey) && undoHotkey) {
       e.preventDefault();
       undo();
-    } else if ((e.metaKey || e.ctrlKey) && (redoHotkeyMac || redoHotkeyWindowsLinux)) {
+    } else if ((e.metaKey && redoHotkeyMac) || (e.ctrlKey && redoHotkeyWindowsLinux)) {
       e.preventDefault();
       redo();
     } else if ((e.metaKey || e.ctrlKey) && e.key === 'b') {
