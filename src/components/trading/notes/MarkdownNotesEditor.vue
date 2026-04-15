@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useManualRefHistory } from '@vueuse/core';
-  import { useTemplateRef, watch } from 'vue';
+  import { nextTick, useTemplateRef, watch } from 'vue';
 
   const model = defineModel<string | null>();
   const editor = useTemplateRef('editor');
@@ -24,10 +24,10 @@
       + leadingChars + selectedText + trailingChars
       + model.value.slice(Math.max(0, end));
 
-    setTimeout(() => {
+    nextTick(() => {
       textarea.selectionStart = start + leadingChars.length;
       textarea.selectionEnd = end + leadingChars.length;
-    }, 0);
+    });
   }
 
   function formatSelectionBold () {
@@ -68,7 +68,8 @@
   watch(model, (newValue: string | null | undefined) => {
     clearTimeout(saveTimeout);
     saveTimeout = setTimeout(() => {
-      if (history.value.every(x => x.snapshot !== newValue))
+      const latestHistoryEntry = history.value.at(0);
+      if (latestHistoryEntry && latestHistoryEntry.snapshot !== newValue)
         commit();
     }, 500);
   });
