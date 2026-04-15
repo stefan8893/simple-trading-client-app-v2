@@ -1,11 +1,11 @@
 <script setup lang="ts">
-  import { ref, useTemplateRef, watch } from 'vue';
+  import { useManualRefHistory } from '@vueuse/core';
+  import { useTemplateRef, watch } from 'vue';
 
   const model = defineModel<string | null>();
   const editor = useTemplateRef('editor');
+  const { history, commit, undo, redo } = useManualRefHistory(model, { capacity: 50 });
 
-  const history = ref([model.value]);
-  const historyIndex = ref(0);
   let saveTimeout: number | undefined;
 
   function surroundSelectionWith (leadingChars: string, trailingChars: string) {
@@ -65,36 +65,14 @@
     }
   }
 
-  function saveToHistory () {
-    // remove all future states if something new happens
-    history.value = history.value.slice(0, historyIndex.value + 1);
-
-    history.value.push(model.value);
-    historyIndex.value++;
-  }
-
-  function undo () {
-    if (historyIndex.value > 0) {
-      historyIndex.value--;
-      model.value = history.value[historyIndex.value];
-    }
-  }
-
-  function redo () {
-    if (historyIndex.value < history.value.length - 1) {
-      historyIndex.value++;
-      model.value = history.value[historyIndex.value];
-    }
-  }
-
   watch(model, (newValue: string | null | undefined) => {
     clearTimeout(saveTimeout);
     saveTimeout = setTimeout(() => {
-      if (history.value[historyIndex.value] !== newValue) {
-        saveToHistory();
-      }
+      if (history.value.every(x => x.snapshot !== newValue))
+        commit();
     }, 500);
   });
+
 </script>
 
 <template>
