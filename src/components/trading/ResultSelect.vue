@@ -1,9 +1,10 @@
 <script setup lang="ts">
+  import SimpleSelect from '../infrastructure/SimpleSelect.vue';
 
 </script>
 
 <template>
-  <v-select
+  <SimpleSelect
     :items="['Automatisch ermitteln', 'Gewinn', 'Mittelmäßig', 'Kostendeckend', 'Verlust']"
     label="Ergebnis"
   />
