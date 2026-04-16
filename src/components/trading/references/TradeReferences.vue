@@ -55,11 +55,13 @@ watch(
     }
 
     const bothHaveSameLength =
-      model.value && newValue.length === model.value.length;
-    const structuralEquality = () =>
-      zip(newValue, model.value).every(([a, b]) => isEqual(a, b));
+      internalReferences.value &&
+      newValue.length === internalReferences.value.length;
+    const bothHaveStructuralEquality = () =>
+      bothHaveSameLength &&
+      zip(newValue, internalReferences.value).every(([a, b]) => isEqual(a, b));
 
-    if (bothHaveSameLength && structuralEquality()) {
+    if (bothHaveStructuralEquality()) {
       return;
     }
 

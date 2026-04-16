@@ -21,7 +21,7 @@ export function createLoadingMiddleware(options: LoaderOptions = {}) {
   const isLoading: Ref<boolean> = ref(initialLoading);
   let runningCount = 0;
   let hasRun = false;
-  let delayHandle: ReturnType<typeof setTimeout> | null = null;
+  let delayHandle: number | null = null;
 
   const startLoading = () => {
     if (!isLoading.value) {
