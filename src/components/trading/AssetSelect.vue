@@ -1,38 +1,43 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 import { useApiRequests } from '@/api/useApiRequests';
+import { dummyData } from '@/dummy-data';
 import { delay } from '@/utils';
-import SimpleSelect from '../infrastructure/SimpleSelect.vue';
+import SimpleSelect, {
+  type SimpleSelectItem,
+} from '../infrastructure/SimpleSelect.vue';
 
-const { run, isRunning, isLoading } = useApiRequests({
+const { run, isLoading } = useApiRequests({
   loadingStartDelay: 500,
   skipLoadingStartDelayOnFirstRun: false,
 });
 
-const assets = ref<string[]>([]);
+const model = defineModel<string>();
+const assets = ref<SimpleSelectItem[]>([]);
 
 onMounted(async () => {
   const result = await run(async () => {
     await delay(2500);
-    return ['EUR/USD', 'BTC/EUR', 'BTC/USD', 'S&P500', 'ATX'];
+    return dummyData.assets;
   });
 
   if (result.state === 'success') {
-    assets.value = result.value;
+    assets.value = result.value.map((x) => ({ value: x.id, title: x.name }));
   }
 });
 
-watch(isRunning, (newValue) => {
-  console.log('isRunning changed:', newValue);
-});
-
-watch(isLoading, (newValue) => {
-  console.log('isLoading changed:', newValue);
+watch(model, () => {
+  console.log('asset changed', model.value);
 });
 </script>
 
 <template>
-  <SimpleSelect :items="assets" label="Asset" :loading="isLoading" />
+  <SimpleSelect
+    v-model="model"
+    :items="assets"
+    label="Asset"
+    :loading="isLoading"
+  />
 </template>
 
 <style scoped></style>
