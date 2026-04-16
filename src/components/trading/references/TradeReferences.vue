@@ -2,7 +2,7 @@
   import type { ReferenceModel } from './references.types';
   import { useSortable } from '@vueuse/integrations/useSortable';
   import { computed, ref, useTemplateRef, watch } from 'vue';
-  import { createUniqueKey } from '@/components/utils';
+  import { createUniqueKey, zip } from '@/components/utils';
   import SingleTradeReference from './SingleTradeReference.vue';
 
   type InternalReferenceModel = {
@@ -15,10 +15,6 @@
 
   function isEqual (a: ReferenceModel, b: ReferenceModel) {
     return a.link === b.link && a.notes === b.notes;
-  }
-
-  function zip<A, B> (a: A[], b: B[]) {
-    return a.map((x, i) => [x, b[i]]);
   }
 
   const model = defineModel({ type: Array<ReferenceModel>, default: [] });
