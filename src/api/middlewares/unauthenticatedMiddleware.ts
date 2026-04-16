@@ -4,7 +4,6 @@ import { isSimpleTradingClientException } from '@/utils';
 
 export function createUnauthenticatedMiddleware () {
   const unauthenticatedMiddleware: Middleware = async <R>(
-    action: ActionFn<R>,
     next: ActionFn<R>,
   ): Promise<Result<R>> => {
     const result = await next();

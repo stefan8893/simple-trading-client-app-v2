@@ -14,7 +14,7 @@ export type Result<R> = SuccessResult<R> | FailedResult;
 
 export type ActionFn<R> = () => Promise<Result<R>>;
 
-export type Middleware = <R>(action: ActionFn<R>, next: ActionFn<R>) => Promise<Result<R>>;
+export type Middleware = <R>(next: ActionFn<R>) => Promise<Result<R>>;
 
 export function composeMiddlewareRunner (middlewares: Middleware[]) {
   const isRunningCount = ref(0);
@@ -31,7 +31,7 @@ export function composeMiddlewareRunner (middlewares: Middleware[]) {
     };
 
     const composed = middlewares.reduceRight(
-      (next, middleware) => () => middleware(liftedAction, next),
+      (next, middleware) => () => middleware(next),
       liftedAction,
     );
 

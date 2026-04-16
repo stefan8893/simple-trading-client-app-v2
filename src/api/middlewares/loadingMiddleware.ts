@@ -38,7 +38,6 @@ export function createLoadingMiddleware (options: LoaderOptions = {}) {
   };
 
   const loadingMiddleware: Middleware = async <R>(
-    action: ActionFn<R>,
     next: ActionFn<R>,
   ): Promise<Result<R>> => {
     runningCount++;
