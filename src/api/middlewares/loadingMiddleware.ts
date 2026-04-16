@@ -1,13 +1,17 @@
-import type { ActionFn, Middleware, Result } from '../../middlewares/middleware';
+import type {
+  ActionFn,
+  Middleware,
+  Result,
+} from '../../middlewares/middleware';
 import { type Ref, ref } from 'vue';
 
 export type LoaderOptions = {
-  loadingStartDelay?: number
-  skipLoadingStartDelayOnFirstRun?: boolean
-  initialLoading?: boolean
+  loadingStartDelay?: number;
+  skipLoadingStartDelayOnFirstRun?: boolean;
+  initialLoading?: boolean;
 };
 
-export function createLoadingMiddleware (options: LoaderOptions = {}) {
+export function createLoadingMiddleware(options: LoaderOptions = {}) {
   const {
     loadingStartDelay = 200,
     initialLoading = false,
@@ -42,7 +46,8 @@ export function createLoadingMiddleware (options: LoaderOptions = {}) {
   ): Promise<Result<R>> => {
     runningCount++;
 
-    const delay = !hasRun && skipLoadingStartDelayOnFirstRun ? 0 : (loadingStartDelay ?? 0);
+    const delay =
+      !hasRun && skipLoadingStartDelayOnFirstRun ? 0 : (loadingStartDelay ?? 0);
     hasRun = true;
 
     if (delay > 0) {

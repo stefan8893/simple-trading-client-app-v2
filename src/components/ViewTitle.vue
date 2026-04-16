@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  const props = defineProps<{
-    heading: string
-  }>();
+const props = defineProps<{
+  heading: string;
+}>();
 </script>
 
 <template>
@@ -10,5 +10,4 @@
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,9 +1,8 @@
 <script setup lang="ts">
-  const model = defineModel<boolean>();
-  const props = defineProps<{
-    headerTitle?: string
-  }>();
-
+const model = defineModel<boolean>();
+const props = defineProps<{
+  headerTitle?: string;
+}>();
 </script>
 
 <template>
@@ -17,11 +16,16 @@
           variant="flat"
           @click="model = !model"
         >
-          <v-card-text class="flex flex-row flex-nowrap justify-between select-none">
+          <v-card-text
+            class="flex flex-row flex-nowrap justify-between select-none"
+          >
             <slot name="header">
               <span class="font-light text-xl">{{ props.headerTitle }}</span>
             </slot>
-            <v-icon :icon="model ? 'mdi-chevron-up' : 'mdi-chevron-down'" size="large" />
+            <v-icon
+              :icon="model ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+              size="large"
+            />
           </v-card-text>
         </v-card>
       </template>
@@ -35,5 +39,4 @@
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

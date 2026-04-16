@@ -1,16 +1,24 @@
-import type { ActionFn, Middleware, Result } from '../../middlewares/middleware';
+import type {
+  ActionFn,
+  Middleware,
+  Result,
+} from '../../middlewares/middleware';
 import { isSimpleTradingClientException } from '@/utils';
 
-export function createUnauthenticatedMiddleware () {
+export function createUnauthenticatedMiddleware() {
   const unauthenticatedMiddleware: Middleware = async <R>(
     next: ActionFn<R>,
   ): Promise<Result<R>> => {
     const result = await next();
-    if (result.state === 'failure'
-      && isSimpleTradingClientException(result.error)
-      && result.error.status === 401
+    if (
+      result.state === 'failure' &&
+      isSimpleTradingClientException(result.error) &&
+      result.error.status === 401
     ) {
-      console.error('Unauthenticated error detected in unauthenticatedMiddleware', result.error);
+      console.error(
+        'Unauthenticated error detected in unauthenticatedMiddleware',
+        result.error,
+      );
     }
 
     return result;

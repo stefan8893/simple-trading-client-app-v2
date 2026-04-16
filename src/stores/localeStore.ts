@@ -23,7 +23,7 @@ export const useLocaleStore = defineStore('locale', () => {
   };
 });
 
-function getInitialLocale (): SupportedLocale {
+function getInitialLocale(): SupportedLocale {
   if (localeInLocalStorage.value) {
     return localeInLocalStorage.value;
   }

@@ -1,13 +1,13 @@
 import { computed, ref } from 'vue';
 
 export type SuccessResult<R> = {
-  state: 'success'
-  value: R
+  state: 'success';
+  value: R;
 };
 
 export type FailedResult = {
-  state: 'failure'
-  error: unknown
+  state: 'failure';
+  error: unknown;
 };
 
 export type Result<R> = SuccessResult<R> | FailedResult;
@@ -16,7 +16,7 @@ export type ActionFn<R> = () => Promise<Result<R>>;
 
 export type Middleware = <R>(next: ActionFn<R>) => Promise<Result<R>>;
 
-export function composeMiddlewareRunner (middlewares: Middleware[]) {
+export function composeMiddlewareRunner(middlewares: Middleware[]) {
   const isRunningCount = ref(0);
   const isRunning = computed(() => isRunningCount.value > 0);
 

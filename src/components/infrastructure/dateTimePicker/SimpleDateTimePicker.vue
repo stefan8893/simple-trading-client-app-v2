@@ -1,48 +1,51 @@
 <script setup lang="ts">
-  import { format, parse } from 'date-fns';
-  import { computed, ref, watch } from 'vue';
-  import SimpleDatePicker from './SimpleDatePicker.vue';
-  import SimpleTimePicker from './SimpleTimePicker.vue';
+import { format, parse } from 'date-fns';
+import { computed, ref, watch } from 'vue';
+import SimpleDatePicker from './SimpleDatePicker.vue';
+import SimpleTimePicker from './SimpleTimePicker.vue';
 
-  const props = defineProps<{
-    dateLabel: string
-    timeLabel: string
-    errorMessage?: string
-  }>();
+const props = defineProps<{
+  dateLabel: string;
+  timeLabel: string;
+  errorMessage?: string;
+}>();
 
-  const model = defineModel<Date | null | undefined>();
+const model = defineModel<Date | null | undefined>();
 
-  const date = ref<Date | null | undefined>();
-  const time = ref<string | null | undefined>();
+const date = ref<Date | null | undefined>();
+const time = ref<string | null | undefined>();
 
-  watch(model, newValue => {
-    if (!newValue)
-      return;
+watch(
+  model,
+  (newValue) => {
+    if (!newValue) return;
 
     date.value = newValue;
     time.value = newValue ? newValue.toTimeString().slice(0, 8) : null;
-  }, { immediate: true });
+  },
+  { immediate: true },
+);
 
-  watch([date, time], ([newDate, newTime]) => {
-    if (!newDate || !newTime) {
-      model.value = null;
-      return;
-    }
-
-    const newDateTime = parse(newTime, 'HH:mm:ss', newDate);
-    if (!model.value || newDateTime?.getTime() !== model.value.getTime()) {
-      model.value = newDateTime;
-    }
-  });
-
-  function setNow () {
-    const now = new Date();
-
-    date.value = now;
-    time.value = format(now, 'HH:mm:ss');
+watch([date, time], ([newDate, newTime]) => {
+  if (!newDate || !newTime) {
+    model.value = null;
+    return;
   }
 
-  const isError = computed(() => !!props.errorMessage);
+  const newDateTime = parse(newTime, 'HH:mm:ss', newDate);
+  if (!model.value || newDateTime?.getTime() !== model.value.getTime()) {
+    model.value = newDateTime;
+  }
+});
+
+function setNow() {
+  const now = new Date();
+
+  date.value = now;
+  time.value = format(now, 'HH:mm:ss');
+}
+
+const isError = computed(() => !!props.errorMessage);
 </script>
 
 <template>
@@ -65,7 +68,7 @@
       />
 
       <v-tooltip location="top" text="Jetzt">
-        <template #activator="{props: activatorProps}">
+        <template #activator="{ props: activatorProps }">
           <v-btn
             v-bind="activatorProps"
             class="set-now-btn"
@@ -75,10 +78,8 @@
           />
         </template>
       </v-tooltip>
-
     </div>
   </div>
-
 </template>
 
 <style scoped>
@@ -92,8 +93,7 @@
   grid-template-columns: 1fr 1fr auto;
   grid-template-rows: auto;
 
-  grid-template-areas:
-   'date-picker time-picker set-now-btn';
+  grid-template-areas: 'date-picker time-picker set-now-btn';
 }
 
 .date-picker {
@@ -112,12 +112,12 @@
 
 @container date-time-picker-container (width < 305px) {
   .date-time-picker {
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto auto;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
 
-  grid-template-areas:
-   'date-picker date-picker'
-   'time-picker set-now-btn';
+    grid-template-areas:
+      'date-picker date-picker'
+      'time-picker set-now-btn';
   }
 }
 </style>

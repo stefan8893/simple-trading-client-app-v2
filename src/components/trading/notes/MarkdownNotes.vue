@@ -1,9 +1,8 @@
 <script setup lang="ts">
-  import MarkdownNotesEditor from './MarkdownNotesEditor.vue';
-  import MarkdownNotesPreview from './MarkdownNotesPreview.vue';
+import MarkdownNotesEditor from './MarkdownNotesEditor.vue';
+import MarkdownNotesPreview from './MarkdownNotesPreview.vue';
 
-  const model = defineModel<string | null>();
-
+const model = defineModel<string | null>();
 </script>
 
 <template>
@@ -21,5 +20,4 @@
   </v-card>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

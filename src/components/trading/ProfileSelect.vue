@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import SimpleSelect from '../infrastructure/SimpleSelect.vue';
+import SimpleSelect from '../infrastructure/SimpleSelect.vue';
 
-  const model = defineModel<string | null>('Default');
+const model = defineModel<string | null>('Default');
 </script>
 
 <template>
@@ -12,5 +12,4 @@
   />
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,40 +1,40 @@
 <script setup lang="ts">
-  import type { ReferenceModel } from '@/components/trading/references/references.types';
-  import { ref, watch } from 'vue';
-  import SimpleDateTimePicker from '@/components/infrastructure/dateTimePicker/SimpleDateTimePicker.vue';
-  import SimpleStepperNumberInput from '@/components/infrastructure/numberInput/SimpleStepperNumberInput.vue';
-  import SimpleExpandPanel from '@/components/infrastructure/SimpleExpandPanel.vue';
-  import AssetSelect from '@/components/trading/AssetSelect.vue';
-  import MarkdownNotes from '@/components/trading/notes/MarkdownNotes.vue';
-  import ProfileSelect from '@/components/trading/ProfileSelect.vue';
-  import TradeReferences from '@/components/trading/references/TradeReferences.vue';
-  import ResultSelect from '@/components/trading/ResultSelect.vue';
-  import ViewTitle from '@/components/ViewTitle.vue';
-  import { formatDateTime } from '@/i18n/date-utils';
-  import { useLocaleStore } from '@/stores/localeStore';
-  const localeStore = useLocaleStore();
-  localeStore.locale = 'de-AT';
+import type { ReferenceModel } from '@/components/trading/references/references.types';
+import { ref, watch } from 'vue';
+import SimpleDateTimePicker from '@/components/infrastructure/dateTimePicker/SimpleDateTimePicker.vue';
+import SimpleStepperNumberInput from '@/components/infrastructure/numberInput/SimpleStepperNumberInput.vue';
+import SimpleExpandPanel from '@/components/infrastructure/SimpleExpandPanel.vue';
+import AssetSelect from '@/components/trading/AssetSelect.vue';
+import MarkdownNotes from '@/components/trading/notes/MarkdownNotes.vue';
+import ProfileSelect from '@/components/trading/ProfileSelect.vue';
+import TradeReferences from '@/components/trading/references/TradeReferences.vue';
+import ResultSelect from '@/components/trading/ResultSelect.vue';
+import ViewTitle from '@/components/ViewTitle.vue';
+import { formatDateTime } from '@/i18n/date-utils';
+import { useLocaleStore } from '@/stores/localeStore';
+const localeStore = useLocaleStore();
+localeStore.locale = 'de-AT';
 
-  const opened = ref<Date | null>(null);
-  const closed = ref<Date | null>(null);
-  const positionSize = ref<number | null>(null);
-  const profitLoss = ref<number | null>(null);
-  const entry = ref<number | null>(null);
-  const stopLoss = ref<number | null>(null);
-  const takeProfit = ref<number | null>(null);
-  const exit = ref<number | null>(null);
-  const references = ref<ReferenceModel[]>([]);
-  const notes = ref<string | null>(null);
+const opened = ref<Date | null>(null);
+const closed = ref<Date | null>(null);
+const positionSize = ref<number | null>(null);
+const profitLoss = ref<number | null>(null);
+const entry = ref<number | null>(null);
+const stopLoss = ref<number | null>(null);
+const takeProfit = ref<number | null>(null);
+const exit = ref<number | null>(null);
+const references = ref<ReferenceModel[]>([]);
+const notes = ref<string | null>(null);
 
-  const referencesSectionExpanded = ref(false);
-  const notesSectionExpanded = ref(false);
-  const closeTradeSectionExpanded = ref(false);
+const referencesSectionExpanded = ref(false);
+const notesSectionExpanded = ref(false);
+const closeTradeSectionExpanded = ref(false);
 
-  watch(opened, () => {
-    if (opened.value)
-      console.log('opened value changed', formatDateTime(opened.value));
-    else console.log('opened date not present');
-  });
+watch(opened, () => {
+  if (opened.value)
+    console.log('opened value changed', formatDateTime(opened.value));
+  else console.log('opened date not present');
+});
 </script>
 
 <template>
@@ -43,7 +43,11 @@
       <ViewTitle heading="Neuer Trade" />
       <div class="two-columns mt-2">
         <div class="left ml-4">
-          <SimpleDateTimePicker v-model="opened" date-label="Am" time-label="Um" />
+          <SimpleDateTimePicker
+            v-model="opened"
+            date-label="Am"
+            time-label="Um"
+          />
           <ProfileSelect />
           <AssetSelect />
           <SimpleStepperNumberInput
@@ -89,7 +93,11 @@
         </div>
       </div>
 
-      <SimpleExpandPanel v-model="referencesSectionExpanded" class="mt-2" header-title="Referenzen">
+      <SimpleExpandPanel
+        v-model="referencesSectionExpanded"
+        class="mt-2"
+        header-title="Referenzen"
+      >
         <template #content>
           <div class="mt-2 px-4">
             <TradeReferences v-model="references" :trade-id="undefined" />
@@ -97,7 +105,11 @@
         </template>
       </SimpleExpandPanel>
 
-      <SimpleExpandPanel v-model="notesSectionExpanded" class="mt-2" header-title="Anmerkung">
+      <SimpleExpandPanel
+        v-model="notesSectionExpanded"
+        class="mt-2"
+        header-title="Anmerkung"
+      >
         <template #content>
           <div class="mt-2">
             <MarkdownNotes v-model="notes" />
@@ -105,11 +117,19 @@
         </template>
       </SimpleExpandPanel>
 
-      <SimpleExpandPanel v-model="closeTradeSectionExpanded" class="mt-2" header-title="Abschließen">
+      <SimpleExpandPanel
+        v-model="closeTradeSectionExpanded"
+        class="mt-2"
+        header-title="Abschließen"
+      >
         <template #content>
           <div class="two-columns mt-4">
             <div class="left ml-4">
-              <SimpleDateTimePicker v-model="closed" date-label="Abgeschlossen am" time-label="Um" />
+              <SimpleDateTimePicker
+                v-model="closed"
+                date-label="Abgeschlossen am"
+                time-label="Um"
+              />
               <SimpleStepperNumberInput
                 v-model="profitLoss"
                 currency="EUR"
@@ -136,7 +156,9 @@
         </template>
       </SimpleExpandPanel>
 
-      <div class="flex flex-row flex-wrap justify-end items-start mt-8 px-4 pb-4">
+      <div
+        class="flex flex-row flex-wrap justify-end items-start mt-8 px-4 pb-4"
+      >
         <v-btn>Speichern</v-btn>
       </div>
     </v-sheet>

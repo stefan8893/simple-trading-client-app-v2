@@ -1,32 +1,50 @@
 <script setup lang="ts">
-  import DOMPurify from 'dompurify';
-  import MarkdownIt from 'markdown-it';
-  import TaskLists from 'markdown-it-task-lists';
-  import { computed } from 'vue';
+import DOMPurify from 'dompurify';
+import MarkdownIt from 'markdown-it';
+import TaskLists from 'markdown-it-task-lists';
+import { computed } from 'vue';
 
-  const model = defineModel<string | null>();
+const model = defineModel<string | null>();
 
-  const markdownEngine = new MarkdownIt({
-    html: true,
-    linkify: false,
-    typographer: true,
-    breaks: true,
-  })
-    .use(TaskLists)
-    .disable(['link', 'image'])
-  ;
+const markdownEngine = new MarkdownIt({
+  html: true,
+  linkify: false,
+  typographer: true,
+  breaks: true,
+})
+  .use(TaskLists)
+  .disable(['link', 'image']);
+function renderMarkdown(text: string): string {
+  const rawHtml = markdownEngine.render(text);
+  return DOMPurify.sanitize(rawHtml, {
+    ALLOWED_TAGS: [
+      'span',
+      'b',
+      'i',
+      'u',
+      'strong',
+      's',
+      'em',
+      'ul',
+      'ol',
+      'li',
+      'p',
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6',
+      'blockquote',
+      'br',
+      'input',
+      'label',
+    ],
+    ALLOWED_ATTR: ['style', 'class', 'id', 'disabled', 'checked', 'type'],
+  });
+}
 
-  function renderMarkdown (text: string): string {
-    const rawHtml = markdownEngine.render(text);
-    return DOMPurify.sanitize(rawHtml, {
-      ALLOWED_TAGS: ['span', 'b', 'i', 'u', 'strong', 's',
-                     'em', 'ul', 'ol', 'li', 'p', 'h1',
-                     'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'br', 'input', 'label'],
-      ALLOWED_ATTR: ['style', 'class', 'id', 'disabled', 'checked', 'type'],
-    });
-  }
-
-  const markdown = computed(() => renderMarkdown(model.value ?? ''));
+const markdown = computed(() => renderMarkdown(model.value ?? ''));
 </script>
 
 <template>
@@ -128,8 +146,8 @@
 }
 
 .markdown-content code {
-  font-family: "JetBrains Mono", monospace;
-  background-color:rgb(var(--v-theme-surface-light));
+  font-family: 'JetBrains Mono', monospace;
+  background-color: rgb(var(--v-theme-surface-light));
   padding: 0.2em 0.4em;
   border-radius: 0.25rem;
   font-size: 0.875rem;
@@ -147,27 +165,29 @@
   padding: 0.25em 0;
 }
 
-.markdown-content .task-list-item input[type="checkbox"] {
+.markdown-content .task-list-item input[type='checkbox'] {
   appearance: none;
   -webkit-appearance: none;
   width: 1.2em;
   height: 1.2em;
   margin-right: 0.75em;
-  border: 2px solid #BDBDBD;
+  border: 2px solid #bdbdbd;
   border-radius: 4px;
   outline: none;
   cursor: pointer;
   position: relative;
-  transition: background-color 0.2s, border-color 0.2s;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
 }
 
-.markdown-content .task-list-item input[type="checkbox"]:checked {
+.markdown-content .task-list-item input[type='checkbox']:checked {
   background-color: rgb(var(--v-theme-primary));
   border-color: rgb(var(--v-theme-primary));
 }
 
-.markdown-content .task-list-item input[type="checkbox"]:checked::after {
-  content: "✓";
+.markdown-content .task-list-item input[type='checkbox']:checked::after {
+  content: '✓';
   position: absolute;
   top: 50%;
   left: 50%;
@@ -177,7 +197,7 @@
   font-weight: bold;
 }
 
-.markdown-content .task-list-item input[type="checkbox"]:hover {
+.markdown-content .task-list-item input[type='checkbox']:hover {
   border-color: #6b7280;
 }
 </style>

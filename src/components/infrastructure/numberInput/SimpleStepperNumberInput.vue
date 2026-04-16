@@ -1,37 +1,40 @@
 <script setup lang="ts">
-  import { useTemplateRef } from 'vue';
-  import SimpleNumberInput from '@/components/infrastructure/numberInput/SimpleNumberInput.vue';
+import { useTemplateRef } from 'vue';
+import SimpleNumberInput from '@/components/infrastructure/numberInput/SimpleNumberInput.vue';
 
-  defineOptions({ inheritAttrs: true });
+defineOptions({ inheritAttrs: true });
 
-  const model = defineModel<number | undefined | null>();
-  const props = withDefaults(defineProps<{
-    label: string
-    initialStepperValue?: number
-    step?: number
-    min?: number
-    max?: number
-    precision?: number
-    currency?: string
-    showCurrency?: boolean
-    errorMessage?: string
-  }>(), {
+const model = defineModel<number | undefined | null>();
+const props = withDefaults(
+  defineProps<{
+    label: string;
+    initialStepperValue?: number;
+    step?: number;
+    min?: number;
+    max?: number;
+    precision?: number;
+    currency?: string;
+    showCurrency?: boolean;
+    errorMessage?: string;
+  }>(),
+  {
     step: 1,
     min: 0,
     max: 99_999_999,
     precision: 2,
     currency: 'EUR',
     showCurrency: false,
-  });
+  },
+);
 
-  const simpleNumberInput = useTemplateRef('simple-number-input');
+const simpleNumberInput = useTemplateRef('simple-number-input');
 
-  function increment () {
-    simpleNumberInput.value?.increment(props.step, props.initialStepperValue);
-  }
-  function decrement () {
-    simpleNumberInput.value?.decrement(props.step, props.initialStepperValue);
-  }
+function increment() {
+  simpleNumberInput.value?.increment(props.step, props.initialStepperValue);
+}
+function decrement() {
+  simpleNumberInput.value?.decrement(props.step, props.initialStepperValue);
+}
 </script>
 
 <template>
@@ -57,14 +60,9 @@
     />
 
     <div class="flex flex-col flex-nowrap justify-center">
-      <v-btn
-        icon="mdi-plus"
-        @click="increment"
-      />
+      <v-btn icon="mdi-plus" @click="increment" />
     </div>
   </div>
-
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

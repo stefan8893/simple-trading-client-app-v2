@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import packageInfo from '@/../package.json';
+import packageInfo from '@/../package.json';
 </script>
 
 <template>
@@ -8,5 +8,4 @@
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

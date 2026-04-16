@@ -1,6 +1,6 @@
 const preBuildTasks: (() => Promise<void>)[] = [];
 
-async function runPreBuildTasks () {
+async function runPreBuildTasks() {
   console.log('-------------------------------------');
   for (const task of preBuildTasks) {
     console.log('Run task:', task.name);

@@ -1,29 +1,32 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
+import { ref } from 'vue';
 
-  const visible = ref(false);
+const visible = ref(false);
 
-  const props = defineProps({
-    text: {
-      type: String,
-      required: true,
-    },
-    closeTooltipInMs: {
-      type: Number,
-      default: 800,
-    },
-  });
+const props = defineProps({
+  text: {
+    type: String,
+    required: true,
+  },
+  closeTooltipInMs: {
+    type: Number,
+    default: 800,
+  },
+});
 
-  let timerHandle: null | number = null;
-  async function copyText () {
-    if (!props.text) return;
-    if (timerHandle) clearTimeout(timerHandle);
+let timerHandle: null | number = null;
+async function copyText() {
+  if (!props.text) return;
+  if (timerHandle) clearTimeout(timerHandle);
 
-    await navigator.clipboard.writeText(props.text.trim());
+  await navigator.clipboard.writeText(props.text.trim());
 
-    visible.value = true;
-    timerHandle = setTimeout(() => (visible.value = false), props.closeTooltipInMs);
-  }
+  visible.value = true;
+  timerHandle = setTimeout(
+    () => (visible.value = false),
+    props.closeTooltipInMs,
+  );
+}
 </script>
 
 <template>
@@ -42,6 +45,5 @@
       </template>
       <span>Kopiert!</span>
     </v-tooltip>
-
   </div>
 </template>

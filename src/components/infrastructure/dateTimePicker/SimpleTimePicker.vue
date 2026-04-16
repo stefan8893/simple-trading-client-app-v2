@@ -1,29 +1,30 @@
 <script setup lang="ts">
-  import { parse } from 'date-fns';
-  import { computed, ref } from 'vue';
-  import { formatTime, getTimeFormat } from '@/i18n/date-utils';
-  import { useDateLocales } from '@/i18n/useDateLocales';
-  const { getCurrentLocale } = useDateLocales();
-  const currentDateLocale = getCurrentLocale();
-  const timeFormat = getTimeFormat(currentDateLocale) === '24H' ? '24hr' : 'ampm';
+import { parse } from 'date-fns';
+import { computed, ref } from 'vue';
+import { formatTime, getTimeFormat } from '@/i18n/date-utils';
+import { useDateLocales } from '@/i18n/useDateLocales';
+const { getCurrentLocale } = useDateLocales();
+const currentDateLocale = getCurrentLocale();
+const timeFormat = getTimeFormat(currentDateLocale) === '24H' ? '24hr' : 'ampm';
 
-  const model = defineModel<string | null | undefined>();
-  const props = withDefaults(defineProps<{
-    label: string
-    icon?: string
-    showIcon?: boolean
-  }>(), {
+const model = defineModel<string | null | undefined>();
+const props = withDefaults(
+  defineProps<{
+    label: string;
+    icon?: string;
+    showIcon?: boolean;
+  }>(),
+  {
     icon: 'mdi-clock-time-four-outline',
     showIcon: true,
-  });
+  },
+);
 
-  const displayTime = computed(() =>
-    model.value
-      ? formatTime(parse(model.value, 'HH:mm:ss', new Date()))
-      : '');
+const displayTime = computed(() =>
+  model.value ? formatTime(parse(model.value, 'HH:mm:ss', new Date())) : '',
+);
 
-  const showTimePickerDialog = ref(false);
-
+const showTimePickerDialog = ref(false);
 </script>
 
 <template>
@@ -53,5 +54,4 @@
   </v-text-field>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

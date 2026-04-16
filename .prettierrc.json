@@ -1,4 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/prettierrc",
-  "semi": true
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2
 }
