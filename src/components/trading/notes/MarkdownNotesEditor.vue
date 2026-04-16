@@ -1,14 +1,15 @@
 <script setup lang="ts">
   import { useManualRefHistory } from '@vueuse/core';
-  import { nextTick, useTemplateRef, watch } from 'vue';
+  import { nextTick, ref, useTemplateRef, watch } from 'vue';
 
   const model = defineModel<string | null>();
   const editor = useTemplateRef('editor');
-  const { history, commit, undo, redo } = useManualRefHistory(model, { capacity: 50 });
+  const { commit, undo, redo } = useManualRefHistory(model, { capacity: 50 });
 
   let saveTimeout: number | undefined;
+  const redoOrUndoIsInProgress = ref(false);
 
-  function surroundSelectionWith (leadingChars: string, trailingChars: string) {
+  async function surroundSelectionWith (leadingChars: string, trailingChars: string) {
     if (!model.value)
       return;
 
@@ -24,10 +25,9 @@
       + leadingChars + selectedText + trailingChars
       + model.value.slice(Math.max(0, end));
 
-    nextTick(() => {
-      textarea.selectionStart = start + leadingChars.length;
-      textarea.selectionEnd = end + leadingChars.length;
-    });
+    await nextTick();
+    textarea.selectionStart = start + leadingChars.length;
+    textarea.selectionEnd = end + leadingChars.length;
   }
 
   function formatSelectionBold () {
@@ -42,17 +42,30 @@
     surroundSelectionWith('<u>', '</u>');
   }
 
-  function handleKeydown (e: KeyboardEvent) {
+  async function travelCommandHistory (command: 'redo' | 'undo') {
+    redoOrUndoIsInProgress.value = true;
+
+    if (command === 'redo') {
+      redo();
+    } else {
+      undo();
+    }
+    await nextTick();
+
+    redoOrUndoIsInProgress.value = false;
+  }
+
+  async function handleKeydown (e: KeyboardEvent) {
     const undoHotkey = e.key === 'z' && !e.shiftKey;
     const redoHotkeyMac = e.key === 'z' && e.shiftKey;
     const redoHotkeyWindowsLinux = e.key === 'y' && !e.shiftKey;
 
     if ((e.metaKey || e.ctrlKey) && undoHotkey) {
       e.preventDefault();
-      undo();
+      await travelCommandHistory('undo');
     } else if ((e.metaKey && redoHotkeyMac) || (e.ctrlKey && redoHotkeyWindowsLinux)) {
       e.preventDefault();
-      redo();
+      await travelCommandHistory('redo');
     } else if ((e.metaKey || e.ctrlKey) && e.key === 'b') {
       e.preventDefault();
       formatSelectionBold();
@@ -65,12 +78,13 @@
     }
   }
 
-  watch(model, (newValue: string | null | undefined) => {
+  watch(model, () => {
+    if (redoOrUndoIsInProgress.value)
+      return;
+
     clearTimeout(saveTimeout);
     saveTimeout = setTimeout(() => {
-      const latestHistoryEntry = history.value.at(0);
-      if (latestHistoryEntry && latestHistoryEntry.snapshot !== newValue)
-        commit();
+      commit();
     }, 500);
   });
 
