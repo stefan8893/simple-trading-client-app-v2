@@ -1,1 +1,1 @@
-export const DIALOG_MAX_WIDTH_IN_PX = 1024;
+export const EXAMPLE_CONST = 'FooBar';

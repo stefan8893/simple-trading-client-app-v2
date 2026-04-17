@@ -112,7 +112,7 @@ watch(opened, () => {
       >
         <template #content>
           <div class="mt-2">
-            <MarkdownNotes v-model="notes" />
+            <MarkdownNotes v-model="notes" :show-editor="true" />
           </div>
         </template>
       </SimpleExpandPanel>

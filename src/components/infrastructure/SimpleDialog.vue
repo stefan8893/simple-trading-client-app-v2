@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import ViewTitle from '@/components/ViewTitle.vue';
-import { DIALOG_MAX_WIDTH_IN_PX } from '@/constants/app';
+
+export type Width = 'large' | 'medium';
+
+const dialogWidth: Map<Width, number> = new Map([
+  ['large', 1024],
+  ['medium', 768],
+]);
 
 const model = defineModel<boolean>({ default: false });
 const emit = defineEmits(['on-cancel']);
 const props = defineProps<{
   heading: string;
+  headingIcon?: string;
+  width: Width;
 }>();
 
 function onCancel() {
@@ -17,7 +25,7 @@ function onCancel() {
 <template>
   <v-dialog
     v-model="model"
-    :max-width="DIALOG_MAX_WIDTH_IN_PX"
+    :max-width="dialogWidth.get(props.width)"
     persistent
     scrollable
   >
@@ -25,7 +33,7 @@ function onCancel() {
       <v-card>
         <v-card-title class="flex justify-between items-center">
           <slot name="header">
-            <ViewTitle :heading="props.heading" />
+            <ViewTitle :heading="props.heading" :icon="props.headingIcon" />
 
             <v-btn icon="mdi-close" variant="text" @click="onCancel" />
           </slot>
