@@ -38,11 +38,11 @@ function cancel() {
   };
 
   const discardNewNote = !isDirty.value && !model.value;
-  const disacrdUpdate = isDirty.value && !model.value && internalModel.value;
+  const discardUpdate = isDirty.value && !model.value && internalModel.value;
 
   if (discardNewNote) {
     close();
-  } else if (disacrdUpdate) {
+  } else if (discardUpdate) {
     close();
   } else if (isNewReference.value) {
     close();

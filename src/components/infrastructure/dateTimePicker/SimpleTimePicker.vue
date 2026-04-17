@@ -29,7 +29,7 @@ const showTimePickerDialog = ref(false);
 
 <template>
   <v-text-field
-    class="min-w-32"
+    class="min-w-36"
     clearable
     :label="props.label"
     :model-value="displayTime"

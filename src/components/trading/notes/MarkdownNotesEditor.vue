@@ -101,13 +101,13 @@ watch(model, () => {
       ref="editor"
       v-model="model"
       auto-grow
-      class="font-mono min-h-60 min-w-32 w-auto"
+      class="font-mono min-h-60 min-w-32 p-0"
       clearable
       counter
       flat
-      :placeholder="`Enter Notes here ...\nHint:Use Markdown`"
+      :placeholder="`Enter Notes here ...`"
       rounded="xl"
-      variant="solo"
+      variant="outlined"
       @keydown="handleKeydown"
     />
   </div>

@@ -110,10 +110,11 @@ const isError = computed(() => !!props.errorMessage);
   margin-left: 1rem;
 }
 
-@container date-time-picker-container (width < 305px) {
+@container date-time-picker-container (width < 340px) {
   .date-time-picker {
     grid-template-columns: 1fr auto;
     grid-template-rows: auto auto;
+    row-gap: 8px;
 
     grid-template-areas:
       'date-picker date-picker'

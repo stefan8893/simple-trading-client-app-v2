@@ -49,7 +49,7 @@ const markdown = computed(() => renderMarkdown(model.value ?? ''));
 
 <template>
   <div v-if="model" class="markdown-content" v-html="markdown" />
-  <v-empty-state v-else text="Keine Anmerkung"></v-empty-state>
+  <v-empty-state v-else class="p-0" text="Keine Anmerkung"></v-empty-state>
 </template>
 
 <style>
@@ -58,6 +58,7 @@ const markdown = computed(() => renderMarkdown(model.value ?? ''));
   font-size: 1rem;
   color: inherit;
   font-family: inherit;
+  overflow-wrap: anywhere;
 }
 
 .markdown-content p {

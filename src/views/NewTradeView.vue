@@ -13,7 +13,7 @@ import ViewTitle from '@/components/ViewTitle.vue';
 import { formatDateTime } from '@/i18n/date-utils';
 import { useLocaleStore } from '@/stores/localeStore';
 const localeStore = useLocaleStore();
-localeStore.locale = 'de-AT';
+localeStore.locale = 'en-US';
 
 const opened = ref<Date | null>(null);
 const closed = ref<Date | null>(null);
@@ -40,9 +40,9 @@ watch(opened, () => {
 <template>
   <div class="flex flex-row flex-nowrap justify-center add-trade-container">
     <v-sheet class="max-w-3xl w-full">
-      <ViewTitle heading="Neuer Trade" />
-      <div class="two-columns mt-2">
-        <div class="left ml-4">
+      <ViewTitle class="px-4" heading="Neuer Trade" />
+      <div class="two-columns mt-2 px-6">
+        <div class="left">
           <SimpleDateTimePicker
             v-model="opened"
             date-label="Am"
@@ -60,7 +60,7 @@ watch(opened, () => {
             :step="100"
           />
         </div>
-        <div class="right sm:px-10 md:px-14 mr-4">
+        <div class="right">
           <SimpleStepperNumberInput
             v-model="entry"
             class="w-full"
@@ -99,7 +99,7 @@ watch(opened, () => {
         header-title="Referenzen"
       >
         <template #content>
-          <div class="mt-2 px-4">
+          <div class="mt-2 px-6">
             <TradeReferences v-model="references" :trade-id="undefined" />
           </div>
         </template>
@@ -111,7 +111,7 @@ watch(opened, () => {
         header-title="Anmerkung"
       >
         <template #content>
-          <div class="mt-2">
+          <div class="mt-2 px-6">
             <MarkdownNotes v-model="notes" :show-editor="true" />
           </div>
         </template>
@@ -123,8 +123,8 @@ watch(opened, () => {
         header-title="Abschließen"
       >
         <template #content>
-          <div class="two-columns mt-4">
-            <div class="left ml-4">
+          <div class="two-columns mt-4 px-6">
+            <div class="left">
               <SimpleDateTimePicker
                 v-model="closed"
                 date-label="Abgeschlossen am"
@@ -140,17 +140,19 @@ watch(opened, () => {
                 :step="1"
               />
             </div>
-            <div class="right sm:px-10 md:px-14 mr-4">
-              <SimpleStepperNumberInput
-                v-model="exit"
-                currency="USD"
-                :initial-stepper-value="1.153"
-                label="Ausstiegspreis"
-                :precision="4"
-                show-currency
-                :step="0.0001"
-              />
-              <ResultSelect />
+            <div class="right">
+              <div class="flex flex-col flex-nowrap gap-2">
+                <SimpleStepperNumberInput
+                  v-model="exit"
+                  currency="USD"
+                  :initial-stepper-value="1.153"
+                  label="Ausstiegspreis"
+                  :precision="4"
+                  show-currency
+                  :step="0.0001"
+                />
+                <ResultSelect />
+              </div>
             </div>
           </div>
         </template>
@@ -177,6 +179,7 @@ watch(opened, () => {
   grid-template-rows: auto;
 
   row-gap: 1rem;
+  column-gap: 2rem;
 }
 
 .left {
@@ -197,15 +200,6 @@ watch(opened, () => {
   .two-columns {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
-  }
-
-  .left {
-    margin-right: 1rem;
-  }
-
-  .right {
-    margin-left: 1rem;
-    padding-inline: 0;
   }
 }
 </style>

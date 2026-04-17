@@ -11,16 +11,14 @@ const props = defineProps<{
 <template>
   <v-card elevation="0" rounded="0">
     <v-card-text class="p-0">
-      <div class="flex flex-col sm:flex-row flex-wrap w-full h-full">
+      <div class="flex flex-col sm:flex-row flex-wrap gap-4">
         <MarkdownNotesEditor
           v-if="props.showEditor"
           v-model="model"
           class="flex-1 min-w-40"
         />
-        <v-divider v-if="props.showEditor" class="hidden sm:block" vertical />
-        <v-divider v-if="props.showEditor" class="sm:hidden" />
         <div class="flex-1">
-          <MarkdownNotesPreview v-model="model" class="min-w-40 px-4" />
+          <MarkdownNotesPreview v-model="model" class="min-w-40" />
         </div>
       </div>
     </v-card-text>
