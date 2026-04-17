@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Icon } from '@iconify/vue';
 import { ref } from 'vue';
 import { useTheme } from 'vuetify';
 import SimpleDateTimePicker from '@/components/infrastructure/dateTimePicker/SimpleDateTimePicker.vue';
@@ -26,12 +27,13 @@ const dateTime = ref<Date | null>(null);
       <v-btn color="success"> Success </v-btn>
       <v-btn color="warning"> Warning </v-btn>
 
-      <v-btn class="m-2" icon="mdi-theme-light-dark" @click="cycle()" />
+      <v-btn class="m-2" icon="ph:sun-dim" @click="cycle()" />
 
       <div class="mt-4">
         <v-btn class="" color="info" :to="{ name: 'new-trade' }">
           Neuer Trade
         </v-btn>
+        <Icon icon="ph:plus" width="24" />
       </div>
 
       <div class="mt-4">

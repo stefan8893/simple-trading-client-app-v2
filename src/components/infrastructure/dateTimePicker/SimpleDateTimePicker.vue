@@ -72,7 +72,7 @@ const isError = computed(() => !!props.errorMessage);
           <v-btn
             v-bind="activatorProps"
             class="set-now-btn"
-            icon="mdi-clock-outline"
+            icon="ph:clock"
             variant="text"
             @click="setNow"
           />

@@ -42,7 +42,7 @@ function decrement() {
     <div>
       <v-btn
         class="flex flex-col flex-nowrap justify-center"
-        icon="mdi-minus"
+        icon="ph:minus"
         @click="decrement"
       />
     </div>
@@ -60,7 +60,7 @@ function decrement() {
     />
 
     <div class="flex flex-col flex-nowrap justify-center">
-      <v-btn icon="mdi-plus" @click="increment" />
+      <v-btn icon="ph:plus" @click="increment" />
     </div>
   </div>
 </template>

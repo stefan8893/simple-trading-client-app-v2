@@ -35,7 +35,7 @@ function onCancel() {
           <slot name="header">
             <ViewTitle :heading="props.heading" :icon="props.headingIcon" />
 
-            <v-btn icon="mdi-close" variant="text" @click="onCancel" />
+            <v-btn icon="ph:x" variant="text" @click="onCancel" />
           </slot>
         </v-card-title>
 

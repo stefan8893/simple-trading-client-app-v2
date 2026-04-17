@@ -25,14 +25,14 @@ import UserAvatar from '@/components/UserAvatar.vue';
         <v-list-item value="1">
           <template #title><span class="text-sm">Einstellungen</span></template>
           <template #prepend>
-            <v-icon icon="mdi-cog-outline" />
+            <v-icon icon="ph:gear-six" />
           </template>
         </v-list-item>
 
         <v-list-item value="2">
           <template #title><span class="text-sm">Abmelden</span></template>
           <template #prepend>
-            <v-icon icon="mdi-close-outline" />
+            <v-icon icon="ph:x" />
           </template>
         </v-list-item>
       </v-list>

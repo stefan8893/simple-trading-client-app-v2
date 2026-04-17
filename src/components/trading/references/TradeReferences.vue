@@ -159,7 +159,7 @@ function highlight(internalKey: string) {
       class="my-2"
       color="primary"
       :disabled="isAddReferenceDisabled"
-      icon="mdi-plus"
+      icon="ph:plus"
       @click="addReference"
     />
   </div>

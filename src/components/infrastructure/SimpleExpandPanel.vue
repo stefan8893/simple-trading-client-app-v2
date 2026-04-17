@@ -23,7 +23,7 @@ const props = defineProps<{
               <span class="font-light text-xl">{{ props.headerTitle }}</span>
             </slot>
             <v-icon
-              :icon="model ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+              :icon="model ? 'ph:caret-up' : 'ph:caret-down'"
               size="large"
             />
           </v-card-text>

@@ -9,7 +9,7 @@ const props = withDefaults(
     showIcon?: boolean;
   }>(),
   {
-    icon: 'mdi-calendar-outline',
+    icon: 'ph:calendar',
     showIcon: true,
   },
 );

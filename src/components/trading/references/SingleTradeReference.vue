@@ -76,7 +76,7 @@ onMounted(async () => {
       class="sortable-reference-handle cursor-grab mr-2"
       :class="props.sortableHandleClass"
       color="primary"
-      icon="mdi-reorder-horizontal"
+      icon="ph:list-bold"
     />
     <v-text-field
       v-if="!isReferenceAlreadyPersisted || editReference"
@@ -105,7 +105,7 @@ onMounted(async () => {
       v-if="showEditBtn"
       class="hidden sm:block"
       color="primary"
-      icon="mdi-pencil-outline"
+      icon="ph:pencil-simple-line"
       variant="text"
       @click="startEditing"
     />
@@ -113,7 +113,7 @@ onMounted(async () => {
     <v-btn
       v-if="showSaveBtn"
       color="primary"
-      icon="mdi-content-save-outline"
+      icon="ph:floppy-disk"
       variant="text"
       @click="saveLink"
     />
@@ -121,7 +121,7 @@ onMounted(async () => {
     <v-btn
       v-if="showCancelBtn"
       color="primary"
-      icon="mdi-close-outline"
+      icon="ph:x"
       variant="text"
       @click="cancelEdit"
     />
@@ -131,7 +131,7 @@ onMounted(async () => {
         <v-btn
           class="sm:hidden"
           color="primary"
-          icon="mdi-dots-vertical"
+          icon="ph:dots-three-circle-vertical"
           variant="text"
           v-bind="mobileMenuProps"
         />
@@ -140,7 +140,7 @@ onMounted(async () => {
       <v-list class="py-0" item-props slim>
         <v-list-item
           v-if="showEditBtn"
-          prepend-icon="mdi-pencil-outline"
+          prepend-icon="ph:pencil-simple-line"
           title="Bearbeiten"
           @click="startEditing"
         >
@@ -151,7 +151,7 @@ onMounted(async () => {
 
         <v-list-item
           v-if="showNotesBtn"
-          prepend-icon="mdi-text"
+          prepend-icon="ph:note"
           title="Anmerkung"
           @click="openNotesEditor"
         >
@@ -168,7 +168,7 @@ onMounted(async () => {
         </v-list-item>
 
         <v-list-item
-          prepend-icon="mdi-trash-can-outline"
+          prepend-icon="ph:trash"
           title="Löschen"
           @click="emit('remove-reference')"
         >
@@ -190,7 +190,7 @@ onMounted(async () => {
         v-if="showNotesBtn"
         class="hidden sm:block"
         color="primary"
-        icon="mdi-text"
+        icon="ph:note"
         variant="text"
         @click="showNotesEditor = true"
       />
@@ -200,7 +200,7 @@ onMounted(async () => {
       v-if="showDeleteBtn"
       class="hidden sm:block"
       color="primary"
-      icon="mdi-trash-can-outline"
+      icon="ph:trash"
       variant="text"
       @click="emit('remove-reference')"
     />

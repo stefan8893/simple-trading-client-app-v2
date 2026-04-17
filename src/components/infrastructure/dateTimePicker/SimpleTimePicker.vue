@@ -15,7 +15,7 @@ const props = withDefaults(
     showIcon?: boolean;
   }>(),
   {
-    icon: 'mdi-clock-time-four-outline',
+    icon: 'ph:clock-afternoon',
     showIcon: true,
   },
 );

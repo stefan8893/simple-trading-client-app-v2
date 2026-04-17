@@ -80,7 +80,7 @@ function edit() {
   <SimpleDialog
     v-model="showDialog"
     heading="Anmerkung"
-    :heading-icon="showEditor ? 'mdi-pencil-circle-outline' : ''"
+    :heading-icon="showEditor ? 'ph:pencil-simple' : ''"
     width="medium"
     @on-cancel="close"
   >
