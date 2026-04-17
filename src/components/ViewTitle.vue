@@ -13,6 +13,7 @@ const props = defineProps<{
       class="font-light ml-2"
       color="primary"
       :icon="props.icon"
+      size="small"
     ></v-icon>
   </div>
 </template>
