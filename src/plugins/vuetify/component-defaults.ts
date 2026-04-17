@@ -45,4 +45,4 @@ export const simpleComponentDefaults = {
   VTooltip: {
     openDelay: 800,
   },
-} satisfies DefaultsOptions;
+} as const satisfies DefaultsOptions;

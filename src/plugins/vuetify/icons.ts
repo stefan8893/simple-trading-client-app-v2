@@ -38,7 +38,7 @@ const iconAliasess = {
   file: 'ph:file',
   plus: 'ph:plus',
   minus: 'ph:minus',
-} satisfies Partial<IconAliases>;
+} as const satisfies Partial<IconAliases>;
 
 export const simpleIcons = {
   defaultSet: 'iconify',
@@ -48,4 +48,4 @@ export const simpleIcons = {
     },
   },
   aliases: iconAliasess,
-} satisfies Partial<InternalIconOptions>;
+} as const satisfies Partial<InternalIconOptions>;

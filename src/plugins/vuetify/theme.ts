@@ -40,4 +40,4 @@ export const simpleTheme = {
       },
     },
   },
-} satisfies ThemeOptions;
+} as const satisfies ThemeOptions;
