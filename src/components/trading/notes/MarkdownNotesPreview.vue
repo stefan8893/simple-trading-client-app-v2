@@ -48,7 +48,8 @@ const markdown = computed(() => renderMarkdown(model.value ?? ''));
 </script>
 
 <template>
-  <div class="markdown-content" v-html="markdown" />
+  <div v-if="model" class="markdown-content" v-html="markdown" />
+  <v-empty-state v-else text="Keine Anmerkung"></v-empty-state>
 </template>
 
 <style>

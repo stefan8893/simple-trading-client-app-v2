@@ -139,8 +139,10 @@ function highlight(internalKey: string) {
     <div
       v-for="item in internalReferences"
       :key="item.internalKey"
-      class="sortable-reference-item h flex flex-row flex-nowrap justify-start items-center rounded-xl"
-      :class="{ highlight: item.internalKey === highlightedInternalKey }"
+      class="sortable-reference-item background-ease-in-out h flex flex-row flex-nowrap justify-start items-center rounded-xl"
+      :class="{
+        'highlight-primary': item.internalKey === highlightedInternalKey,
+      }"
       :data-id="item.internalKey"
     >
       <v-icon
@@ -181,13 +183,5 @@ function highlight(internalKey: string) {
 
 .sortable-reference-ghost i {
   color: transparent;
-}
-
-.sortable-reference-item {
-  transition: background-color 0.5s ease-in-out;
-}
-
-.highlight {
-  background-color: rgba(var(--v-theme-primary), 0.1);
 }
 </style>

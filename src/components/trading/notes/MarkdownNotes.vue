@@ -15,12 +15,12 @@ const props = defineProps<{
         <MarkdownNotesEditor
           v-if="props.showEditor"
           v-model="model"
-          class="flex-1 min-w-72"
+          class="flex-1 min-w-40"
         />
         <v-divider v-if="props.showEditor" class="hidden sm:block" vertical />
         <v-divider v-if="props.showEditor" class="sm:hidden" />
         <div class="flex-1">
-          <MarkdownNotesPreview v-model="model" class="min-w-72 px-4" />
+          <MarkdownNotesPreview v-model="model" class="min-w-40 px-4" />
         </div>
       </div>
     </v-card-text>

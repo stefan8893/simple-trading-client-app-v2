@@ -11,4 +11,12 @@
   .centered-input input {
     text-align: center;
   }
+
+  .background-ease-in-out {
+    transition: background-color 0.5s ease-in-out;
+  }
+
+  .highlight-primary {
+    background-color: rgba(var(--v-theme-primary), 0.1);
+  }
 }
