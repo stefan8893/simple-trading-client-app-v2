@@ -139,19 +139,15 @@ function highlight(internalKey: string) {
     <div
       v-for="item in internalReferences"
       :key="item.internalKey"
-      class="sortable-reference-item background-ease-in-out h flex flex-row flex-nowrap justify-start items-center rounded-xl"
+      class="sortable-reference-item background-ease-in-out rounded-xl"
       :class="{
         'highlight-primary': item.internalKey === highlightedInternalKey,
       }"
       :data-id="item.internalKey"
     >
-      <v-icon
-        class="sortable-reference-handle cursor-grab mr-2"
-        color="primary"
-        icon="mdi-reorder-horizontal"
-      />
       <SingleTradeReference
         v-model="item as ReferenceModel"
+        sortable-handle-class="sortable-reference-handle"
         :trade-id="props.tradeId"
         @highlight="highlight(item.internalKey)"
         @remove-reference="removeReference(item.internalKey)"
@@ -172,8 +168,8 @@ function highlight(internalKey: string) {
 <style scoped>
 .sortable-reference-ghost {
   opacity: 0.1;
-  background: rgb(var(--v-theme-info));
-  background-color: rgb(var(--v-theme-info));
+  background: rgb(var(--v-theme-primary));
+  background-color: rgb(var(--v-theme-primary));
   color: transparent;
 }
 

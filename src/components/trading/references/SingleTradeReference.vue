@@ -6,6 +6,7 @@ import MarkdownNotesDialog from '../notes/MarkdownNotesDialog.vue';
 const model = defineModel<ReferenceModel>({ required: true });
 const props = defineProps<{
   tradeId?: string;
+  sortableHandleClass: string;
 }>();
 
 const showNotesEditor = ref(false);
@@ -71,6 +72,12 @@ onMounted(async () => {
 
 <template>
   <div class="flex flex-row flex-wrap items-center grow shrink min-w-0">
+    <v-icon
+      class="sortable-reference-handle cursor-grab mr-2"
+      :class="props.sortableHandleClass"
+      color="primary"
+      icon="mdi-reorder-horizontal"
+    />
     <v-text-field
       v-if="!isReferenceAlreadyPersisted || editReference"
       ref="reference-input"
