@@ -9,6 +9,7 @@ const props = defineProps<{
   tradeId?: string;
   referenceId?: string;
 }>();
+const emit = defineEmits(['on-notes-dialog-closed']);
 
 function getInitialShowEditorState() {
   return isNewReference.value || !model.value;
@@ -53,6 +54,7 @@ function cancel() {
 function close() {
   internalModel.value = model.value;
   showDialog.value = false;
+  emit('on-notes-dialog-closed');
   setTimeout(() => {
     showEditor.value = getInitialShowEditorState();
   }, 200);

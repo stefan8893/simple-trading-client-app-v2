@@ -10,7 +10,7 @@ const props = defineProps<{
 
 const showNotesEditor = ref(false);
 
-const emit = defineEmits(['remove-reference']);
+const emit = defineEmits(['remove-reference', 'highlight']);
 const referenceInput = useTemplateRef('reference-input');
 
 const isNewTrade = computed(() => !props.tradeId);
@@ -197,13 +197,15 @@ onMounted(async () => {
       variant="text"
       @click="emit('remove-reference')"
     />
+
+    <MarkdownNotesDialog
+      v-model:notes="model.notes"
+      v-model:show="showNotesEditor"
+      :reference-id="model.id"
+      :trade-id="props.tradeId"
+      @on-notes-dialog-closed="emit('highlight')"
+    />
   </div>
-  <MarkdownNotesDialog
-    v-model:notes="model.notes"
-    v-model:show="showNotesEditor"
-    :reference-id="model.id"
-    :trade-id="props.tradeId"
-  />
 </template>
 
 <style scoped>

@@ -123,6 +123,15 @@ const isAddReferenceDisabled = computed(() => {
     ? internalReferences.value.length >= 5
     : false;
 });
+
+const highlightedInternalKey = ref('');
+
+function highlight(internalKey: string) {
+  highlightedInternalKey.value = internalKey;
+  setTimeout(() => {
+    highlightedInternalKey.value = '';
+  }, 550);
+}
 </script>
 
 <template>
@@ -130,7 +139,8 @@ const isAddReferenceDisabled = computed(() => {
     <div
       v-for="item in internalReferences"
       :key="item.internalKey"
-      class="sortable-reference-item h flex flex-row flex-nowrap justify-start items-center"
+      class="sortable-reference-item h flex flex-row flex-nowrap justify-start items-center rounded-xl"
+      :class="{ highlight: item.internalKey === highlightedInternalKey }"
       :data-id="item.internalKey"
     >
       <v-icon
@@ -141,6 +151,7 @@ const isAddReferenceDisabled = computed(() => {
       <SingleTradeReference
         v-model="item as ReferenceModel"
         :trade-id="props.tradeId"
+        @highlight="highlight(item.internalKey)"
         @remove-reference="removeReference(item.internalKey)"
       />
     </div>
@@ -170,5 +181,13 @@ const isAddReferenceDisabled = computed(() => {
 
 .sortable-reference-ghost i {
   color: transparent;
+}
+
+.sortable-reference-item {
+  transition: background-color 0.5s ease-in-out;
+}
+
+.highlight {
+  background-color: rgba(var(--v-theme-primary), 0.1);
 }
 </style>
