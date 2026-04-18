@@ -1,12 +1,22 @@
 <script setup lang="ts">
+import { useTheme } from 'vuetify';
 import SimpleTextCopy from '@/components/infrastructure/SimpleTextCopy.vue';
 import UserAvatar from '@/components/UserAvatar.vue';
+
+const { cycle } = useTheme();
 </script>
 
 <template>
   <div class="mr-2.5 sm:mr-5">
     <v-menu :close-on-content-click="false">
       <template #activator="{ props }">
+        <v-btn
+          class="mr-4"
+          color="accent"
+          icon="ph:paint-roller"
+          variant="tonal"
+          @click="cycle()"
+        ></v-btn>
         <UserAvatar v-bind="props" class="cursor-pointer" size="small" />
       </template>
 
