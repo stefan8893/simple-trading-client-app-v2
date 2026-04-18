@@ -82,16 +82,16 @@ const {} = useSortable(sortableContainer, internalReferences, {
   dragClass: 'sortable-reference-item',
   ghostClass: 'sortable-reference-ghost',
   forceFallback: true,
-  onStart: (evt) => {
-    const container = evt.to;
+  onStart: (event) => {
+    const container = event.to;
     const currentHeight = container.offsetHeight;
 
     // fix height to prevent jumps
     container.style.height = `${currentHeight}px`;
   },
 
-  onEnd: (evt) => {
-    const container = evt.to;
+  onEnd: (event) => {
+    const container = event.to;
 
     container.style.height = '';
   },

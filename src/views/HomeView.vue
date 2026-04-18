@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import HomescreenApp from '@/components/HomescreenApp.vue';
+import { useSortable } from '@vueuse/integrations/useSortable';
+import { ref, useTemplateRef } from 'vue';
+import HomeScreenApp from '@/components/HomeScreenApp.vue';
 
 type App = {
   identifier: string;
@@ -12,7 +13,7 @@ type App = {
 
 const rearrangeApps = ref(false);
 
-const apps = [
+const apps = ref([
   {
     identifier: 'new-trade',
     name: 'Neuer Trade',
@@ -62,23 +63,35 @@ const apps = [
     icon: 'ph:binoculars',
     routeName: 'home',
   },
-] as const satisfies App[];
+] as const satisfies App[]);
+
+const sortableContainer = useTemplateRef('sortable-apps');
+const {} = useSortable(sortableContainer, apps, {
+  animation: 350,
+  handle: '.sortable-app-handle',
+  dataIdAttr: 'data-id',
+  dragClass: 'sortable-app-item',
+  ghostClass: 'sortable-app-ghost',
+  forceFallback: true,
+});
 </script>
 
 <template>
   <div class="home-screen grid justify-items-center">
     <v-sheet class="max-w-xl p-4">
-      <div class="home-screen-apps gap-4 sm:gap-6">
-        <HomescreenApp
+      <div ref="sortable-apps" class="home-screen-apps gap-4 sm:gap-6">
+        <HomeScreenApp
           v-for="(app, index) in apps"
           :key="app.identifier"
           :animation-delay="`${index * 0.025}s`"
           :app-name="app.name"
           :bg-color-class="app.bgColor"
+          class="sortable-app-handle sortable-app-item"
           :edit-mode="rearrangeApps"
           :icon="app.icon"
           :index="index"
           :route-name="app.routeName"
+          @start-edit-mode="rearrangeApps = !rearrangeApps"
         />
       </div>
     </v-sheet>
@@ -109,5 +122,9 @@ const apps = [
   .home-screen-apps {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+.sortable-app-ghost {
+  opacity: 0;
 }
 </style>

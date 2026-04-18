@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { onLongPress } from '@vueuse/core';
+import { useTemplateRef } from 'vue';
+
 const props = defineProps<{
   appName: string;
   routeName: string;
@@ -8,10 +11,23 @@ const props = defineProps<{
   animationDelay?: string;
   index: number;
 }>();
+
+const emit = defineEmits(['start-edit-mode']);
+
+const app = useTemplateRef('home-screen-app');
+onLongPress(
+  app,
+  () => {
+    if (!props.editMode) {
+      emit('start-edit-mode');
+    }
+  },
+  { delay: 600 },
+);
 </script>
 
 <template>
-  <div class="home-screen-app">
+  <div ref="home-screen-app">
     <router-link v-slot="{ navigate }" custom :to="{ name: props.routeName }">
       <div
         class="flex flex-col flex-nowrap justify-start items-center w-20 sm:w-24"
@@ -41,12 +57,6 @@ const props = defineProps<{
 </template>
 
 <style scoped>
-.home-screen-app-icon {
-  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transform: rotate(45deg) translateX(0) translateZ(0);
-  will-change: transform;
-}
-
 @keyframes jiggle {
   0% {
     transform: rotate(-3deg) translate3d(-1.5px, 0, 0);
@@ -62,7 +72,6 @@ const props = defineProps<{
 .is-jiggling {
   animation: jiggle 0.26s infinite ease-in-out;
   user-select: none;
-  will-change: transform;
 }
 
 .is-even.is-jiggling {
