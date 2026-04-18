@@ -38,7 +38,7 @@ watch(opened, () => {
 </script>
 
 <template>
-  <div class="flex flex-row flex-nowrap justify-center add-trade-container">
+  <div class="grid justify-items-center add-trade-container">
     <v-sheet class="max-w-3xl w-full">
       <ViewTitle class="px-4" heading="Neuer Trade" />
       <div class="two-columns mt-2 px-6">

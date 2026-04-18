@@ -20,6 +20,11 @@ const routes = [
         path: 'trade-references',
         component: () => import('@/views/TradeReferencesView.vue'),
       },
+      {
+        name: 'home',
+        path: 'home',
+        component: () => import('@/views/HomeView.vue'),
+      },
     ],
   },
 ];

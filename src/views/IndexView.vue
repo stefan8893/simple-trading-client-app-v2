@@ -42,6 +42,10 @@ const dateTime = ref<Date | null>(null);
         </v-btn>
       </div>
 
+      <div class="mt-4">
+        <v-btn class="" color="info" :to="{ name: 'home' }"> Home </v-btn>
+      </div>
+
       <div class="my-6 flex flex-col flex-nowrap gap-4">
         <SimpleDateTimePicker
           v-model="dateTime"
