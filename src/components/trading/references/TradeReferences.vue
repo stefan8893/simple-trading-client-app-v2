@@ -75,7 +75,7 @@ watch(
 );
 
 const sortableContainer = useTemplateRef('sortable-references');
-const {} = useSortable(sortableContainer, internalReferences, {
+useSortable(sortableContainer, internalReferences, {
   animation: 200,
   handle: '.sortable-reference-handle',
   dataIdAttr: 'data-id',

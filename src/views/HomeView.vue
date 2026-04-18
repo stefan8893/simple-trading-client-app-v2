@@ -66,7 +66,7 @@ const apps = ref([
 ] as const satisfies App[]);
 
 const sortableContainer = useTemplateRef('sortable-apps');
-const {} = useSortable(sortableContainer, apps, {
+useSortable(sortableContainer, apps, {
   animation: 350,
   handle: '.sortable-app-handle',
   dataIdAttr: 'data-id',
@@ -86,7 +86,10 @@ const {} = useSortable(sortableContainer, apps, {
           :animation-delay="`${index * 0.025}s`"
           :app-name="app.name"
           :bg-color-class="app.bgColor"
-          class="sortable-app-handle sortable-app-item"
+          :class="{
+            'sortable-app-item': rearrangeApps,
+            'sortable-app-handle': rearrangeApps,
+          }"
           :edit-mode="rearrangeApps"
           :icon="app.icon"
           :index="index"
