@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useSortable } from '@vueuse/integrations/useSortable';
 import { ref, useTemplateRef } from 'vue';
-import HomeScreenApp from '@/components/HomeScreenApp.vue';
+import SimpleHomeScreenApp from '@/components/SimpleHomeScreenApp.vue';
 
 type App = {
   identifier: string;
@@ -80,7 +80,7 @@ const {} = useSortable(sortableContainer, apps, {
   <div class="home-screen grid justify-items-center">
     <v-sheet class="max-w-xl p-4">
       <div ref="sortable-apps" class="home-screen-apps gap-4 sm:gap-6">
-        <HomeScreenApp
+        <SimpleHomeScreenApp
           v-for="(app, index) in apps"
           :key="app.identifier"
           :animation-delay="`${index * 0.025}s`"
