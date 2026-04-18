@@ -67,17 +67,7 @@ const isError = computed(() => !!props.errorMessage);
         :show-icon="false"
       />
 
-      <v-tooltip location="top" text="Jetzt">
-        <template #activator="{ props: activatorProps }">
-          <v-btn
-            v-bind="activatorProps"
-            class="set-now-btn"
-            icon="ph:clock"
-            variant="text"
-            @click="setNow"
-          />
-        </template>
-      </v-tooltip>
+      <v-btn class="set-now-btn" icon="ph:clock" @click="setNow" />
     </div>
   </div>
 </template>
