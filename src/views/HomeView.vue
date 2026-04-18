@@ -79,7 +79,7 @@ const {} = useSortable(sortableContainer, apps, {
 <template>
   <div class="home-screen grid justify-items-center">
     <v-sheet class="max-w-xl p-4">
-      <div ref="sortable-apps" class="home-screen-apps gap-4 sm:gap-6">
+      <div ref="sortable-apps" class="home-screen-apps gap-3 sm:gap-6">
         <SimpleHomeScreenApp
           v-for="(app, index) in apps"
           :key="app.identifier"
@@ -95,9 +95,7 @@ const {} = useSortable(sortableContainer, apps, {
         />
       </div>
     </v-sheet>
-    <v-sheet class="mt-2 w-full h-11">
-      <v-btn @click="rearrangeApps = !rearrangeApps">Jiggle</v-btn>
-    </v-sheet>
+    <v-btn class="mt-10" @click="rearrangeApps = !rearrangeApps">Jiggle</v-btn>
   </div>
 </template>
 
@@ -112,13 +110,13 @@ const {} = useSortable(sortableContainer, apps, {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-@container home-screen-apps (width < 400px) {
+@container home-screen-apps (width < 480px) {
   .home-screen-apps {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@container home-screen-apps (width <= 310px) {
+@container home-screen-apps (width <= 345px) {
   .home-screen-apps {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
