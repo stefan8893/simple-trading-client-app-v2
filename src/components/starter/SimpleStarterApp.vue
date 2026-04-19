@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onKeyStroke, onLongPress } from '@vueuse/core';
 import { computed, nextTick, ref, useTemplateRef } from 'vue';
+import { useRouter } from 'vue-router';
 import { vibrate } from '@/utils';
 
 const props = defineProps<{
@@ -12,11 +13,14 @@ const props = defineProps<{
   index: number;
 }>();
 
+const router = useRouter();
+
 const emit = defineEmits(['update:editMode']);
 
 const showHapticPop = ref(false);
 const allowActive = computed(() => !props.editMode && !showHapticPop.value);
 const app = useTemplateRef('starter-app');
+
 onLongPress(
   app,
   (event) => {
@@ -38,53 +42,50 @@ onLongPress(
   { delay: 600, distanceThreshold: 10 },
 );
 
-// onClickOutside(app, () => {
-//   console.log('clicked outside');
-//   if (props.editMode) {
-//     emit('update:editMode', false);
-//   }
-// });
-
 onKeyStroke('Escape', (event) => {
   if (props.editMode) {
     event.preventDefault();
     emit('update:editMode', false);
   }
 });
+
+async function goto() {
+  !showHapticPop.value &&
+    !props.editMode &&
+    router.push({ name: props.routeName });
+}
 </script>
 
 <template>
   <div>
-    <router-link v-slot="{ navigate }" custom :to="{ name: props.routeName }">
+    <div
+      ref="starter-app"
+      class="starter-app flex flex-col flex-nowrap justify-start items-center w-24"
+      :class="[
+        props.editMode ? 'cursor-grab' : 'cursor-pointer',
+        {
+          'is-jiggling': props.editMode,
+          'is-even': props.index % 2 === 0,
+          'is-triple': (props.index + 1) % 3 === 0,
+          'allow-active': allowActive,
+          'is-haptic-pop': showHapticPop,
+        },
+      ]"
+      @click="goto"
+    >
       <div
-        ref="starter-app"
-        class="starter-app flex flex-col flex-nowrap justify-start items-center w-24"
-        :class="[
-          props.editMode ? 'cursor-grab' : 'cursor-pointer',
-          {
-            'is-jiggling': props.editMode,
-            'is-even': props.index % 2 === 0,
-            'is-triple': (props.index + 1) % 3 === 0,
-            'allow-active': allowActive,
-            'is-haptic-pop': showHapticPop,
-          },
-        ]"
-        @click="!props.editMode && navigate()"
+        class="starter-app-icon w-16 h-16 rounded-xl grid place-items-center elevation-3"
+        :class="[props.bgColorClass]"
       >
-        <div
-          class="starter-app-icon w-16 h-16 rounded-xl grid place-items-center elevation-3"
-          :class="[props.bgColorClass]"
-        >
-          <v-icon :icon="props.icon" size="x-large"></v-icon>
-        </div>
-        <div
-          ref="starter-app-name"
-          class="text-sm select-none max-w-24 truncate mt-2"
-        >
-          {{ props.appName }}
-        </div>
+        <v-icon :icon="props.icon" size="x-large"></v-icon>
       </div>
-    </router-link>
+      <div
+        ref="starter-app-name"
+        class="text-sm select-none max-w-24 truncate mt-2"
+      >
+        {{ props.appName }}
+      </div>
+    </div>
   </div>
 </template>
 
