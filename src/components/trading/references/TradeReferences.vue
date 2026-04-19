@@ -141,7 +141,7 @@ function highlight(internalKey: string) {
       :key="item.internalKey"
       class="sortable-reference-item background-ease-in-out rounded-xl"
       :class="{
-        'highlight-primary': item.internalKey === highlightedInternalKey,
+        'is-highlighted-primary': item.internalKey === highlightedInternalKey,
       }"
       :data-id="item.internalKey"
     >

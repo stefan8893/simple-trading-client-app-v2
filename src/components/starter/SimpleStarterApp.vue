@@ -1,0 +1,161 @@
+<script setup lang="ts">
+import { onKeyStroke, onLongPress } from '@vueuse/core';
+import { computed, nextTick, ref, useTemplateRef } from 'vue';
+import { vibrate } from '@/utils';
+
+const props = defineProps<{
+  appName: string;
+  routeName: string;
+  icon: string;
+  bgColorClass: string;
+  editMode?: boolean;
+  index: number;
+}>();
+
+const emit = defineEmits(['update:editMode']);
+
+const showHapticPop = ref(false);
+const allowActive = computed(() => !props.editMode && !showHapticPop.value);
+const app = useTemplateRef('starter-app');
+onLongPress(
+  app,
+  (event) => {
+    const leftMouseButton = 0;
+    if (event instanceof MouseEvent && event.button !== leftMouseButton) return;
+
+    if (!props.editMode) {
+      vibrate(50);
+      showHapticPop.value = true;
+
+      setTimeout(() => {
+        showHapticPop.value = false;
+        nextTick(() => {
+          emit('update:editMode', true);
+        });
+      }, 300);
+    }
+  },
+  { delay: 600, distanceThreshold: 10 },
+);
+
+// onClickOutside(app, () => {
+//   console.log('clicked outside');
+//   if (props.editMode) {
+//     emit('update:editMode', false);
+//   }
+// });
+
+onKeyStroke('Escape', (event) => {
+  if (props.editMode) {
+    event.preventDefault();
+    emit('update:editMode', false);
+  }
+});
+</script>
+
+<template>
+  <div>
+    <router-link v-slot="{ navigate }" custom :to="{ name: props.routeName }">
+      <div
+        ref="starter-app"
+        class="starter-app flex flex-col flex-nowrap justify-start items-center w-24"
+        :class="[
+          props.editMode ? 'cursor-grab' : 'cursor-pointer',
+          {
+            'is-jiggling': props.editMode,
+            'is-even': props.index % 2 === 0,
+            'is-triple': (props.index + 1) % 3 === 0,
+            'allow-active': allowActive,
+            'is-haptic-pop': showHapticPop,
+          },
+        ]"
+        @click="!props.editMode && navigate()"
+      >
+        <div
+          class="starter-app-icon w-16 h-16 rounded-xl grid place-items-center elevation-3"
+          :class="[props.bgColorClass]"
+        >
+          <v-icon :icon="props.icon" size="x-large"></v-icon>
+        </div>
+        <div
+          ref="starter-app-name"
+          class="text-sm select-none max-w-24 truncate mt-2"
+        >
+          {{ props.appName }}
+        </div>
+      </div>
+    </router-link>
+  </div>
+</template>
+
+<style scoped>
+.starter-app {
+  transition:
+    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease;
+  transform: scale(1);
+}
+
+.starter-app.allow-active:active:not(.is-jiggling) {
+  transform: scale(0.92);
+  transition: transform 0.1s ease-out;
+}
+
+.starter-app:contextmenu {
+  transform: scale(1) !important;
+}
+
+/* sortable-app-item-chosen comes from parent component */
+.sortable-app-item-chosen .starter-app {
+  animation: none;
+}
+
+/* sortable-app-item-chosen comes from parent component */
+.sortable-app-item-chosen .starter-app {
+  transform: scale(1.15) !important;
+}
+
+.is-haptic-pop {
+  animation: haptic-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+
+  user-select: none;
+}
+
+.is-jiggling {
+  animation: jiggle 0.26s infinite ease-in-out;
+
+  user-select: none;
+}
+
+.is-even.is-jiggling {
+  animation-direction: reverse;
+}
+
+.is-triple.is-jiggling {
+  animation-duration: 0.31s;
+}
+
+@keyframes haptic-pop {
+  0% {
+    transform: scale(0.92);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes jiggle {
+  0% {
+    transform: rotate(-1.5deg) translate3d(-1px, 0, 0);
+  }
+  50% {
+    transform: rotate(1.5deg) translate3d(1px, 0, 0);
+  }
+  100% {
+    transform: rotate(-1.5deg) translate3d(-1px, 0, 0);
+  }
+}
+</style>

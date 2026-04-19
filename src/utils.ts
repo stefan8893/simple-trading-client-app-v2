@@ -11,3 +11,9 @@ export function isSimpleTradingClientException(
 ): candidate is SimpleTradingClientException {
   return SimpleTradingClientException.isSimpleTradingClientException(candidate);
 }
+
+export function vibrate(durationInMs: number) {
+  if ('vibrate' in navigator) {
+    navigator.vibrate(durationInMs);
+  }
+}

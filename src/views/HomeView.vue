@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useSortable } from '@vueuse/integrations/useSortable';
 import { ref, useTemplateRef } from 'vue';
-import SimpleHomeScreenApp from '@/components/SimpleHomeScreenApp.vue';
+import SimpleStarterApp from '@/components/starter/SimpleStarterApp.vue';
 
 type App = {
   identifier: string;
@@ -67,34 +67,36 @@ const apps = ref([
 
 const sortableContainer = useTemplateRef('sortable-apps');
 useSortable(sortableContainer, apps, {
-  animation: 350,
+  animation: 300,
   handle: '.sortable-app-handle',
   dataIdAttr: 'data-id',
   dragClass: 'sortable-app-item',
   ghostClass: 'sortable-app-ghost',
+  chosenClass: 'sortable-app-item-chosen',
   forceFallback: true,
 });
 </script>
 
 <template>
-  <div class="home-screen grid justify-items-center">
+  <div
+    ref="starter-apps"
+    class="starter-apps-container grid justify-items-center"
+  >
     <v-sheet class="max-w-xl p-4">
-      <div ref="sortable-apps" class="home-screen-apps gap-3 sm:gap-6">
-        <SimpleHomeScreenApp
+      <div ref="sortable-apps" class="starter-apps gap-3 sm:gap-6">
+        <SimpleStarterApp
           v-for="(app, index) in apps"
           :key="app.identifier"
-          :animation-delay="`${index * 0.025}s`"
+          v-model:edit-mode="rearrangeApps"
           :app-name="app.name"
           :bg-color-class="app.bgColor"
           :class="{
             'sortable-app-item': rearrangeApps,
             'sortable-app-handle': rearrangeApps,
           }"
-          :edit-mode="rearrangeApps"
           :icon="app.icon"
           :index="index"
           :route-name="app.routeName"
-          @start-edit-mode="rearrangeApps = !rearrangeApps"
         />
       </div>
     </v-sheet>
@@ -103,24 +105,24 @@ useSortable(sortableContainer, apps, {
 </template>
 
 <style scoped>
-.home-screen {
+.starter-apps-container {
   container-type: inline-size;
-  container-name: home-screen-apps;
+  container-name: starter-apps;
 }
 
-.home-screen-apps {
+.starter-apps {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-@container home-screen-apps (width < 480px) {
-  .home-screen-apps {
+@container starter-apps (width < 480px) {
+  .starter-apps {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@container home-screen-apps (width <= 345px) {
-  .home-screen-apps {
+@container starter-apps (width <= 345px) {
+  .starter-apps {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
