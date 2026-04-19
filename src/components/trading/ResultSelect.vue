@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { ResultDto } from '@stefan8893/simple-trading-client';
 import { watch } from 'vue';
-import SimpleSelect, {
-  type SimpleSelectItem,
-} from '../infrastructure/SimpleSelect.vue';
+import BaseSelect, {
+  type BaseSelectItem,
+} from '../infrastructure/BaseSelect.vue';
 
 type ResultSelectItem = {
   title: string;
@@ -33,7 +33,7 @@ const items = [
     title: 'Verlust',
     value: 'Loss',
   },
-] satisfies ResultSelectItem[] & SimpleSelectItem[];
+] satisfies ResultSelectItem[] & BaseSelectItem[];
 
 watch(model, () => {
   console.log('result changed', model.value);
@@ -41,7 +41,7 @@ watch(model, () => {
 </script>
 
 <template>
-  <SimpleSelect v-model="model" :items="items" label="Ergebnis" />
+  <BaseSelect v-model="model" :items="items" label="Ergebnis" />
 </template>
 
 <style scoped></style>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-export type SimpleSelectItem = {
+export type BaseSelectItem = {
   title: string;
   value: string | null;
 };

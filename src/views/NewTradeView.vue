@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { ReferenceModel } from '@/components/trading/references/references.types';
 import { ref, watch } from 'vue';
-import SimpleDateTimePicker from '@/components/infrastructure/dateTimePicker/SimpleDateTimePicker.vue';
-import SimpleStepperNumberInput from '@/components/infrastructure/numberInput/SimpleStepperNumberInput.vue';
-import SimpleExpandPanel from '@/components/infrastructure/SimpleExpandPanel.vue';
+import DateTimePicker from '@/components/infrastructure/dateTimePicker/DateTimePicker.vue';
+import ExpandPanel from '@/components/infrastructure/ExpandPanel.vue';
+import StepperNumberInput from '@/components/infrastructure/numberInput/StepperNumberInput.vue';
 import AssetSelect from '@/components/trading/AssetSelect.vue';
 import MarkdownNotes from '@/components/trading/notes/MarkdownNotes.vue';
 import ProfileSelect from '@/components/trading/ProfileSelect.vue';
@@ -43,14 +43,10 @@ watch(opened, () => {
       <ViewTitle class="px-4" heading="Neuer Trade" />
       <div class="two-columns mt-2 px-6">
         <div class="left">
-          <SimpleDateTimePicker
-            v-model="opened"
-            date-label="Am"
-            time-label="Um"
-          />
+          <DateTimePicker v-model="opened" date-label="Am" time-label="Um" />
           <ProfileSelect />
           <AssetSelect />
-          <SimpleStepperNumberInput
+          <StepperNumberInput
             v-model="positionSize"
             :initial-stepper-value="5000"
             label="Positionsgröße"
@@ -61,7 +57,7 @@ watch(opened, () => {
           />
         </div>
         <div class="right">
-          <SimpleStepperNumberInput
+          <StepperNumberInput
             v-model="entry"
             class="w-full"
             currency="USD"
@@ -71,7 +67,7 @@ watch(opened, () => {
             show-currency
             :step="0.0001"
           />
-          <SimpleStepperNumberInput
+          <StepperNumberInput
             v-model="stopLoss"
             currency="USD"
             error-message=""
@@ -81,7 +77,7 @@ watch(opened, () => {
             show-currency
             :step="0.0001"
           />
-          <SimpleStepperNumberInput
+          <StepperNumberInput
             v-model="takeProfit"
             currency="USD"
             :initial-stepper-value="1.153"
@@ -93,7 +89,7 @@ watch(opened, () => {
         </div>
       </div>
 
-      <SimpleExpandPanel
+      <ExpandPanel
         v-model="referencesSectionExpanded"
         class="mt-2"
         header-title="Referenzen"
@@ -103,9 +99,9 @@ watch(opened, () => {
             <TradeReferences v-model="references" :trade-id="undefined" />
           </div>
         </template>
-      </SimpleExpandPanel>
+      </ExpandPanel>
 
-      <SimpleExpandPanel
+      <ExpandPanel
         v-model="notesSectionExpanded"
         class="mt-2"
         header-title="Anmerkung"
@@ -115,9 +111,9 @@ watch(opened, () => {
             <MarkdownNotes v-model="notes" :show-editor="true" />
           </div>
         </template>
-      </SimpleExpandPanel>
+      </ExpandPanel>
 
-      <SimpleExpandPanel
+      <ExpandPanel
         v-model="closeTradeSectionExpanded"
         class="mt-2"
         header-title="Abschließen"
@@ -125,12 +121,12 @@ watch(opened, () => {
         <template #content>
           <div class="two-columns mt-4 px-6">
             <div class="left">
-              <SimpleDateTimePicker
+              <DateTimePicker
                 v-model="closed"
                 date-label="Abgeschlossen am"
                 time-label="Um"
               />
-              <SimpleStepperNumberInput
+              <StepperNumberInput
                 v-model="profitLoss"
                 currency="EUR"
                 :initial-stepper-value="50"
@@ -142,7 +138,7 @@ watch(opened, () => {
             </div>
             <div class="right">
               <div class="flex flex-col flex-nowrap gap-2">
-                <SimpleStepperNumberInput
+                <StepperNumberInput
                   v-model="exit"
                   currency="USD"
                   :initial-stepper-value="1.153"
@@ -156,7 +152,7 @@ watch(opened, () => {
             </div>
           </div>
         </template>
-      </SimpleExpandPanel>
+      </ExpandPanel>
 
       <div
         class="flex flex-row flex-wrap justify-end items-start mt-8 px-4 pb-4"

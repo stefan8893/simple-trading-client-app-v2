@@ -7,7 +7,7 @@ function convertOklchToHex(oklchColor: string) {
   return formatHex(oklch(oklchColor));
 }
 
-export const simpleTheme = {
+export const appThemes = {
   defaultTheme: 'light',
   utilities: true,
   themes: {

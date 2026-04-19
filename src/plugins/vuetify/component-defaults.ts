@@ -1,6 +1,6 @@
 import type { DefaultsOptions } from 'vuetify/lib/composables/defaults.mjs';
 
-export const simpleComponentDefaults = {
+export const appComponentDefaults = {
   global: {
     ripple: false,
   },

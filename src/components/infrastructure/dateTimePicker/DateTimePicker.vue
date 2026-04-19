@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { format, parse } from 'date-fns';
 import { computed, ref, watch } from 'vue';
-import SimpleDatePicker from './SimpleDatePicker.vue';
-import SimpleTimePicker from './SimpleTimePicker.vue';
+import DatePicker from './DatePicker.vue';
+import TimePicker from './TimePicker.vue';
 
 const props = defineProps<{
   dateLabel: string;
@@ -51,7 +51,7 @@ const isError = computed(() => !!props.errorMessage);
 <template>
   <div class="date-time-picker-container">
     <div class="date-time-picker">
-      <SimpleDatePicker
+      <DatePicker
         v-model="date"
         class="date-picker"
         :error="isError"
@@ -59,7 +59,7 @@ const isError = computed(() => !!props.errorMessage);
         :label="props.dateLabel"
         :show-icon="false"
       />
-      <SimpleTimePicker
+      <TimePicker
         v-model="time"
         class="time-picker"
         :error="isError"

@@ -3,9 +3,9 @@ import { onMounted, ref, watch } from 'vue';
 import { useApiRequests } from '@/api/useApiRequests';
 import { dummyData } from '@/dummy-data';
 import { delay } from '@/utils';
-import SimpleSelect, {
-  type SimpleSelectItem,
-} from '../infrastructure/SimpleSelect.vue';
+import BaseSelect, {
+  type BaseSelectItem,
+} from '../infrastructure/BaseSelect.vue';
 
 const { run, isLoading } = useApiRequests({
   loadingStartDelay: 500,
@@ -13,7 +13,7 @@ const { run, isLoading } = useApiRequests({
 });
 
 const model = defineModel<string>();
-const profiles = ref<SimpleSelectItem[]>([]);
+const profiles = ref<BaseSelectItem[]>([]);
 
 onMounted(async () => {
   const result = await run(async () => {
@@ -32,7 +32,7 @@ watch(model, () => {
 </script>
 
 <template>
-  <SimpleSelect
+  <BaseSelect
     v-model="model"
     :items="profiles"
     label="Profile"

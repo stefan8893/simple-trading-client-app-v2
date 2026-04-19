@@ -2,7 +2,7 @@
 import { onClickOutside } from '@vueuse/core';
 import { useSortable } from '@vueuse/integrations/useSortable';
 import { ref, useTemplateRef } from 'vue';
-import SimpleStarterApp from '@/components/starter/SimpleStarterApp.vue';
+import StarterApp from '@/components/starter/StarterApp.vue';
 
 type App = {
   identifier: string;
@@ -92,7 +92,7 @@ onClickOutside(sortableContainer, () => {
   >
     <v-sheet class="max-w-xl p-4">
       <div ref="sortable-apps" class="starter-apps gap-3 sm:gap-6">
-        <SimpleStarterApp
+        <StarterApp
           v-for="(app, index) in apps"
           :key="app.identifier"
           v-model:edit-mode="rearrangeApps"

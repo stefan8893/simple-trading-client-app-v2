@@ -40,7 +40,7 @@ const iconAliasess = {
   minus: 'ph:minus',
 } as const satisfies Partial<IconAliases>;
 
-export const simpleIcons = {
+export const appIcons = {
   defaultSet: 'iconify',
   sets: {
     iconify: {

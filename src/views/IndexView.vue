@@ -2,9 +2,9 @@
 import { Icon } from '@iconify/vue';
 import { ref } from 'vue';
 import { useTheme } from 'vuetify';
-import SimpleDateTimePicker from '@/components/infrastructure/dateTimePicker/SimpleDateTimePicker.vue';
-import SimpleNumberInput from '@/components/infrastructure/numberInput/SimpleNumberInput.vue';
-import SimpleStepperNumberInput from '@/components/infrastructure/numberInput/SimpleStepperNumberInput.vue';
+import DateTimePicker from '@/components/infrastructure/dateTimePicker/DateTimePicker.vue';
+import NumberInput from '@/components/infrastructure/numberInput/NumberInput.vue';
+import StepperNumberInput from '@/components/infrastructure/numberInput/StepperNumberInput.vue';
 import { useLocaleStore } from '@/stores/localeStore';
 
 const { cycle } = useTheme();
@@ -47,13 +47,9 @@ const dateTime = ref<Date | null>(null);
       </div>
 
       <div class="my-6 flex flex-col flex-nowrap gap-4">
-        <SimpleDateTimePicker
-          v-model="dateTime"
-          date-label="Am"
-          time-label="Um"
-        />
-        <SimpleNumberInput label="Wert" />
-        <SimpleStepperNumberInput
+        <DateTimePicker v-model="dateTime" date-label="Am" time-label="Um" />
+        <NumberInput label="Wert" />
+        <StepperNumberInput
           :initial-stepper-value="5000"
           label="Noch ein Wert"
         />

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-import SimpleDialog from '@/components/infrastructure/SimpleDialog.vue';
+import AppDialog from '@/components/infrastructure/AppDialog.vue';
 import MarkdownNotes from './MarkdownNotes.vue';
 
 const model = defineModel<string | null>('notes');
@@ -77,7 +77,7 @@ function edit() {
 </script>
 
 <template>
-  <SimpleDialog
+  <AppDialog
     v-model="showDialog"
     heading="Anmerkung"
     :heading-icon="showEditor ? 'ph:pencil-simple' : ''"
@@ -127,7 +127,7 @@ function edit() {
         @click="edit"
       />
     </template>
-  </SimpleDialog>
+  </AppDialog>
 </template>
 
 <style scoped></style>

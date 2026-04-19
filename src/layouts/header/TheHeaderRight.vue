@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTheme } from 'vuetify';
-import SimpleTextCopy from '@/components/infrastructure/SimpleTextCopy.vue';
+import TextCopy from '@/components/infrastructure/TextCopy.vue';
 import UserAvatar from '@/components/UserAvatar.vue';
 
 const { cycle } = useTheme();
@@ -23,10 +23,10 @@ const { cycle } = useTheme();
       <v-list class="bg-header-user-menu-background" color="primary">
         <v-list-item class="mb-2">
           <template #title>
-            <SimpleTextCopy text="John Doe" />
+            <TextCopy text="John Doe" />
           </template>
           <template #subtitle>
-            <SimpleTextCopy text="john.doe@mail.com" />
+            <TextCopy text="john.doe@mail.com" />
           </template>
         </v-list-item>
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTemplateRef } from 'vue';
-import SimpleNumberInput from '@/components/infrastructure/numberInput/SimpleNumberInput.vue';
+import NumberInput from '@/components/infrastructure/numberInput/NumberInput.vue';
 
 defineOptions({ inheritAttrs: true });
 
@@ -27,13 +27,13 @@ const props = withDefaults(
   },
 );
 
-const simpleNumberInput = useTemplateRef('simple-number-input');
+const numberInput = useTemplateRef('number-input');
 
 function increment() {
-  simpleNumberInput.value?.increment(props.step, props.initialStepperValue);
+  numberInput.value?.increment(props.step, props.initialStepperValue);
 }
 function decrement() {
-  simpleNumberInput.value?.decrement(props.step, props.initialStepperValue);
+  numberInput.value?.decrement(props.step, props.initialStepperValue);
 }
 </script>
 
@@ -47,8 +47,8 @@ function decrement() {
       />
     </div>
 
-    <SimpleNumberInput
-      ref="simple-number-input"
+    <NumberInput
+      ref="number-input"
       v-model="model"
       :currency="props.currency"
       :error-message="props.errorMessage"

@@ -1,15 +1,15 @@
 import { createVuetify } from 'vuetify';
 import { de, en } from 'vuetify/locale';
-import { simpleComponentDefaults } from './vuetify/component-defaults';
-import { simpleIcons } from './vuetify/icons';
-import { simpleTheme } from './vuetify/theme';
+import { appComponentDefaults } from './vuetify/component-defaults';
+import { appIcons } from './vuetify/icons';
+import { appThemes } from './vuetify/theme';
 import '../styles/layers.css';
 import 'vuetify/styles';
 
 export default createVuetify({
-  icons: simpleIcons,
-  defaults: simpleComponentDefaults,
-  theme: simpleTheme,
+  icons: appIcons,
+  defaults: appComponentDefaults,
+  theme: appThemes,
   display: {
     mobileBreakpoint: 'md',
     thresholds: {
