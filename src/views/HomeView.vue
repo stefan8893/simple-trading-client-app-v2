@@ -78,7 +78,6 @@ useSortable(sortableContainer, apps, {
 });
 
 onClickOutside(sortableContainer, () => {
-  console.log('clicked outside');
   if (rearrangeApps.value) {
     rearrangeApps.value = false;
   }
