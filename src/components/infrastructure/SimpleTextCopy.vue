@@ -14,7 +14,7 @@ const props = defineProps({
   },
 });
 
-let timerHandle: null | number = null;
+let timerHandle: ReturnType<typeof setTimeout> | undefined;
 async function copyText() {
   if (!props.text) return;
   if (timerHandle) clearTimeout(timerHandle);

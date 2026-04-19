@@ -6,7 +6,7 @@ const model = defineModel<string | null>();
 const editor = useTemplateRef('editor');
 const { commit, undo, redo } = useManualRefHistory(model, { capacity: 50 });
 
-let saveTimeoutHandle: number | undefined;
+let saveTimeoutHandle: ReturnType<typeof setTimeout> | undefined;
 const redoOrUndoIsInProgress = ref(false);
 
 async function surroundSelectionWith(
