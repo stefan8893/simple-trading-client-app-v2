@@ -2,7 +2,6 @@ import type { MaybeRefOrGetter, Ref } from 'vue';
 import { useEventListener } from '@vueuse/core';
 import { nextTick, ref, toValue } from 'vue';
 
-// Wir nutzen MaybeRefOrGetter für maximale Flexibilität
 export function useStarterAppContextMenu(
   target: Ref<HTMLElement | null>,
   options: {
@@ -14,9 +13,9 @@ export function useStarterAppContextMenu(
   const y = ref(0);
 
   useEventListener(target, 'contextmenu', async (event) => {
+    event.preventDefault();
     if (toValue(options.editMode)) return;
 
-    event.preventDefault();
     showContextMenu.value = false;
 
     x.value = event.clientX;
