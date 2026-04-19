@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onClickOutside } from '@vueuse/core';
 import { useSortable } from '@vueuse/integrations/useSortable';
 import { ref, useTemplateRef } from 'vue';
 import SimpleStarterApp from '@/components/starter/SimpleStarterApp.vue';
@@ -75,6 +76,13 @@ useSortable(sortableContainer, apps, {
   chosenClass: 'sortable-app-item-chosen',
   forceFallback: true,
 });
+
+onClickOutside(sortableContainer, () => {
+  console.log('clicked outside');
+  if (rearrangeApps.value) {
+    rearrangeApps.value = false;
+  }
+});
 </script>
 
 <template>
@@ -100,7 +108,6 @@ useSortable(sortableContainer, apps, {
         />
       </div>
     </v-sheet>
-    <v-btn class="mt-10" @click="rearrangeApps = !rearrangeApps">Jiggle</v-btn>
   </div>
 </template>
 
