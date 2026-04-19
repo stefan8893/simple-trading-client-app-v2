@@ -101,10 +101,6 @@ onKeyStroke('Escape', (event) => {
   transition: transform 0.1s ease-out;
 }
 
-.starter-app:contextmenu {
-  transform: scale(1) !important;
-}
-
 /* sortable-app-item-chosen comes from parent component */
 .sortable-app-item-chosen .starter-app {
   animation: none;
