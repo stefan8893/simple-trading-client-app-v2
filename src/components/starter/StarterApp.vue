@@ -90,13 +90,6 @@ async function goto() {
 </template>
 
 <style scoped>
-.starter-app {
-  transition:
-    transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.3s ease;
-  transform: scale(1);
-}
-
 .starter-app.allow-active:active:not(.is-jiggling) {
   transform: scale(0.92);
   transition: transform 0.1s ease-out;
