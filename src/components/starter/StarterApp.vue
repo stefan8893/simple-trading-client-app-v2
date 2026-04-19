@@ -3,6 +3,7 @@ import { onKeyStroke, onLongPress } from '@vueuse/core';
 import { computed, nextTick, ref, useTemplateRef } from 'vue';
 import { useRouter } from 'vue-router';
 import { vibrate } from '@/utils';
+import { useStarterAppContextMenu } from './useStarterAppContextMenu';
 
 const props = defineProps<{
   appName: string;
@@ -17,9 +18,17 @@ const router = useRouter();
 
 const emit = defineEmits(['update:editMode']);
 
-const showHapticPop = ref(false);
-const allowActive = computed(() => !props.editMode && !showHapticPop.value);
 const app = useTemplateRef('starter-app');
+const showHapticPop = ref(false);
+// const showContextMenu = ref(false);
+// const x = ref(0);
+// const y = ref(0);
+const { showContextMenu, x, y } = useStarterAppContextMenu(app, {
+  editMode: () => props.editMode,
+});
+const allowActive = computed(
+  () => !props.editMode && !showContextMenu.value && !showHapticPop.value,
+);
 
 onLongPress(
   app,
@@ -86,6 +95,26 @@ async function goto() {
         {{ props.appName }}
       </div>
     </div>
+    <v-menu
+      v-model="showContextMenu"
+      absolute
+      offset-y
+      :style="{ top: `${y}px`, left: `${x}px` }"
+      variant="tonal"
+    >
+      <v-list>
+        <v-list-item
+          v-if="!props.editMode"
+          value="1"
+          @click="emit('update:editMode', true)"
+        >
+          <v-list-item-title>Apps anordnen</v-list-item-title>
+        </v-list-item>
+        <v-list-item v-else value="2" @click="emit('update:editMode', false)">
+          <v-list-item-title>Anordnen Beenden</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
   </div>
 </template>
 
