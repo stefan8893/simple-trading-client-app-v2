@@ -10,7 +10,7 @@ type App = {
   routeName: string;
 };
 
-const apps = [
+const defaultLauncherApps = [
   {
     identifier: 'new-trade',
     name: 'Neuer Trade',
@@ -63,19 +63,23 @@ const apps = [
 ] as const satisfies App[];
 
 export function useLaucherApp() {
-  const storage = useLocalStorage('launcherApp', ref(apps));
-  const resetOrder = () => (storage.value = apps);
+  const launcherApps = useLocalStorage(
+    'launcherApps',
+    ref(defaultLauncherApps),
+  );
+
+  const resetOrder = () => (launcherApps.value = defaultLauncherApps);
 
   const isOriginalOrder = computed(() => {
-    if (storage.value.length !== apps.length) return false;
+    if (launcherApps.value.length !== defaultLauncherApps.length) return false;
 
-    return zip(storage.value, apps).every(
+    return zip(launcherApps.value, defaultLauncherApps).every(
       ([a, b]) => a.identifier === b.identifier,
     );
   });
 
   return {
-    launcherApps: storage,
+    launcherApps,
     isOriginalOrder,
     resetOrder,
   };
