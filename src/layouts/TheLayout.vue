@@ -6,7 +6,9 @@ import TheHeaderTitle from './header/TheHeaderTitle.vue';
 
 <template>
   <v-app-bar color="bg-header" density="compact">
-    <TheHeaderTitle />
+    <v-app-bar-title class="mx-2.5 sm:mx-5">
+      <TheHeaderTitle />
+    </v-app-bar-title>
     <TheHeaderRight />
   </v-app-bar>
 
