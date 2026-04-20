@@ -10,7 +10,8 @@ const props = defineProps<{
   routeName: string;
   icon: string;
   bgColorClass: string;
-  editMode?: boolean;
+  editMode: boolean;
+  isDragging: boolean;
   index: number;
 }>();
 
@@ -20,9 +21,6 @@ const emit = defineEmits(['update:editMode']);
 
 const app = useTemplateRef('starter-app');
 const showHapticPop = ref(false);
-// const showContextMenu = ref(false);
-// const x = ref(0);
-// const y = ref(0);
 const { showContextMenu, x, y } = useStarterAppContextMenu(app, {
   editMode: () => props.editMode,
 });
@@ -58,7 +56,7 @@ onKeyStroke('Escape', (event) => {
   }
 });
 
-async function goto() {
+async function gotoTarget() {
   !showHapticPop.value &&
     !props.editMode &&
     router.push({ name: props.routeName });
@@ -71,7 +69,11 @@ async function goto() {
       ref="starter-app"
       class="starter-app flex flex-col flex-nowrap justify-start items-center w-24"
       :class="[
-        props.editMode ? 'cursor-grab' : 'cursor-pointer',
+        props.editMode
+          ? props.isDragging
+            ? 'cursor-grabbing'
+            : 'cursor-grab'
+          : 'cursor-pointer',
         {
           'is-jiggling': props.editMode,
           'is-even': props.index % 2 === 0,
@@ -80,7 +82,7 @@ async function goto() {
           'is-haptic-pop': showHapticPop,
         },
       ]"
-      @click="goto"
+      @click="gotoTarget"
     >
       <div
         class="starter-app-icon w-16 h-16 rounded-xl grid place-items-center elevation-3"
@@ -88,10 +90,7 @@ async function goto() {
       >
         <v-icon :icon="props.icon" size="x-large"></v-icon>
       </div>
-      <div
-        ref="starter-app-name"
-        class="text-sm select-none max-w-24 truncate mt-2"
-      >
+      <div class="text-sm select-none max-w-24 truncate mt-2">
         {{ props.appName }}
       </div>
     </div>
@@ -124,7 +123,8 @@ async function goto() {
 
 /* sortable-app-item-chosen comes from parent component */
 .sortable-app-item-chosen .starter-app {
-  transform: scale(1.15) !important;
+  transform: scale(1.15);
+  cursor: grabbing;
 }
 
 .is-haptic-pop {

@@ -67,14 +67,22 @@ const apps = ref([
 ] as const satisfies App[]);
 
 const sortableContainer = useTemplateRef('sortable-apps');
+const isDragging = ref(false);
 useSortable(sortableContainer, apps, {
   animation: 300,
   handle: '.sortable-app-handle',
   dataIdAttr: 'data-id',
   dragClass: 'sortable-app-item',
   ghostClass: 'sortable-app-ghost',
+  fallbackClass: 'sortable-drag-item',
   chosenClass: 'sortable-app-item-chosen',
   forceFallback: true,
+  onStart: () => {
+    isDragging.value = true;
+  },
+  onEnd: () => {
+    isDragging.value = false;
+  },
 });
 
 onClickOutside(sortableContainer, () => {
@@ -90,19 +98,31 @@ onClickOutside(sortableContainer, () => {
     class="starter-apps-container grid justify-items-center"
   >
     <v-sheet class="max-w-xl p-4">
-      <div ref="sortable-apps" class="starter-apps gap-3 sm:gap-6">
+      <div
+        ref="sortable-apps"
+        class="starter-apps gap-3 sm:gap-6"
+        :class="[
+          // cursor needs to be set on two different spots in order to provide a smooth user experience
+          // 1. here
+          // 2. in StartApp component
+          isDragging ? 'cursor-grabbing' : '',
+        ]"
+      >
         <StarterApp
           v-for="(app, index) in apps"
           :key="app.identifier"
           v-model:edit-mode="rearrangeApps"
           :app-name="app.name"
           :bg-color-class="app.bgColor"
-          :class="{
-            'sortable-app-item': rearrangeApps,
-            'sortable-app-handle': rearrangeApps,
-          }"
+          :class="[
+            {
+              'sortable-app-item': rearrangeApps,
+              'sortable-app-handle': rearrangeApps,
+            },
+          ]"
           :icon="app.icon"
           :index="index"
+          :is-dragging="isDragging"
           :route-name="app.routeName"
         />
       </div>
@@ -121,6 +141,14 @@ onClickOutside(sortableContainer, () => {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.sortable-app-ghost {
+  opacity: 0;
+}
+
+.sortable-drag-item {
+  opacity: 1 !important;
+}
+
 @container starter-apps (width < 480px) {
   .starter-apps {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -131,9 +159,5 @@ onClickOutside(sortableContainer, () => {
   .starter-apps {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
-
-.sortable-app-ghost {
-  opacity: 0;
 }
 </style>
