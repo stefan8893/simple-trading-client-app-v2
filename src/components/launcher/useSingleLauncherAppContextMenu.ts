@@ -6,6 +6,7 @@ export function useSingleLauncherAppContextMenu(
   target: Ref<HTMLElement | null>,
   options: {
     editMode?: MaybeRefOrGetter<boolean>;
+    preventContextMenu?: MaybeRefOrGetter<boolean>;
   } = {},
 ) {
   const showContextMenu = ref(false);
@@ -14,7 +15,8 @@ export function useSingleLauncherAppContextMenu(
 
   useEventListener(target, 'contextmenu', async (event) => {
     event.preventDefault();
-    if (toValue(options.editMode)) return;
+    if (toValue(options.editMode) || toValue(options.preventContextMenu))
+      return;
 
     showContextMenu.value = false;
 

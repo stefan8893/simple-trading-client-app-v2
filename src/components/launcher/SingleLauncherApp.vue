@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onKeyStroke, onLongPress } from '@vueuse/core';
-import { computed, nextTick, ref, useTemplateRef } from 'vue';
+import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { vibrate } from '@/utils';
 import { useSingleLauncherAppContextMenu } from './useSingleLauncherAppContextMenu';
@@ -14,20 +14,30 @@ const props = defineProps<{
   isDragging: boolean;
   index: number;
   showResetEntryInContextMenu: boolean;
+  preventContextMenu: boolean;
 }>();
 
 const router = useRouter();
 
-const emit = defineEmits(['update:editMode', 'reset-apps-order']);
+const emit = defineEmits([
+  'update:editMode',
+  'reset-apps-order',
+  'context-menu-toggle',
+]);
 
 const app = useTemplateRef('launcher-app');
 const showHapticPop = ref(false);
 const { showContextMenu, x, y } = useSingleLauncherAppContextMenu(app, {
   editMode: () => props.editMode,
+  preventContextMenu: () => props.preventContextMenu,
 });
 const allowActive = computed(
   () => !props.editMode && !showContextMenu.value && !showHapticPop.value,
 );
+
+watch(showContextMenu, (newValue: boolean) => {
+  emit('context-menu-toggle', newValue);
+});
 
 onLongPress(
   app,

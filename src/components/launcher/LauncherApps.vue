@@ -9,6 +9,7 @@ const { launcherApps, resetOrder, isOriginalOrder } = useLaucherApp();
 const rearrangeApps = ref(false);
 const sortableContainer = useTemplateRef('sortable-apps');
 const isDragging = ref(false);
+const preventContextMenuToOpen = ref(false);
 
 useSortable(sortableContainer, launcherApps, {
   animation: 300,
@@ -64,8 +65,10 @@ onClickOutside(sortableContainer, () => {
         :icon="app.icon"
         :index="index"
         :is-dragging="isDragging"
+        :prevent-context-menu="preventContextMenuToOpen"
         :route-name="app.routeName"
         :show-reset-entry-in-context-menu="!isOriginalOrder"
+        @context-menu-toggle="(opened) => (preventContextMenuToOpen = opened)"
         @reset-apps-order="resetOrder"
       />
     </div>
