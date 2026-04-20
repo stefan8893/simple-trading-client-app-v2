@@ -54,11 +54,11 @@ const apps = [
     routeName: 'home',
   },
   {
-    identifier: 'dummy-5',
-    name: 'Dummy 5',
+    identifier: 'landing',
+    name: 'Landing',
     bgColor: 'bg-error',
-    icon: 'ph:binoculars',
-    routeName: 'home',
+    icon: 'ph:airplane-landing',
+    routeName: 'index',
   },
 ] as const satisfies App[];
 
