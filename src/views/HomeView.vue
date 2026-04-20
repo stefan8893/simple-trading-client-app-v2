@@ -2,7 +2,7 @@
 import { onClickOutside } from '@vueuse/core';
 import { useSortable } from '@vueuse/integrations/useSortable';
 import { ref, useTemplateRef } from 'vue';
-import StarterApp from '@/components/starter/StarterApp.vue';
+import SingleLauncherApp from '@/components/launcher/SingleLauncherApp.vue';
 
 type App = {
   identifier: string;
@@ -94,13 +94,13 @@ onClickOutside(sortableContainer, () => {
 
 <template>
   <div
-    ref="starter-apps"
-    class="starter-apps-container grid justify-items-center"
+    ref="launcher-apps"
+    class="launcher-apps-container grid justify-items-center"
   >
     <v-sheet class="max-w-xl p-4">
       <div
         ref="sortable-apps"
-        class="starter-apps gap-3 sm:gap-6"
+        class="launcher-apps gap-3 sm:gap-6"
         :class="[
           // cursor needs to be set on two different spots in order to provide a smooth user experience
           // 1. here
@@ -108,7 +108,7 @@ onClickOutside(sortableContainer, () => {
           isDragging ? 'cursor-grabbing' : '',
         ]"
       >
-        <StarterApp
+        <SingleLauncherApp
           v-for="(app, index) in apps"
           :key="app.identifier"
           v-model:edit-mode="rearrangeApps"
@@ -131,12 +131,12 @@ onClickOutside(sortableContainer, () => {
 </template>
 
 <style scoped>
-.starter-apps-container {
+.launcher-apps-container {
   container-type: inline-size;
-  container-name: starter-apps;
+  container-name: launcher-apps;
 }
 
-.starter-apps {
+.launcher-apps {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
@@ -149,14 +149,14 @@ onClickOutside(sortableContainer, () => {
   opacity: 1 !important;
 }
 
-@container starter-apps (width < 480px) {
-  .starter-apps {
+@container launcher-apps (width < 480px) {
+  .launcher-apps {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@container starter-apps (width <= 345px) {
-  .starter-apps {
+@container launcher-apps (width <= 345px) {
+  .launcher-apps {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

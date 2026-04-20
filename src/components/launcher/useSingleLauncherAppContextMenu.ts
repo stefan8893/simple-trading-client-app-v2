@@ -2,7 +2,7 @@ import type { MaybeRefOrGetter, Ref } from 'vue';
 import { useEventListener } from '@vueuse/core';
 import { nextTick, ref, toValue } from 'vue';
 
-export function useStarterAppContextMenu(
+export function useSingleLauncherAppContextMenu(
   target: Ref<HTMLElement | null>,
   options: {
     editMode?: MaybeRefOrGetter<boolean>;

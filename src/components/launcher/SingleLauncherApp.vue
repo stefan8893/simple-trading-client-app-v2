@@ -3,7 +3,7 @@ import { onKeyStroke, onLongPress } from '@vueuse/core';
 import { computed, nextTick, ref, useTemplateRef } from 'vue';
 import { useRouter } from 'vue-router';
 import { vibrate } from '@/utils';
-import { useStarterAppContextMenu } from './useStarterAppContextMenu';
+import { useSingleLauncherAppContextMenu } from './useSingleLauncherAppContextMenu';
 
 const props = defineProps<{
   appName: string;
@@ -19,9 +19,9 @@ const router = useRouter();
 
 const emit = defineEmits(['update:editMode']);
 
-const app = useTemplateRef('starter-app');
+const app = useTemplateRef('launcher-app');
 const showHapticPop = ref(false);
-const { showContextMenu, x, y } = useStarterAppContextMenu(app, {
+const { showContextMenu, x, y } = useSingleLauncherAppContextMenu(app, {
   editMode: () => props.editMode,
 });
 const allowActive = computed(
@@ -66,8 +66,8 @@ async function gotoTarget() {
 <template>
   <div>
     <div
-      ref="starter-app"
-      class="starter-app flex flex-col flex-nowrap justify-start items-center w-24"
+      ref="launcher-app"
+      class="launcher-app flex flex-col flex-nowrap justify-start items-center w-24"
       :class="[
         props.editMode
           ? props.isDragging
@@ -85,7 +85,7 @@ async function gotoTarget() {
       @click="gotoTarget"
     >
       <div
-        class="starter-app-icon w-16 h-16 rounded-xl grid place-items-center elevation-3"
+        class="launcher-app-icon w-16 h-16 rounded-xl grid place-items-center elevation-3"
         :class="[props.bgColorClass]"
       >
         <v-icon :icon="props.icon" size="x-large"></v-icon>
@@ -111,18 +111,18 @@ async function gotoTarget() {
 </template>
 
 <style scoped>
-.starter-app.allow-active:active:not(.is-jiggling) {
+.launcher-app.allow-active:active:not(.is-jiggling) {
   transform: scale(0.92);
   transition: transform 0.1s ease-out;
 }
 
 /* sortable-app-item-chosen comes from parent component */
-.sortable-app-item-chosen .starter-app {
+.sortable-app-item-chosen .launcher-app {
   animation: none;
 }
 
 /* sortable-app-item-chosen comes from parent component */
-.sortable-app-item-chosen .starter-app {
+.sortable-app-item-chosen .launcher-app {
   transform: scale(1.15);
   cursor: grabbing;
 }
