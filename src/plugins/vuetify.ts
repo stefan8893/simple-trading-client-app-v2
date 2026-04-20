@@ -1,8 +1,8 @@
 import { createVuetify } from 'vuetify';
 import { de, en } from 'vuetify/locale';
-import { appComponentDefaults } from './vuetify/component-defaults';
-import { appIcons } from './vuetify/icons';
-import { appThemes } from './vuetify/theme';
+import { appComponentDefaults } from './vuetify/app-component-defaults';
+import { appIcons } from './vuetify/appIcons';
+import { appThemes } from './vuetify/appThemes';
 import '../styles/layers.css';
 import 'vuetify/styles';
 

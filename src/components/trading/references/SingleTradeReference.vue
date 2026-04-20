@@ -137,7 +137,7 @@ onMounted(async () => {
         />
       </template>
 
-      <v-list class="py-0" item-props slim>
+      <v-list nav slim>
         <v-list-item
           v-if="showEditBtn"
           prepend-icon="ph:pencil-simple-line"

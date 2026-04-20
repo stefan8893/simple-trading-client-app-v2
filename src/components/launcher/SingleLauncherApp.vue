@@ -102,7 +102,7 @@ async function gotoTarget() {
       :style="{ top: `${y}px`, left: `${x}px` }"
       variant="tonal"
     >
-      <v-list>
+      <v-list nav>
         <v-list-item value="1" @click="emit('update:editMode', true)">
           <v-list-item-title>Apps anordnen</v-list-item-title>
         </v-list-item>

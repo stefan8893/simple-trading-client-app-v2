@@ -21,7 +21,6 @@ export const appThemes = {
         'on-footer': colors.shades.white,
         'header-avatar-background': colors.shades.white,
         'on-header-avatar-background': colors.grey.darken3,
-        'header-user-menu-background': colors.shades.white,
 
         'trade-icon': convertOklchToHex(tailwindColors.blue[400]),
         'reference-icon': convertOklchToHex(tailwindColors.stone[500]),
@@ -37,7 +36,6 @@ export const appThemes = {
         'on-footer': colors.grey.lighten2,
         'header-avatar-background': colors.grey.lighten3,
         'on-header-avatar-background': colors.grey.darken4,
-        'header-user-menu-background': colors.grey.darken3,
 
         'trade-icon': convertOklchToHex(tailwindColors.blue[400]),
         'reference-icon': convertOklchToHex(tailwindColors.stone[500]),
