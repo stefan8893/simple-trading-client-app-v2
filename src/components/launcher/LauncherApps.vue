@@ -5,12 +5,12 @@ import { ref, useTemplateRef } from 'vue';
 import SingleLauncherApp from '@/components/launcher/SingleLauncherApp.vue';
 import { useLaucherApp } from './useLaucherApps';
 
-const laucherApps = useLaucherApp();
+const { launcherApps, resetOrder, isOriginalOrder } = useLaucherApp();
 const rearrangeApps = ref(false);
 const sortableContainer = useTemplateRef('sortable-apps');
 const isDragging = ref(false);
 
-useSortable(sortableContainer, laucherApps, {
+useSortable(sortableContainer, launcherApps, {
   animation: 300,
   handle: '.sortable-app-handle',
   dataIdAttr: 'data-id',
@@ -50,7 +50,7 @@ onClickOutside(sortableContainer, () => {
       ]"
     >
       <SingleLauncherApp
-        v-for="(app, index) in laucherApps"
+        v-for="(app, index) in launcherApps"
         :key="app.identifier"
         v-model:edit-mode="rearrangeApps"
         :app-name="app.name"
@@ -65,6 +65,8 @@ onClickOutside(sortableContainer, () => {
         :index="index"
         :is-dragging="isDragging"
         :route-name="app.routeName"
+        :show-reset-entry-in-context-menu="!isOriginalOrder"
+        @reset-apps-order="resetOrder"
       />
     </div>
   </div>

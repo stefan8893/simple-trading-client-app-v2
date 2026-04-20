@@ -13,11 +13,12 @@ const props = defineProps<{
   editMode: boolean;
   isDragging: boolean;
   index: number;
+  showResetEntryInContextMenu: boolean;
 }>();
 
 const router = useRouter();
 
-const emit = defineEmits(['update:editMode']);
+const emit = defineEmits(['update:editMode', 'reset-apps-order']);
 
 const app = useTemplateRef('launcher-app');
 const showHapticPop = ref(false);
@@ -104,6 +105,13 @@ async function gotoTarget() {
       <v-list>
         <v-list-item value="1" @click="emit('update:editMode', true)">
           <v-list-item-title>Apps anordnen</v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          v-if="props.showResetEntryInContextMenu"
+          value="2"
+          @click="emit('reset-apps-order', true)"
+        >
+          <v-list-item-title>Reihenfolge zurücksetzen</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>

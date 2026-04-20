@@ -1,5 +1,6 @@
 import { useLocalStorage } from '@vueuse/core';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
+import { zip } from '../utils';
 
 type App = {
   identifier: string;
@@ -63,5 +64,19 @@ const apps = [
 
 export function useLaucherApp() {
   const storage = useLocalStorage('launcherApp', ref(apps));
-  return storage.value;
+  const resetOrder = () => (storage.value = apps);
+
+  const isOriginalOrder = computed(() => {
+    if (storage.value.length !== apps.length) return false;
+
+    return zip(storage.value, apps).every(
+      ([a, b]) => a.identifier === b.identifier,
+    );
+  });
+
+  return {
+    launcherApps: storage,
+    isOriginalOrder,
+    resetOrder,
+  };
 }
