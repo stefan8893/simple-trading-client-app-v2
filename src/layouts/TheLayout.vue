@@ -2,7 +2,7 @@
 import { useLocalStorage } from '@vueuse/core';
 import { ref, watch } from 'vue';
 import { useDisplay } from 'vuetify';
-import TheFooter from './header/TheFooter.vue';
+import packageInfo from '@/../package.json';
 import TheHeaderRight from './header/TheHeaderRight.vue';
 import TheHeaderTitle from './header/TheHeaderTitle.vue';
 import TheNavigation from './TheNavigation.vue';
@@ -78,7 +78,13 @@ watch(isMobile, (changedToMobile) => {
     :permanent="!isMobile"
     :rail="showRail"
   >
-    <TheNavigation @toggle-sidebar="toggleSidebar" />
+    <div class="flex flex-col flex-nowrap h-full">
+      <TheNavigation class="grow" @toggle-sidebar="toggleSidebar" />
+
+      <div v-if="!showRail" class="text-sm mt-5">
+        <pre class="float-end pr-4 pb-2.5">{{ packageInfo.version }}</pre>
+      </div>
+    </div>
   </v-navigation-drawer>
 
   <v-main class="flex flex-col flex-nowrap items-center justify-start">
@@ -87,10 +93,6 @@ watch(isMobile, (changedToMobile) => {
     >
       <RouterView />
     </div>
-
-    <v-footer class="bg-footer max-h-10 px-2.5 sm:px-5 w-full" name="footer">
-      <TheFooter />
-    </v-footer>
   </v-main>
 </template>
 
