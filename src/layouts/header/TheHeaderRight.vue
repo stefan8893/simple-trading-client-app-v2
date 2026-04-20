@@ -7,7 +7,7 @@ const { cycle } = useTheme();
 </script>
 
 <template>
-  <div class="mr-2.5 sm:mr-5">
+  <div class="pr-1.5 sm:pr-4">
     <v-btn
       class="mr-4"
       color="accent"

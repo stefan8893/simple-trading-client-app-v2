@@ -9,7 +9,7 @@ import { useLocaleStore } from '@/stores/localeStore';
 
 const { cycle } = useTheme();
 const localeStore = useLocaleStore();
-localeStore.locale = 'en-US';
+localeStore.locale = 'de-AT';
 
 const dateTime = ref<Date | null>(null);
 </script>

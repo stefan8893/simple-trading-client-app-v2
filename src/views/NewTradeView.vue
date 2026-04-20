@@ -13,7 +13,7 @@ import ViewTitle from '@/components/ViewTitle.vue';
 import { formatDateTime } from '@/i18n/date-utils';
 import { useLocaleStore } from '@/stores/localeStore';
 const localeStore = useLocaleStore();
-localeStore.locale = 'en-US';
+localeStore.locale = 'de-AT';
 
 const opened = ref<Date | null>(null);
 const closed = ref<Date | null>(null);
