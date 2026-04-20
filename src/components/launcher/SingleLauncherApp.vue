@@ -142,6 +142,7 @@ async function gotoTarget() {
 /* sortable-app-item-chosen comes from parent component */
 .sortable-app-item-chosen .launcher-app {
   transform: scale(1.15);
+  /* needs to be set here as well to give the user a smooth experience */
   cursor: grabbing;
 }
 
