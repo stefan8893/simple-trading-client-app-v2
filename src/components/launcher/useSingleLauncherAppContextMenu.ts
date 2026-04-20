@@ -1,6 +1,6 @@
 import type { MaybeRefOrGetter, Ref } from 'vue';
 import { useEventListener } from '@vueuse/core';
-import { nextTick, ref, toValue } from 'vue';
+import { nextTick, readonly, ref, toValue } from 'vue';
 
 export function useSingleLauncherAppContextMenu(
   target: Ref<HTMLElement | null>,
@@ -25,5 +25,5 @@ export function useSingleLauncherAppContextMenu(
     showContextMenu.value = true;
   });
 
-  return { showContextMenu, x, y };
+  return { showContextMenu, x: readonly(x), y: readonly(y) };
 }

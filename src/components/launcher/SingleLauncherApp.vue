@@ -111,7 +111,7 @@ async function gotoTarget() {
           value="2"
           @click="emit('reset-apps-order', true)"
         >
-          <v-list-item-title>Reihenfolge zurücksetzen</v-list-item-title>
+          <v-list-item-title>Anordnung zurücksetzen</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>

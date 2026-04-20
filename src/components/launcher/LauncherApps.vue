@@ -44,8 +44,8 @@ onClickOutside(sortableContainer, () => {
       class="launcher-apps gap-3 sm:gap-6"
       :class="[
         // cursor needs to be set in two different places in order to provide a smooth user experience
-        // 1. here
-        // 2. in StartApp component
+        // 1. Here
+        // 2. In SingleLauncherApp component
         isDragging ? 'cursor-grabbing' : '',
       ]"
     >
