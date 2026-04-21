@@ -106,7 +106,7 @@ watch(model, () => {
       clearable
       counter
       flat
-      :placeholder="$t(MessageKeys.trading.enterNotesEllipsis)"
+      :placeholder="$t(MessageKeys.trading.typeNotesInMarkdownEllipsis)"
       rounded="xl"
       variant="outlined"
       @keydown="handleKeydown"

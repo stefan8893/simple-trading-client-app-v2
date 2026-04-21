@@ -27,7 +27,7 @@
       "determineAutomatically": "Automatisch ermitteln"
     },
     "note": "Anmerkung | Anmerkungen",
-    "enterNotesEllipsis": "Anmerkung eingeben ... | Anmerkungen eingeben ...",
+    "typeNotesInMarkdownEllipsis": "Schreibe deine Anmerkung in Markdown...",
     "emptyNote": "Keine Anmerkung | Keine Anmerkungen"
   },
   "appearance": "Erscheinung",

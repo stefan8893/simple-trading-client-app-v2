@@ -27,7 +27,7 @@
       "determineAutomatically": "Determine automatically"
     },
     "note": "Note | Notes",
-    "enterNotesEllipsis": "Enter note ... | Enter notes ...",
+    "typeNotesInMarkdownEllipsis": "Type your markdown here...",
     "emptyNote": "No note | No notes"
   },
   "appearance": "Appearence",
