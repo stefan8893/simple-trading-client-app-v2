@@ -3,6 +3,7 @@ import { parse } from 'date-fns';
 import { computed, ref } from 'vue';
 import { formatTime, getTimeFormat } from '@/i18n/dates/date-utils';
 import { useDateLocales } from '@/i18n/dates/useDateLocales';
+import { MessageKeys } from '@/i18n/language/message-keys.g';
 const { getCurrentLocale } = useDateLocales();
 const currentDateLocale = getCurrentLocale();
 const timeFormat = getTimeFormat(currentDateLocale) === '24H' ? '24hr' : 'ampm';
@@ -47,7 +48,9 @@ const showTimePickerDialog = ref(false);
           use-seconds
         />
         <template #actions>
-          <v-btn @click="showTimePickerDialog = false">Schließen</v-btn>
+          <v-btn @click="showTimePickerDialog = false">{{
+            $t(MessageKeys.close)
+          }}</v-btn>
         </template>
       </v-card>
     </v-dialog>

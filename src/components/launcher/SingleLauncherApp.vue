@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { onKeyStroke, onLongPress } from '@vueuse/core';
 import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
+import { MessageKeys } from '@/i18n/language/message-keys.g';
 import { vibrate } from '@/utils';
 import { useSingleLauncherAppContextMenu } from './useSingleLauncherAppContextMenu';
 
 const props = defineProps<{
-  appName: string;
+  messageKey: string;
+  messageCount?: number;
   routeName: string;
   icon: string;
   bgColorClass: string;
@@ -18,6 +21,7 @@ const props = defineProps<{
 }>();
 
 const router = useRouter();
+const { t } = useI18n();
 
 const emit = defineEmits([
   'update:editMode',
@@ -34,6 +38,12 @@ const { showContextMenu, x, y } = useSingleLauncherAppContextMenu(app, {
 const allowActive = computed(
   () => !props.editMode && !showContextMenu.value && !showHapticPop.value,
 );
+
+const appName = computed(() => {
+  return props.messageCount
+    ? t(props.messageKey, props.messageCount)
+    : t(props.messageKey);
+});
 
 watch(showContextMenu, (newValue: boolean) => {
   emit('context-menu-toggle', newValue);
@@ -102,7 +112,7 @@ async function navigateTo() {
         <v-icon :icon="props.icon" size="x-large"></v-icon>
       </div>
       <div class="text-sm select-none max-w-24 truncate mt-2">
-        {{ props.appName }}
+        {{ appName }}
       </div>
     </div>
     <v-menu
@@ -114,14 +124,18 @@ async function navigateTo() {
     >
       <v-list nav>
         <v-list-item value="1" @click="emit('update:editMode', true)">
-          <v-list-item-title>Apps anordnen</v-list-item-title>
+          <v-list-item-title>{{
+            $t(MessageKeys.arrangeApps)
+          }}</v-list-item-title>
         </v-list-item>
         <v-list-item
           v-if="props.showResetEntryInContextMenu"
           value="2"
           @click="emit('reset-apps-order', true)"
         >
-          <v-list-item-title>Anordnung zurücksetzen</v-list-item-title>
+          <v-list-item-title>{{
+            $t(MessageKeys.resetOrder)
+          }}</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>

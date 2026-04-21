@@ -2,6 +2,7 @@
 import { onMounted, ref, watch } from 'vue';
 import { useApiRequests } from '@/api/useApiRequests';
 import { dummyData } from '@/dummy-data';
+import { MessageKeys } from '@/i18n/language/message-keys.g';
 import { delay } from '@/utils';
 import BaseSelect, {
   type BaseSelectItem,
@@ -35,7 +36,7 @@ watch(model, () => {
   <BaseSelect
     v-model="model"
     :items="assets"
-    label="Asset"
+    :label="$t(MessageKeys.trading.asset)"
     :loading="isLoading"
   />
 </template>

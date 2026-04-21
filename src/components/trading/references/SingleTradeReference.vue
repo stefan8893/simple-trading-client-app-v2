@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ReferenceModel } from './references.types';
 import { computed, nextTick, onMounted, ref, useTemplateRef } from 'vue';
+import { MessageKeys } from '@/i18n/language/message-keys.g';
 import MarkdownNotesDialog from '../notes/MarkdownNotesDialog.vue';
 
 const model = defineModel<ReferenceModel>({ required: true });
@@ -84,7 +85,7 @@ onMounted(async () => {
       v-model="model!.link"
       class="pt-4"
       clearable
-      label="Link"
+      :label="$t(MessageKeys.link)"
       @keydown.esc.prevent="referenceInput?.blur()"
       @keyup.enter="saveLink"
     />
@@ -141,7 +142,7 @@ onMounted(async () => {
         <v-list-item
           v-if="showEditBtn"
           prepend-icon="ph:pencil-simple-line"
-          title="Bearbeiten"
+          :title="$t(MessageKeys.edit)"
           @click="startEditing"
         >
           <template #prepend>
@@ -152,7 +153,7 @@ onMounted(async () => {
         <v-list-item
           v-if="showNotesBtn"
           prepend-icon="ph:note"
-          title="Anmerkung"
+          :title="$t(MessageKeys.trading.note)"
           @click="openNotesEditor"
         >
           <template #prepend>
@@ -169,7 +170,7 @@ onMounted(async () => {
 
         <v-list-item
           prepend-icon="ph:trash"
-          title="Löschen"
+          :title="$t(MessageKeys.delete)"
           @click="emit('remove-reference')"
         >
           <template #prepend>

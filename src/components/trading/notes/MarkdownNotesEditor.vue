@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useManualRefHistory } from '@vueuse/core';
 import { nextTick, ref, useTemplateRef, watch } from 'vue';
+import { MessageKeys } from '@/i18n/language/message-keys.g';
 
 const model = defineModel<string | null>();
 const editor = useTemplateRef('editor');
@@ -105,7 +106,7 @@ watch(model, () => {
       clearable
       counter
       flat
-      :placeholder="`Enter Notes here ...`"
+      :placeholder="$t(MessageKeys.trading.enterNotesEllipsis)"
       rounded="xl"
       variant="outlined"
       @keydown="handleKeydown"

@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import type { ResultDto } from '@stefan8893/simple-trading-client';
 import { watch } from 'vue';
+import { type MessageKey, MessageKeys } from '@/i18n/language/message-keys.g';
 import BaseSelect, {
   type BaseSelectItem,
 } from '../infrastructure/BaseSelect.vue';
 
 type ResultSelectItem = {
-  title: string;
+  title: MessageKey;
   value: ResultDto | null;
 };
 
@@ -14,23 +15,23 @@ const model = defineModel<string | null>({ default: undefined });
 
 const items = [
   {
-    title: 'Automatisch ermitteln',
+    title: MessageKeys.trading.results.determineAutomatically,
     value: null,
   },
   {
-    title: 'Gewinn',
+    title: MessageKeys.trading.results.win,
     value: 'Win',
   },
   {
-    title: 'Mittelmäßig',
+    title: MessageKeys.trading.results.mediocre,
     value: 'Mediocre',
   },
   {
-    title: 'Kostendeckend',
+    title: MessageKeys.trading.results.breakEven,
     value: 'BreakEven',
   },
   {
-    title: 'Verlust',
+    title: MessageKeys.trading.results.loss,
     value: 'Loss',
   },
 ] satisfies ResultSelectItem[] & BaseSelectItem[];
@@ -41,7 +42,12 @@ watch(model, () => {
 </script>
 
 <template>
-  <BaseSelect v-model="model" :items="items" label="Ergebnis" />
+  <BaseSelect
+    v-model="model"
+    :item-title="(item: BaseSelectItem) => $t(item.title)"
+    :items="items"
+    :label="$t(MessageKeys.trading.results.result)"
+  />
 </template>
 
 <style scoped></style>

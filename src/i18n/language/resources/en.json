@@ -6,6 +6,8 @@
     "newTrade": "New Trade",
     "opened": "Opened",
     "closed": "Closed",
+    "closedOn": "Closed on",
+    "close": "Close",
     "entryPrice": "Entry Price",
     "exitPrice": "Exit Price",
     "stopLoss": "Stop Loss",
@@ -24,7 +26,9 @@
       "win": "Win",
       "determineAutomatically": "Determine automatically"
     },
-    "notes": "Notes"
+    "note": "Note | Notes",
+    "enterNotesEllipsis": "Enter note ... | Enter notes ...",
+    "emptyNote": "No note | No notes"
   },
   "appearance": "Appearence",
   "language": "Language",
@@ -33,6 +37,8 @@
   "userSettings": "User Settings",
   "logout": "Logout",
   "login": "Login",
+  "home": "Home",
+  "link": "Link",
   "underConstruction": "Under Construction",
   "copied": "Copied",
   "entryNotFound": "The requested entry does not exist",
@@ -53,6 +59,16 @@
   "and": "and",
   "settingNotSaved": "Setting not saved",
   "close": "Close",
+  "cancel": "Cancel",
+  "apply": "Apply",
+  "edit": "Edit",
+  "delete": "Delete",
+  "dates": {
+    "date": "Date",
+    "time": "Time",
+    "on": "On",
+    "at": "At"
+  },
   "genericErrorMessage": "An error occurred while processing your request.",
   "german": "German",
   "english": "English",
@@ -63,5 +79,7 @@
   "accessDenied": "Access Denied",
   "notAuthenticatedError": "You are not authenticated. Please log in to continue.",
   "empty": "Empty",
-  "now": "Now"
+  "now": "Now",
+  "arrangeApps": "Arrange apps",
+  "resetOrder": "Reset order"
 }

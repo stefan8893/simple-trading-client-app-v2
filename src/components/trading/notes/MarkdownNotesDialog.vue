@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import AppDialog from '@/components/infrastructure/AppDialog.vue';
+import { MessageKeys } from '@/i18n/language/message-keys.g';
 import MarkdownNotes from './MarkdownNotes.vue';
 
 const model = defineModel<string | null>('notes');
@@ -80,7 +81,7 @@ function edit() {
   <AppDialog
     v-model="showDialog"
     :header-icon="showEditor ? 'ph:pencil-simple' : ''"
-    header-title="Anmerkung"
+    :header-title="$t(MessageKeys.trading.note)"
     width="medium"
     @on-cancel="close"
   >
@@ -93,13 +94,13 @@ function edit() {
         <v-btn
           v-if="showCancelBtn"
           color="error"
-          text="Abbrechen"
+          :text="$t(MessageKeys.cancel)"
           @click="cancel"
         />
         <v-btn
           v-if="showCloseBtn"
           color="accent"
-          text="Schließen"
+          :text="$t(MessageKeys.close)"
           @click="close"
         />
         <v-btn
@@ -107,7 +108,7 @@ function edit() {
           class="ml-4"
           color="primary"
           :disabled="!isSaveBtnEnabled"
-          text="Speichern"
+          :text="$t(MessageKeys.save)"
           variant="tonal"
           @click="save"
         />
@@ -115,7 +116,7 @@ function edit() {
           v-if="showApplyBtn"
           class="ml-4"
           color="primary"
-          text="Übernehmen"
+          :text="$t(MessageKeys.apply)"
           variant="tonal"
           @click="apply"
         />
@@ -123,7 +124,7 @@ function edit() {
           v-if="showEditBtn"
           class="ml-4"
           color="primary"
-          text="Bearbeiten"
+          :text="$t(MessageKeys.edit)"
           variant="tonal"
           @click="edit"
         />

@@ -10,6 +10,7 @@ import ProfileSelect from '@/components/trading/ProfileSelect.vue';
 import TradeReferences from '@/components/trading/references/TradeReferences.vue';
 import ResultSelect from '@/components/trading/ResultSelect.vue';
 import { formatDateTime } from '@/i18n/dates/date-utils';
+import { MessageKeys } from '@/i18n/language/message-keys.g';
 
 const opened = ref<Date | null>(null);
 const closed = ref<Date | null>(null);
@@ -35,17 +36,25 @@ watch(opened, () => {
 
 <template>
   <div class="grid justify-items-center add-trade-container">
-    <v-card class="max-w-3xl w-full" tag="form" title="Neuer Trade">
+    <v-card
+      class="max-w-3xl w-full"
+      tag="form"
+      :title="$t(MessageKeys.trading.newTrade)"
+    >
       <v-card-text class="px-0">
         <div class="two-columns px-4">
           <div class="left">
-            <DateTimePicker v-model="opened" date-label="Am" time-label="Um" />
+            <DateTimePicker
+              v-model="opened"
+              :date-label="$t(MessageKeys.dates.on)"
+              :time-label="$t(MessageKeys.dates.at)"
+            />
             <ProfileSelect />
             <AssetSelect />
             <StepperNumberInput
               v-model="positionSize"
               :initial-stepper-value="5000"
-              label="Positionsgröße"
+              :label="$t(MessageKeys.trading.size)"
               :max="999_999_999"
               :min="0"
               :precision="0"
@@ -58,7 +67,7 @@ watch(opened, () => {
               class="w-full"
               currency="USD"
               :initial-stepper-value="1.15"
-              label="Einstiegspreis"
+              :label="$t(MessageKeys.trading.entryPrice)"
               :precision="4"
               show-currency
               :step="0.0001"
@@ -68,7 +77,7 @@ watch(opened, () => {
               currency="USD"
               error-message=""
               :initial-stepper-value="1.149"
-              label="Stop-Loss"
+              :label="$t(MessageKeys.trading.stopLoss)"
               :precision="4"
               show-currency
               :step="0.0001"
@@ -77,7 +86,7 @@ watch(opened, () => {
               v-model="takeProfit"
               currency="USD"
               :initial-stepper-value="1.153"
-              label="Take-Profit"
+              :label="$t(MessageKeys.trading.takeProfit)"
               :precision="4"
               show-currency
               :step="0.0001"
@@ -88,7 +97,7 @@ watch(opened, () => {
         <ExpandPanel
           v-model="referencesSectionExpanded"
           class="mt-2"
-          header-title="Referenzen"
+          :header-title="$t(MessageKeys.trading.reference, 2)"
         >
           <template #content>
             <div class="mt-2 px-4">
@@ -100,7 +109,7 @@ watch(opened, () => {
         <ExpandPanel
           v-model="notesSectionExpanded"
           class="mt-2"
-          header-title="Anmerkung"
+          :header-title="$t(MessageKeys.trading.note)"
         >
           <template #content>
             <div class="mt-2 px-4">
@@ -112,21 +121,21 @@ watch(opened, () => {
         <ExpandPanel
           v-model="closeTradeSectionExpanded"
           class="mt-2"
-          header-title="Abschließen"
+          :header-title="$t(MessageKeys.trading.close)"
         >
           <template #content>
             <div class="two-columns mt-4 px-4">
               <div class="left">
                 <DateTimePicker
                   v-model="closed"
-                  date-label="Abgeschlossen am"
-                  time-label="Um"
+                  :date-label="$t(MessageKeys.trading.closedOn)"
+                  :time-label="$t(MessageKeys.dates.at)"
                 />
                 <StepperNumberInput
                   v-model="profitLoss"
                   currency="EUR"
                   :initial-stepper-value="50"
-                  label="Profit/Verlust"
+                  :label="$t(MessageKeys.trading.profitLoss)"
                   :precision="2"
                   show-currency
                   :step="1"
@@ -138,7 +147,7 @@ watch(opened, () => {
                     v-model="exit"
                     currency="USD"
                     :initial-stepper-value="1.153"
-                    label="Ausstiegspreis"
+                    :label="$t(MessageKeys.trading.exitPrice)"
                     :precision="4"
                     show-currency
                     :step="0.0001"
@@ -152,7 +161,7 @@ watch(opened, () => {
       </v-card-text>
 
       <v-card-actions>
-        <v-btn>Speichern</v-btn>
+        <v-btn>{{ $t(MessageKeys.save) }}</v-btn>
       </v-card-actions>
     </v-card>
   </div>

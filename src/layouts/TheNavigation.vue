@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, type Ref, useTemplateRef } from 'vue';
 import { useDisplay } from 'vuetify';
+import { type MessageKey, MessageKeys } from '@/i18n/language/message-keys.g';
 import { useSophisticatedTooltipDelay } from './useSophisticatedTooltipDelay';
 
 type NavigationItem = {
   icon: string;
-  title: string;
+  messageKey: MessageKey;
+  messageCount?: number;
   routeName: string;
   showTooltip: boolean;
   isTooltipOpen?: boolean;
@@ -23,25 +25,26 @@ const navListContainer = useTemplateRef('nav-list');
 const items: Ref<NavigationItem[]> = ref([
   {
     icon: 'ph:house-simple',
-    title: 'Home',
+    messageKey: MessageKeys.home,
     routeName: 'home',
     showTooltip: false,
   },
   {
     icon: 'ph:link',
-    title: 'Referenzen',
+    messageKey: MessageKeys.trading.reference,
+    messageCount: 2,
     routeName: 'trade-references',
     showTooltip: true,
   },
   {
     icon: 'ph:plus',
-    title: 'Neuer Trade',
+    messageKey: MessageKeys.trading.newTrade,
     routeName: 'new-trade',
     showTooltip: true,
   },
   {
     icon: 'ph:gear-six',
-    title: 'User Settings',
+    messageKey: MessageKeys.settings,
     routeName: 'user-settings',
     showTooltip: true,
   },
@@ -84,7 +87,11 @@ async function disableTooltipWhileNavigating() {
         <template #activator="{ props: activatorProps }">
           <v-list-item
             link
-            :title="item.title"
+            :title="
+              item.messageCount
+                ? $t(item.messageKey, item.messageCount)
+                : $t(item.messageKey)
+            "
             :to="{ name: item.routeName }"
             @click="disableTooltipWhileNavigating"
           >
@@ -93,7 +100,11 @@ async function disableTooltipWhileNavigating() {
             </template>
           </v-list-item>
         </template>
-        {{ item.title }}
+        {{
+          item.messageCount
+            ? $t(item.messageKey, item.messageCount)
+            : $t(item.messageKey)
+        }}
       </v-tooltip>
     </v-list>
   </div>

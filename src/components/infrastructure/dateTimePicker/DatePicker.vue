@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { formatDate } from '@/i18n/dates/date-utils';
+import { MessageKeys } from '@/i18n/language/message-keys.g';
 
 const props = withDefaults(
   defineProps<{
@@ -43,7 +44,9 @@ const showDatePickerDialog = ref(false);
           />
         </template>
         <template #actions>
-          <v-btn @click="showDatePickerDialog = false">Schließen</v-btn>
+          <v-btn @click="showDatePickerDialog = false">{{
+            $t(MessageKeys.close)
+          }}</v-btn>
         </template>
       </v-card>
     </v-dialog>

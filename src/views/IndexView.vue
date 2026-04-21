@@ -32,7 +32,7 @@ const dateTime = ref<Date | null>(null);
 
       <div class="mt-4">
         <v-btn class="" color="info" :to="{ name: 'new-trade' }">
-          Neuer Trade
+          {{ $t(MessageKeys.trading.newTrade) }}
         </v-btn>
         <Icon icon="ph:plus" width="24" />
       </div>
@@ -44,7 +44,9 @@ const dateTime = ref<Date | null>(null);
       </div>
 
       <div class="mt-4">
-        <v-btn class="" color="info" :to="{ name: 'home' }"> Home </v-btn>
+        <v-btn class="" color="info" :to="{ name: 'home' }">
+          {{ $t(MessageKeys.home) }}
+        </v-btn>
       </div>
 
       <div class="my-6 flex flex-col flex-nowrap gap-4">
@@ -54,7 +56,9 @@ const dateTime = ref<Date | null>(null);
           :initial-stepper-value="5000"
           label="Noch ein Wert"
         />
-        <div><v-btn color="primary">Speichern</v-btn></div>
+        <div>
+          <v-btn color="primary">{{ $t(MessageKeys.save) }}</v-btn>
+        </div>
       </div>
 
       <p class="text-4xl mt-14">Lorem Ipsum</p>

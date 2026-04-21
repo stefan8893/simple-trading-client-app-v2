@@ -6,6 +6,8 @@
     "newTrade": "Neuer Trade",
     "opened": "Eröffnet",
     "closed": "Abgeschlossen",
+    "closedOn": "Abgeschlossen am",
+    "close": "Abschließen",
     "entryPrice": "Einstiegspreis",
     "exitPrice": "Ausstiegspreis",
     "stopLoss": "Stop-Loss",
@@ -24,7 +26,9 @@
       "win": "Gewinn",
       "determineAutomatically": "Automatisch ermitteln"
     },
-    "notes": "Anmerkungen"
+    "note": "Anmerkung | Anmerkungen",
+    "enterNotesEllipsis": "Anmerkung eingeben ... | Anmerkungen eingeben ...",
+    "emptyNote": "Keine Anmerkung | Keine Anmerkungen"
   },
   "appearance": "Erscheinung",
   "language": "Sprache",
@@ -33,6 +37,8 @@
   "userSettings": "Benutzereinstellungen",
   "logout": "Abmelden",
   "login": "Anmelden",
+  "home": "Home",
+  "link": "Link",
   "underConstruction": "In Bearbeitung",
   "copied": "Kopiert",
   "entryNotFound": "Der gewünschte Eintrag existiert nicht",
@@ -53,6 +59,16 @@
   "and": "und",
   "settingNotSaved": "Einstellung nicht übernommen",
   "close": "Schließen",
+  "cancel": "Abbrechen",
+  "apply": "Übernehmen",
+  "edit": "Bearbeiten",
+  "delete": "Löschen",
+  "dates": {
+    "date": "Datum",
+    "time": "Zeit",
+    "on": "Am",
+    "at": "Um"
+  },
   "genericErrorMessage": "Beim Ausführen der Aktion ist ein Fehler aufgetreten.",
   "german": "Deutsch",
   "english": "Englisch",
@@ -63,5 +79,7 @@
   "accessDenied": "Zugriff verweigert",
   "notAuthenticatedError": "Sie sind nicht authentifiziert. Bitte melden Sie sich an, um fortzufahren.",
   "empty": "Leer",
-  "now": "Jetzt"
+  "now": "Jetzt",
+  "arrangeApps": "Apps anordnen",
+  "resetOrder": "Anordnung zurücksetzen"
 }

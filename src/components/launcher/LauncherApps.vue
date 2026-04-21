@@ -54,7 +54,6 @@ onClickOutside(sortableContainer, () => {
         v-for="(app, index) in launcherApps"
         :key="app.identifier"
         v-model:edit-mode="rearrangeApps"
-        :app-name="app.name"
         :bg-color-class="app.bgColor"
         :class="[
           {
@@ -65,6 +64,8 @@ onClickOutside(sortableContainer, () => {
         :icon="app.icon"
         :index="index"
         :is-dragging="isDragging"
+        :message-count="app.messageCount"
+        :message-key="app.messageKey"
         :prevent-context-menu="preventContextMenuToOpen"
         :route-name="app.routeName"
         :show-reset-entry-in-context-menu="!isOriginalOrder"

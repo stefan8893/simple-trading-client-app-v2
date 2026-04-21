@@ -3,6 +3,7 @@ import DOMPurify from 'dompurify';
 import MarkdownIt from 'markdown-it';
 import TaskLists from 'markdown-it-task-lists';
 import { computed } from 'vue';
+import { MessageKeys } from '@/i18n/language/message-keys.g';
 
 const model = defineModel<string | null>();
 
@@ -49,7 +50,11 @@ const markdown = computed(() => renderMarkdown(model.value ?? ''));
 
 <template>
   <div v-if="model" class="markdown-content" v-html="markdown" />
-  <v-empty-state v-else class="p-0" text="Keine Anmerkung"></v-empty-state>
+  <v-empty-state
+    v-else
+    class="p-0"
+    :text="$t(MessageKeys.trading.emptyNote)"
+  ></v-empty-state>
 </template>
 
 <style>
