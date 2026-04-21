@@ -1,1 +1,1 @@
-export const EXAMPLE_CONST = 'FooBar';
+export const TOOLTIP_OPEN_DELAY_SHORT_IN_MS = 150;

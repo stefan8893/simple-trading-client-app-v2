@@ -9,41 +9,41 @@ import TheNavigation from './TheNavigation.vue';
 
 type DesktopSidebarState = {
   showSidebar: boolean;
-  showRail: boolean;
+  isSidebarExpanded: boolean;
 };
 
 const { mobile: isMobile } = useDisplay();
 
 const showSidebar = ref(!isMobile.value);
-const showRail = useLocalStorage(
+const isSidebarExpanded = useLocalStorage(
   'sidebar-expanded',
-  ref(!isMobile.value && !showSidebar.value),
+  ref(!isMobile.value),
 );
 
 const desktopSidebarState: DesktopSidebarState = {
   showSidebar: showSidebar.value,
-  showRail: showRail.value,
+  isSidebarExpanded: isSidebarExpanded.value,
 };
 
 function toggleSidebar(show?: boolean) {
   if (isMobile.value) {
-    showRail.value = false;
+    isSidebarExpanded.value = true;
     showSidebar.value = show ?? !showSidebar.value;
   } else {
     showSidebar.value = true;
-    showRail.value = show === undefined ? !showRail.value : !show;
+    isSidebarExpanded.value = show ?? !isSidebarExpanded.value;
   }
 }
 
 watch(isMobile, (changedToMobile) => {
   const saveDesktopSidebarState = () => {
-    desktopSidebarState.showRail = showRail.value;
+    desktopSidebarState.isSidebarExpanded = isSidebarExpanded.value;
     desktopSidebarState.showSidebar = showSidebar.value;
   };
 
   const restoreDesktopSidebarState = () => {
     showSidebar.value = desktopSidebarState.showSidebar;
-    showRail.value = desktopSidebarState.showRail;
+    isSidebarExpanded.value = desktopSidebarState.isSidebarExpanded;
   };
 
   if (changedToMobile) {
@@ -76,12 +76,16 @@ watch(isMobile, (changedToMobile) => {
     v-model="showSidebar"
     name="sidebar"
     :permanent="!isMobile"
-    :rail="showRail"
+    :rail="!isSidebarExpanded"
   >
     <div class="flex flex-col flex-nowrap h-full">
-      <TheNavigation class="grow" @toggle-sidebar="toggleSidebar" />
+      <TheNavigation
+        class="grow"
+        :is-sidebar-expanded="isSidebarExpanded"
+        @toggle-sidebar="toggleSidebar"
+      />
 
-      <div v-if="!showRail" class="text-sm mt-5">
+      <div v-if="isSidebarExpanded" class="text-sm mt-5">
         <pre class="float-end pr-4 pb-2.5">{{ packageInfo.version }}</pre>
       </div>
     </div>
