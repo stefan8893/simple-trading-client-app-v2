@@ -40,7 +40,7 @@ watch(opened, () => {
 <template>
   <div class="grid justify-items-center add-trade-container">
     <v-sheet class="max-w-3xl w-full">
-      <ViewTitle class="px-4" heading="Neuer Trade" />
+      <ViewTitle class="px-4" header-title="Neuer Trade" />
       <div class="two-columns mt-2 px-6">
         <div class="left">
           <DateTimePicker v-model="opened" date-label="Am" time-label="Um" />

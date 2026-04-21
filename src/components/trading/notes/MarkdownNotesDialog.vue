@@ -79,8 +79,8 @@ function edit() {
 <template>
   <AppDialog
     v-model="showDialog"
-    heading="Anmerkung"
-    :heading-icon="showEditor ? 'ph:pencil-simple' : ''"
+    :header-icon="showEditor ? 'ph:pencil-simple' : ''"
+    header-title="Anmerkung"
     width="medium"
     @on-cancel="close"
   >

@@ -39,6 +39,12 @@ const items: Ref<NavigationItem[]> = ref([
     routeName: 'new-trade',
     showTooltip: true,
   },
+  {
+    icon: 'ph:gear-six',
+    title: 'User Settings',
+    routeName: 'user-settings',
+    showTooltip: true,
+  },
 ]);
 
 const isAnyTooltipOpen = computed(() => {

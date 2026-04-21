@@ -1,1 +1,1 @@
-export const TOOLTIP_OPEN_DELAY_SHORT_IN_MS = 200;
+export const TOOLTIP_OPEN_DELAY_SHORT_IN_MS = 300;

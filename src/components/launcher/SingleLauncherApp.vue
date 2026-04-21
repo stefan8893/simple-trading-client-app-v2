@@ -67,7 +67,7 @@ onKeyStroke('Escape', (event) => {
   }
 });
 
-async function gotoTarget() {
+async function navigateTo() {
   !showHapticPop.value &&
     !props.editMode &&
     router.push({ name: props.routeName });
@@ -93,7 +93,7 @@ async function gotoTarget() {
           'is-haptic-pop': showHapticPop,
         },
       ]"
-      @click="gotoTarget"
+      @click="navigateTo"
     >
       <div
         class="launcher-app-icon w-16 h-16 rounded-xl grid place-items-center elevation-3"

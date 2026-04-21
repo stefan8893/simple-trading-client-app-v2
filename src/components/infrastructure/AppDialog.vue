@@ -11,8 +11,8 @@ const dialogWidth: Map<Width, number> = new Map([
 const model = defineModel<boolean>({ default: false });
 const emit = defineEmits(['on-cancel']);
 const props = defineProps<{
-  heading: string;
-  headingIcon?: string;
+  headerTitle: string;
+  headerIcon?: string;
   width: Width;
 }>();
 
@@ -33,7 +33,10 @@ function onCancel() {
       <v-card>
         <v-card-title class="flex justify-between items-center">
           <slot name="header">
-            <ViewTitle :heading="props.heading" :icon="props.headingIcon" />
+            <ViewTitle
+              :header-title="props.headerTitle"
+              :icon="props.headerIcon"
+            />
 
             <v-btn icon="ph:x" variant="text" @click="onCancel" />
           </slot>

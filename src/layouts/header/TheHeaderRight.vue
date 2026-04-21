@@ -1,9 +1,23 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useTheme } from 'vuetify';
 import TextCopy from '@/components/infrastructure/TextCopy.vue';
 import UserAvatar from '@/components/UserAvatar.vue';
 
 const { cycle } = useTheme();
+const router = useRouter();
+const showUserMenu = ref(false);
+
+function closeMenuAndNavigateTo(routeName: string) {
+  showUserMenu.value = false;
+  router.push({ name: routeName });
+}
+
+function logout() {
+  console.log('logout user');
+  router.push({ name: 'index' });
+}
 </script>
 
 <template>
@@ -15,7 +29,7 @@ const { cycle } = useTheme();
       variant="tonal"
       @click="cycle()"
     ></v-btn>
-    <v-menu :close-on-content-click="false">
+    <v-menu v-model="showUserMenu" :close-on-content-click="false">
       <template #activator="{ props }">
         <UserAvatar v-bind="props" class="cursor-pointer" size="small" />
       </template>
@@ -35,13 +49,16 @@ const { cycle } = useTheme();
         <v-divider />
 
         <v-list nav slim>
-          <v-list-item title="Einstellungen" value="1">
+          <v-list-item
+            title="Einstellungen"
+            @click="closeMenuAndNavigateTo('user-settings')"
+          >
             <template #prepend>
               <v-icon icon="ph:gear-six" />
             </template>
           </v-list-item>
 
-          <v-list-item title="Abmelden" value="2">
+          <v-list-item title="Abmelden" @click="logout()">
             <template #prepend>
               <v-icon icon="ph:x" />
             </template>
