@@ -91,7 +91,7 @@ watch(isMobile, (changedToMobile) => {
     </div>
   </v-navigation-drawer>
 
-  <v-main class="flex flex-col flex-nowrap items-center justify-start">
+  <v-main class="grid justify-items-center">
     <div
       class="max-w-5xl min-w-75 w-full px-2.5 sm:px-5 mt-5 sm:mt-10 mb-36 grow"
     >
