@@ -17,7 +17,7 @@ watch(model, (newValue) => {
     <v-card
       class="max-w-3xl w-full"
       tag="form"
-      :title="$t(MessageKeys.userSettings)"
+      :title="$t(MessageKeys.settings)"
     >
       <v-card-text>
         <LanguageSelect v-model="model" :label="$t(MessageKeys.language)" />

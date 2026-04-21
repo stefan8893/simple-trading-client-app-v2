@@ -10,7 +10,6 @@ export const MessageKeys = {
 	language: 'language',
 	profile: 'profile',
 	settings: 'settings',
-	userSettings: 'userSettings',
 	logout: 'logout',
 	login: 'login',
 	home: 'home',

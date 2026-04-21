@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 import { useTheme } from 'vuetify';
 import TextCopy from '@/components/infrastructure/TextCopy.vue';
 import UserAvatar from '@/components/UserAvatar.vue';
+import { MessageKeys } from '@/i18n/language/message-keys.g';
 
 const { cycle } = useTheme();
 const router = useRouter();
@@ -50,7 +51,7 @@ function logout() {
 
         <v-list nav slim>
           <v-list-item
-            title="Einstellungen"
+            :title="$t(MessageKeys.settings)"
             @click="closeMenuAndNavigateTo('user-settings')"
           >
             <template #prepend>
@@ -58,7 +59,7 @@ function logout() {
             </template>
           </v-list-item>
 
-          <v-list-item title="Abmelden" @click="logout()">
+          <v-list-item :title="$t(MessageKeys.logout)" @click="logout()">
             <template #prepend>
               <v-icon icon="ph:x" />
             </template>
