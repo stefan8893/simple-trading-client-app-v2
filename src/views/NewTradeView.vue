@@ -121,7 +121,7 @@ watch(opened, () => {
         <ExpandPanel
           v-model="closeTradeSectionExpanded"
           class="mt-2"
-          :header-title="$t(MessageKeys.trading.close)"
+          :header-title="$t(MessageKeys.trading.finish)"
         >
           <template #content>
             <div class="two-columns mt-4 px-4">
