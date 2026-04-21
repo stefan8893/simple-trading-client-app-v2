@@ -17,6 +17,15 @@ export const appComponentDefaults = {
   VCard: {
     rounded: 'xl',
   },
+  VCardTitle: {
+    class: 'font-light pt-3.5',
+  },
+  VCardText: {
+    class: 'p-4',
+  },
+  VCardActions: {
+    class: 'grid justify-items-end pb-6 pr-6',
+  },
   VSheet: {
     rounded: 'xl',
     elevation: '1',

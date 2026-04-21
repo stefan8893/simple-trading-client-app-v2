@@ -1,13 +1,10 @@
-<script setup lang="ts">
-import ViewTitle from '@/components/ViewTitle.vue';
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="grid justify-items-center">
-    <v-sheet class="max-w-3xl w-full">
-      <ViewTitle class="px-4" header-title="Benutzereinstellungen"></ViewTitle>
-      <div class="mt-2 px-6">FooBar</div>
-    </v-sheet>
+    <v-card class="max-w-3xl w-full" tag="form" title="Benutzereinstellungen">
+      <v-card-text> FooBar </v-card-text>
+    </v-card>
   </div>
 </template>
 

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import ViewTitle from '@/components/ViewTitle.vue';
-
 export type Width = 'large' | 'medium';
 
 const dialogWidth: Map<Width, number> = new Map([
@@ -31,18 +29,28 @@ function onCancel() {
   >
     <template #default>
       <v-card>
-        <v-card-title class="flex justify-between items-center">
+        <v-card-title class="flex justify-between items-center pt-2.5">
           <slot name="header">
-            <ViewTitle
-              :header-title="props.headerTitle"
-              :icon="props.headerIcon"
-            />
+            <div
+              class="flex flex-row flex-nowrap justify-between items-center gap-2"
+            >
+              <h2 class="text-2xl font-light">
+                {{ props.headerTitle }}
+              </h2>
+              <v-icon
+                v-if="props.headerIcon"
+                class="font-light"
+                color="primary"
+                :icon="props.headerIcon"
+                size="small"
+              ></v-icon>
+            </div>
 
             <v-btn icon="ph:x" variant="text" @click="onCancel" />
           </slot>
         </v-card-title>
 
-        <v-card-text>
+        <v-card-text class="px-0">
           <slot name="content" />
         </v-card-text>
 
