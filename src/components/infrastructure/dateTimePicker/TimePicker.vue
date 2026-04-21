@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { parse } from 'date-fns';
 import { computed, ref } from 'vue';
-import { formatTime, getTimeFormat } from '@/i18n/date-utils';
-import { useDateLocales } from '@/i18n/useDateLocales';
+import { formatTime, getTimeFormat } from '@/i18n/dates/date-utils';
+import { useDateLocales } from '@/i18n/dates/useDateLocales';
 const { getCurrentLocale } = useDateLocales();
 const currentDateLocale = getCurrentLocale();
 const timeFormat = getTimeFormat(currentDateLocale) === '24H' ? '24hr' : 'ampm';

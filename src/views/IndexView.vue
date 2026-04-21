@@ -5,10 +5,11 @@ import { useTheme } from 'vuetify';
 import DateTimePicker from '@/components/infrastructure/dateTimePicker/DateTimePicker.vue';
 import NumberInput from '@/components/infrastructure/numberInput/NumberInput.vue';
 import StepperNumberInput from '@/components/infrastructure/numberInput/StepperNumberInput.vue';
-import { useLocaleStore } from '@/stores/localeStore';
+import { MessageKeys } from '@/i18n/language/message-keys.g';
+import { useDateFormatStore } from '@/stores/useDateFormatStore';
 
 const { cycle } = useTheme();
-const localeStore = useLocaleStore();
+const localeStore = useDateFormatStore();
 localeStore.locale = 'de-AT';
 
 const dateTime = ref<Date | null>(null);
@@ -38,7 +39,7 @@ const dateTime = ref<Date | null>(null);
 
       <div class="mt-4">
         <v-btn class="" color="info" :to="{ name: 'trade-references' }">
-          Referenzen
+          {{ $t(MessageKeys.trading.reference, 2) }}
         </v-btn>
       </div>
 

@@ -1,7 +1,10 @@
 import { useStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { type Ref, ref, watch } from 'vue';
-import { getSupportedLocale, type SupportedLocale } from '@/i18n/locales';
+import {
+  getSupportedLocale,
+  type SupportedLocale,
+} from '@/i18n/dates/date-locales';
 
 export const defaultLocale: SupportedLocale = 'de-AT';
 
@@ -11,7 +14,7 @@ const localeInLocalStorage = useStorage<SupportedLocale | undefined>(
   localStorage,
 );
 
-export const useLocaleStore = defineStore('locale', () => {
+export const useDateFormatStore = defineStore('dateFormat', () => {
   const locale: Ref<SupportedLocale> = ref(getInitialLocale());
 
   watch(locale, () => {
@@ -28,8 +31,8 @@ function getInitialLocale(): SupportedLocale {
     return localeInLocalStorage.value;
   }
 
-  const browserLanguage = new Intl.Locale(navigator.language).baseName;
-  const supportedBrowserLanguage = getSupportedLocale(browserLanguage);
+  const browserLocale = new Intl.Locale(navigator.language).baseName;
+  const supportedBrowserLocales = getSupportedLocale(browserLocale);
 
-  return supportedBrowserLanguage ?? defaultLocale;
+  return supportedBrowserLocales ?? defaultLocale;
 }

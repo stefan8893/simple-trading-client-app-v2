@@ -1,5 +1,8 @@
+import { useI18n } from 'vue-i18n';
 import { createVuetify } from 'vuetify';
 import { de, en } from 'vuetify/locale';
+import { createVueI18nAdapter } from 'vuetify/locale/adapters/vue-i18n';
+import i18n from '../i18n/language/i18n-config';
 import { appComponentDefaults } from './vuetify/app-component-defaults';
 import { appIcons } from './vuetify/appIcons';
 import { appThemes } from './vuetify/appThemes';

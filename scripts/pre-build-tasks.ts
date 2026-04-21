@@ -1,4 +1,6 @@
-const preBuildTasks: (() => Promise<void>)[] = [];
+import { generateI18nMessageKeys } from './static-i18n-message-keys.task';
+
+const preBuildTasks: (() => Promise<void>)[] = [generateI18nMessageKeys];
 
 async function runPreBuildTasks() {
   console.log('-------------------------------------');
