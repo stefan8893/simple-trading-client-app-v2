@@ -5,7 +5,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "prebuild": "npx tsx ./scripts/pre-build-tasks.ts && npm run lint:fix",
+    "prebuild": "npx tsx ./scripts/pre-build-tasks.ts",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",

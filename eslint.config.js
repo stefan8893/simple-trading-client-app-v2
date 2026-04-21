@@ -6,6 +6,9 @@ export default vuetify(
   {
     ts: true,
   },
+  {
+    ignores: ['src/i18n/language/message-keys.g.ts'],
+  },
   eslintPluginPrettierRecommended,
   {
     plugins: {
