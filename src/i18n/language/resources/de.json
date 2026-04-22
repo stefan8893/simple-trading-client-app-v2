@@ -5,8 +5,8 @@
     "investment": "Investition | Investitionen",
     "newTrade": "Neuer Trade",
     "opened": "Eröffnet",
-    "closed": "Abgeschlossen",
-    "closedOn": "Abgeschlossen am",
+    "finished": "Abgeschlossen",
+    "finishedOn": "Abgeschlossen am",
     "finish": "Abschließen",
     "entryPrice": "Einstiegspreis",
     "exitPrice": "Ausstiegspreis",
@@ -26,9 +26,9 @@
       "win": "Gewinn",
       "determineAutomatically": "Automatisch ermitteln"
     },
-    "note": "Anmerkung | Anmerkungen",
+    "note": "Anmerkung",
     "typeNotesInMarkdownEllipsis": "Schreibe deine Anmerkung in Markdown...",
-    "emptyNote": "Keine Anmerkung | Keine Anmerkungen"
+    "emptyNote": "Keine Anmerkung"
   },
   "appearance": "Erscheinung",
   "language": "Sprache",

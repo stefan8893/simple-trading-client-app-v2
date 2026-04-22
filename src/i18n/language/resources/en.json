@@ -5,8 +5,8 @@
     "investment": "Investment | Investments",
     "newTrade": "New Trade",
     "opened": "Opened",
-    "closed": "Closed",
-    "closedOn": "Closed on",
+    "finished": "Finished",
+    "finishedOn": "Finished on",
     "finish": "Finish",
     "entryPrice": "Entry Price",
     "exitPrice": "Exit Price",
@@ -26,9 +26,9 @@
       "win": "Win",
       "determineAutomatically": "Determine automatically"
     },
-    "note": "Note | Notes",
+    "note": "Note",
     "typeNotesInMarkdownEllipsis": "Type your markdown here...",
-    "emptyNote": "No note | No notes"
+    "emptyNote": "No note"
   },
   "appearance": "Appearence",
   "language": "Language",

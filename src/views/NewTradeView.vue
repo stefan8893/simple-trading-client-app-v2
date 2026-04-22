@@ -128,7 +128,7 @@ watch(opened, () => {
               <div class="left">
                 <DateTimePicker
                   v-model="closed"
-                  :date-label="$t(MessageKeys.trading.closedOn)"
+                  :date-label="$t(MessageKeys.trading.finishedOn)"
                   :time-label="$t(MessageKeys.dates.at)"
                 />
                 <StepperNumberInput
