@@ -20,7 +20,7 @@
     "@fontsource/inter": "^5.2.8",
     "@fontsource/jetbrains-mono": "^5.2.8",
     "@iconify/vue": "^5.0.0",
-    "@stefan8893/simple-trading-client": "^0.48.1",
+    "@stefan8893/simple-trading-client": "^0.48.3",
     "@types/culori": "^4.0.1",
     "@vueuse/core": "^14.2.1",
     "@vueuse/integrations": "^14.2.1",
