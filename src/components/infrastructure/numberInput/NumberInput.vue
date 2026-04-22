@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { CurrencyDisplay, useCurrencyInput } from 'vue-currency-input';
+import { useNumberFormatStore } from '@/stores/useNumberFormatStore';
 
 const model = defineModel<number | undefined | null>();
 const props = withDefaults(
@@ -31,13 +32,14 @@ defineEmits(['change']);
 
 defineExpose({ increment, decrement });
 
+const numberFormatStore = useNumberFormatStore();
 const { inputRef, numberValue, formattedValue, setValue } = useCurrencyInput({
   currency: props.currency,
   autoDecimalDigits: false,
   currencyDisplay: props.showCurrency
     ? CurrencyDisplay.symbol
     : CurrencyDisplay.hidden,
-  locale: 'de-AT',
+  locale: numberFormatStore.locale,
   hideGroupingSeparatorOnFocus: false,
   precision: props.precision,
   hideNegligibleDecimalDigitsOnFocus: true,

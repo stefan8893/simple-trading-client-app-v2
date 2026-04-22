@@ -10,9 +10,9 @@ import i18n from '../i18n/language/i18n-config';
 
 export const defaultLanguage: SupportedLanguage = 'de';
 
-const languageInLocalStorage = useLocalStorage<SupportedLanguage>(
+const languageInLocalStorage = useLocalStorage<SupportedLanguage | undefined>(
   'language',
-  defaultLanguage,
+  undefined,
 );
 
 export const useLanguageStore = defineStore('language', () => {

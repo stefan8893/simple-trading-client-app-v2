@@ -3,28 +3,27 @@ import { defineStore } from 'pinia';
 import { readonly, type Ref, ref, watch } from 'vue';
 import {
   getSupportedLocale,
-  type SupportedLocale,
-} from '@/i18n/regionalFormat/date-locales';
+  type SupportedRegionalFormatLocale,
+} from '@/i18n/regionalFormat/regional-format-locales';
 
-export const defaultLocale: SupportedLocale = 'de-AT';
+export const defaultLocale: SupportedRegionalFormatLocale = 'de-AT';
 
-const localeInLocalStorage = useLocalStorage<SupportedLocale>(
-  'regionalFormat',
-  defaultLocale,
-);
+const regionalFormatInLocalStorage = useLocalStorage<
+  SupportedRegionalFormatLocale | undefined
+>('regionalFormat', undefined);
 
 export const useRegionalFormatStore = defineStore('regionalFormat', () => {
-  const locale: Ref<SupportedLocale> = ref(getInitialLocale());
+  const locale: Ref<SupportedRegionalFormatLocale> = ref(getInitialLocale());
 
   watch(
     locale,
     (newValue) => {
-      localeInLocalStorage.value = newValue;
+      regionalFormatInLocalStorage.value = newValue;
     },
     { immediate: true },
   );
 
-  function update(newLocale: SupportedLocale) {
+  function update(newLocale: SupportedRegionalFormatLocale) {
     locale.value = newLocale;
   }
 
@@ -34,9 +33,9 @@ export const useRegionalFormatStore = defineStore('regionalFormat', () => {
   };
 });
 
-function getInitialLocale(): SupportedLocale {
-  if (localeInLocalStorage.value) {
-    return localeInLocalStorage.value;
+function getInitialLocale(): SupportedRegionalFormatLocale {
+  if (regionalFormatInLocalStorage.value) {
+    return regionalFormatInLocalStorage.value;
   }
 
   const browserLocale = new Intl.Locale(navigator.language).baseName;

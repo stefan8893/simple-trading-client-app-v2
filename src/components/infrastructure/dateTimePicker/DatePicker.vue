@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { MessageKeys } from '@/i18n/language/message-keys.g';
-import { formatDate } from '@/i18n/regionalFormat/date-utils';
+import { formatDate } from '@/i18n/regionalFormat/date-formatter';
 import { useDateLocales } from '@/i18n/regionalFormat/useDateLocales';
 
 const props = withDefaults(

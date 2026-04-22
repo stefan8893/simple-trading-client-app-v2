@@ -2,7 +2,10 @@
 import { parse } from 'date-fns';
 import { computed, ref } from 'vue';
 import { MessageKeys } from '@/i18n/language/message-keys.g';
-import { formatTime, getTimeFormat } from '@/i18n/regionalFormat/date-utils';
+import {
+  formatTime,
+  getTimeFormat,
+} from '@/i18n/regionalFormat/date-formatter';
 import { useDateLocales } from '@/i18n/regionalFormat/useDateLocales';
 const { getCurrentLocale } = useDateLocales();
 const currentDateLocale = getCurrentLocale();

@@ -75,7 +75,8 @@
     "settings": "Einstellungen",
     "language": "Sprache",
     "regionalFormat": "Regionalformat",
-    "regionalFormatHint": "Steuert Datumsanzeige und Kalenderwochen."
+    "regionalFormatHint": "Steuert Datumsanzeige und Kalenderwochen.",
+    "numberFormat": "Zahlenformat"
   },
   "genericErrorMessage": "Beim Ausführen der Aktion ist ein Fehler aufgetreten.",
   "german": "Deutsch",

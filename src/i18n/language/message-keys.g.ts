@@ -38,7 +38,7 @@ export const MessageKeys = {
 	delete: 'delete',
 	dates: { date: 'dates.date', time: 'dates.time', on: 'dates.on', at: 'dates.at', },
 	locales: { locale: 'locales.locale', de_AT: 'locales.de_AT', en_US: 'locales.en_US', },
-	settings: { settings: 'settings.settings', language: 'settings.language', regionalFormat: 'settings.regionalFormat', regionalFormatHint: 'settings.regionalFormatHint', },
+	settings: { settings: 'settings.settings', language: 'settings.language', regionalFormat: 'settings.regionalFormat', regionalFormatHint: 'settings.regionalFormatHint', numberFormat: 'settings.numberFormat', },
 	genericErrorMessage: 'genericErrorMessage',
 	german: 'german',
 	english: 'english',

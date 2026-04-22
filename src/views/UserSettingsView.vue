@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import DateFormatSelect from '@/components/user-settings/DateFormatSelect.vue';
 import LanguageSelect from '@/components/user-settings/LanguageSelect.vue';
+import NumberFormatSelect from '@/components/user-settings/NumberFormatSelect.vue';
+import RegionalFormatSelect from '@/components/user-settings/RegionalFormatSelect.vue';
 import { MessageKeys } from '@/i18n/language/message-keys.g';
 import { useLanguageStore } from '@/stores/useLanguageStore';
+import { useNumberFormatStore } from '@/stores/useNumberFormatStore';
 import { useRegionalFormatStore } from '@/stores/useRegionalFormatStore';
 
 const languageStore = useLanguageStore();
@@ -19,6 +21,13 @@ const selectedRegionalFormat = ref(regionalFormatStore.locale);
 watch(selectedRegionalFormat, (newValue) => {
   regionalFormatStore.update(newValue);
 });
+
+const numberFormatStore = useNumberFormatStore();
+const selectedNumberFormat = ref(numberFormatStore.locale);
+
+watch(selectedNumberFormat, (newValue) => {
+  numberFormatStore.update(newValue);
+});
 </script>
 
 <template>
@@ -30,7 +39,8 @@ watch(selectedRegionalFormat, (newValue) => {
     >
       <v-card-text>
         <LanguageSelect v-model="selectedLanguage" />
-        <DateFormatSelect v-model="selectedRegionalFormat" class="mt-4" />
+        <RegionalFormatSelect v-model="selectedRegionalFormat" class="mt-4" />
+        <NumberFormatSelect v-model="selectedNumberFormat" class="mt-6" />
       </v-card-text>
     </v-card>
   </div>

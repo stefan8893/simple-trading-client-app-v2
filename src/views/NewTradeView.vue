@@ -10,7 +10,7 @@ import ProfileSelect from '@/components/trading/ProfileSelect.vue';
 import TradeReferences from '@/components/trading/references/TradeReferences.vue';
 import ResultSelect from '@/components/trading/ResultSelect.vue';
 import { MessageKeys } from '@/i18n/language/message-keys.g';
-import { formatDateTime } from '@/i18n/regionalFormat/date-utils';
+import { formatDateTime } from '@/i18n/regionalFormat/date-formatter';
 
 const opened = ref<Date | null>(null);
 const closed = ref<Date | null>(null);

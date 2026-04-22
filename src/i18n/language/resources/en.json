@@ -75,7 +75,8 @@
     "settings": "Settings",
     "language": "Language",
     "regionalFormat": "Regional Format",
-    "regionalFormatHint": "Sets the format for dates and calendar weeks."
+    "regionalFormatHint": "Sets the format for dates and calendar weeks.",
+    "numberFormat": "Number Format"
   },
   "genericErrorMessage": "An error occurred while processing your request.",
   "german": "German",
