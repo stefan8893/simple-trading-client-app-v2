@@ -3,9 +3,9 @@ import { defineStore } from 'pinia';
 import { readonly, ref, type Ref, watch, type WritableComputedRef } from 'vue';
 import { useLocale } from 'vuetify';
 import {
-  getSupportedLanguage,
+  isSupportedLanguage,
   type SupportedLanguage,
-} from '@/i18n/language/language-locales';
+} from '@/i18n/regionalFormat/regional-format-locales';
 import i18n from '../i18n/language/i18n-config';
 
 export const defaultLanguage: SupportedLanguage = 'de';
@@ -53,7 +53,7 @@ function getInitialLanguage(): SupportedLanguage {
 
   const languages = usePreferredLanguages();
   const browserLanguage = languages.value?.[0]?.split('-')[0];
-  const supportedBrowserLanguage = getSupportedLanguage(browserLanguage);
+  const isSupported = isSupportedLanguage(browserLanguage);
 
-  return supportedBrowserLanguage ?? defaultLanguage;
+  return isSupported ? browserLanguage : defaultLanguage;
 }

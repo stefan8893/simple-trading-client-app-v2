@@ -2,18 +2,18 @@ import { useLocalStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { readonly, ref, type Ref, watch } from 'vue';
 import {
-  getSupportedLocale,
-  type SupportedNumberLocale,
-} from '@/i18n/numbers/number-locales';
+  isSupportedRegionalFormatLocale,
+  type SupportedRegionalFormatLocale,
+} from '@/i18n/regionalFormat/regional-format-locales';
 
-export const defaultLocale: SupportedNumberLocale = 'de-AT';
+export const defaultLocale: SupportedRegionalFormatLocale = 'de-AT';
 
 const numberFormatInLocalStorage = useLocalStorage<
-  SupportedNumberLocale | undefined
+  SupportedRegionalFormatLocale | undefined
 >('numberFormat', undefined);
 
 export const useNumberFormatStore = defineStore('numberFormat', () => {
-  const locale: Ref<SupportedNumberLocale> = ref(getInitialLocale());
+  const locale: Ref<SupportedRegionalFormatLocale> = ref(getInitialLocale());
 
   watch(
     locale,
@@ -23,7 +23,7 @@ export const useNumberFormatStore = defineStore('numberFormat', () => {
     { immediate: true },
   );
 
-  function update(newLanguage: SupportedNumberLocale) {
+  function update(newLanguage: SupportedRegionalFormatLocale) {
     locale.value = newLanguage;
   }
 
@@ -33,13 +33,13 @@ export const useNumberFormatStore = defineStore('numberFormat', () => {
   };
 });
 
-function getInitialLocale(): SupportedNumberLocale {
+function getInitialLocale(): SupportedRegionalFormatLocale {
   if (numberFormatInLocalStorage.value) {
     return numberFormatInLocalStorage.value;
   }
 
   const browserLocale = new Intl.Locale(navigator.language).baseName;
-  const supportedBrowserLocale = getSupportedLocale(browserLocale);
+  const isSupported = isSupportedRegionalFormatLocale(browserLocale);
 
-  return supportedBrowserLocale ?? defaultLocale;
+  return isSupported ? browserLocale : defaultLocale;
 }

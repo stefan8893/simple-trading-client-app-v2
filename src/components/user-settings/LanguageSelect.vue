@@ -1,21 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { storeToRefs } from 'pinia';
 import { MessageKeys } from '@/i18n/language/message-keys.g';
+import { useLocaleOptionsStore } from '@/stores/useLocaleOptionsStore';
 import BaseSelect from '../infrastructure/BaseSelect.vue';
 
-const { t } = useI18n();
-
-const items = computed(() => [
-  {
-    title: t(MessageKeys.german),
-    value: 'de',
-  },
-  {
-    title: t(MessageKeys.english),
-    value: 'en',
-  },
-]);
+const { languageOptions } = storeToRefs(useLocaleOptionsStore());
 
 const model = defineModel<string>();
 </script>
@@ -23,7 +12,7 @@ const model = defineModel<string>();
 <template>
   <BaseSelect
     v-model="model"
-    :items="items"
+    :items="languageOptions"
     :label="$t(MessageKeys.settings.language)"
   ></BaseSelect>
 </template>

@@ -2,7 +2,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { readonly, type Ref, ref, watch } from 'vue';
 import {
-  getSupportedLocale,
+  isSupportedRegionalFormatLocale,
   type SupportedRegionalFormatLocale,
 } from '@/i18n/regionalFormat/regional-format-locales';
 
@@ -39,7 +39,7 @@ function getInitialLocale(): SupportedRegionalFormatLocale {
   }
 
   const browserLocale = new Intl.Locale(navigator.language).baseName;
-  const supportedBrowserLocale = getSupportedLocale(browserLocale);
+  const isSupported = isSupportedRegionalFormatLocale(browserLocale);
 
-  return supportedBrowserLocale ?? defaultLocale;
+  return isSupported ? browserLocale : defaultLocale;
 }

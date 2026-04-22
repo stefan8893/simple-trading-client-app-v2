@@ -2,14 +2,12 @@
 import { parse } from 'date-fns';
 import { computed, ref } from 'vue';
 import { MessageKeys } from '@/i18n/language/message-keys.g';
-import {
-  formatTime,
-  getTimeFormat,
-} from '@/i18n/regionalFormat/date-formatter';
-import { useDateLocales } from '@/i18n/regionalFormat/useDateLocales';
-const { getCurrentLocale } = useDateLocales();
-const currentDateLocale = getCurrentLocale();
-const timeFormat = getTimeFormat(currentDateLocale) === '24H' ? '24hr' : 'ampm';
+import { formatTime, isHour12 } from '@/i18n/regionalFormat/date-formatter';
+import { useRegionalFormatStore } from '@/stores/useRegionalFormatStore';
+const { locale } = useRegionalFormatStore();
+
+const is12HFormat = isHour12(locale);
+const timeFormat = is12HFormat ? 'ampm' : '24hr';
 
 const model = defineModel<string | null | undefined>();
 const props = withDefaults(
@@ -25,7 +23,12 @@ const props = withDefaults(
 );
 
 const displayTime = computed(() =>
-  model.value ? formatTime(parse(model.value, 'HH:mm:ss', new Date())) : '',
+  model.value
+    ? formatTime(parse(model.value, 'HH:mm:ss', new Date()), {
+        timeStyle: 'medium',
+        hour12: is12HFormat,
+      })
+    : '',
 );
 
 const showTimePickerDialog = ref(false);

@@ -1,10 +1,10 @@
-import type { SupportedNumberLocale } from './number-locales';
+import type { SupportedRegionalFormatLocale } from '../regionalFormat/regional-format-locales';
 import { useNumberFormatStore } from '@/stores/useNumberFormatStore';
 
 export function formatNumber(
   value: number,
   options: Intl.NumberFormatOptions = {},
-  locale?: SupportedNumberLocale,
+  locale?: SupportedRegionalFormatLocale,
 ) {
   const numberFormatStore = useNumberFormatStore();
 

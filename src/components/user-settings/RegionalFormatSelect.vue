@@ -1,21 +1,10 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { storeToRefs } from 'pinia';
 import { MessageKeys } from '@/i18n/language/message-keys.g';
+import { useLocaleOptionsStore } from '@/stores/useLocaleOptionsStore';
 import BaseSelect from '../infrastructure/BaseSelect.vue';
 
-const { t } = useI18n();
-
-const items = computed(() => [
-  {
-    title: t(MessageKeys.locales.de_AT),
-    value: 'de-AT',
-  },
-  {
-    title: t(MessageKeys.locales.en_US),
-    value: 'en-US',
-  },
-]);
+const { regionalFormatOptions } = storeToRefs(useLocaleOptionsStore());
 
 const model = defineModel<string>();
 </script>
@@ -24,7 +13,7 @@ const model = defineModel<string>();
   <BaseSelect
     v-model="model"
     :hint="$t(MessageKeys.settings.regionalFormatHint)"
-    :items="items"
+    :items="regionalFormatOptions"
     :label="$t(MessageKeys.settings.regionalFormat)"
     :persistent-hint="true"
   ></BaseSelect>

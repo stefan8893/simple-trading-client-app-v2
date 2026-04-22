@@ -38,9 +38,9 @@ watch(selectedNumberFormat, (newValue) => {
       :title="$t(MessageKeys.settings.settings)"
     >
       <v-card-text>
-        <LanguageSelect v-model="selectedLanguage" />
-        <RegionalFormatSelect v-model="selectedRegionalFormat" class="mt-4" />
-        <NumberFormatSelect v-model="selectedNumberFormat" class="mt-6" />
+        <RegionalFormatSelect v-model="selectedRegionalFormat" />
+        <LanguageSelect v-model="selectedLanguage" class="mt-6" />
+        <NumberFormatSelect v-model="selectedNumberFormat" class="mt-4" />
       </v-card-text>
     </v-card>
   </div>

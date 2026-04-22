@@ -1,38 +1,72 @@
-import { format, type Locale } from 'date-fns';
-import { useDateLocales } from './useDateLocales';
+import { useLanguageStore } from '@/stores/useLanguageStore';
+import { useRegionalFormatStore } from '@/stores/useRegionalFormatStore';
 
-export const defaultDateFormat = 'P'; // de-AT: 01.04.2026
-export const defaultTimeFormat = 'pp'; // de-AT: 14:30:45
+const DEFAULT_DATE_OPTIONS: Intl.DateTimeFormatOptions = {
+  dateStyle: 'medium',
+};
 
-function formatInternal(date: Date, formatString: string) {
-  const dateLocales = useDateLocales();
+const DEFAULT_TIME_OPTIONS: Intl.DateTimeFormatOptions = {
+  timeStyle: 'medium',
+};
 
-  return format(date, formatString ?? defaultDateFormat, {
-    locale: dateLocales.getCurrentLocale(),
-  });
+const DEFAULT_DATETIME_OPTIONS: Intl.DateTimeFormatOptions = {
+  dateStyle: 'long',
+  timeStyle: 'short',
+};
+
+function getBcpTag(): string {
+  const { language } = useLanguageStore();
+  const { locale } = useRegionalFormatStore();
+
+  const regionSuffix = locale.includes('-') ? locale.split('-')[1] : locale;
+
+  console.log('region:', `${language}-${regionSuffix}`);
+  return `${language}-${regionSuffix}`;
 }
 
-export function formatDate(date: Date, formatString?: string) {
-  return formatInternal(date, formatString ?? defaultDateFormat);
+export function formatDate(date: Date, options = DEFAULT_DATE_OPTIONS) {
+  console.log('bcpTag', getBcpTag());
+  return new Intl.DateTimeFormat(getBcpTag(), options).format(date);
 }
 
-export function formatTime(date: Date, formatString?: string) {
-  return formatInternal(date, formatString ?? defaultTimeFormat);
+export function formatTime(date: Date, options = DEFAULT_TIME_OPTIONS) {
+  return new Intl.DateTimeFormat(getBcpTag(), options).format(date);
 }
 
-export function formatDateTime(date: Date, formatString?: string) {
-  return formatInternal(
-    date,
-    formatString ?? `${defaultDateFormat} ${defaultTimeFormat}`,
-  );
+export function formatDateTime(date: Date, options = DEFAULT_DATETIME_OPTIONS) {
+  return new Intl.DateTimeFormat(getBcpTag(), options).format(date);
 }
 
-export type TimeFormat = '24H' | 'AM/PM';
+export function isHour12(locale: string): boolean {
+  try {
+    const formatter = new Intl.DateTimeFormat(locale, { hour: 'numeric' });
+    return formatter.resolvedOptions().hour12 ?? false;
+  } catch {
+    return false;
+  }
+}
 
-export function getTimeFormat(locale: Locale): TimeFormat {
-  const timeFormat = locale.formatLong.time({});
-
-  return timeFormat.includes('HH') && !timeFormat.includes('a')
-    ? '24H'
-    : 'AM/PM';
+/**
+ * Determines the first day of the week for a given locale.
+ * Uses the modern `Intl.Locale` API to retrieve region-specific calendar data.
+ *
+ * @param locale - The BCP 47 language tag (e.g., 'de-DE', 'en-US').
+ * @returns The weekday as a number according to ISO standards:
+ * - `1`: Monday
+ * - `2`: Tuesday
+ * - `3`: Wednesday
+ * - `4`: Thursday
+ * - `5`: Friday
+ * - `6`: Saturday
+ * - `7`: Sunday
+ * * @example
+ * getFirstDayOfWeek('de-DE'); // returns 1
+ * getFirstDayOfWeek('en-US'); // returns 7
+ */
+export function getFirstDayOfWeek(locale: string): number {
+  try {
+    return (new Intl.Locale(locale) as any).getWeekInfo?.().firstDay ?? 1;
+  } catch {
+    return 1;
+  }
 }
