@@ -105,7 +105,7 @@ onMounted(async () => {
     <v-btn
       v-if="showEditBtn"
       class="hidden sm:block"
-      color="primary"
+      color="secondary"
       icon="ph:pencil-simple-line"
       variant="text"
       @click="startEditing"
@@ -113,15 +113,14 @@ onMounted(async () => {
 
     <v-btn
       v-if="showSaveBtn"
+      class="mx-0.5"
       color="primary"
       icon="ph:floppy-disk"
-      variant="text"
       @click="saveLink"
     />
 
     <v-btn
       v-if="showCancelBtn"
-      color="primary"
       icon="ph:x"
       variant="text"
       @click="cancelEdit"
@@ -190,7 +189,7 @@ onMounted(async () => {
       <v-btn
         v-if="showNotesBtn"
         class="hidden sm:block"
-        color="primary"
+        color="secondary"
         icon="ph:note"
         variant="text"
         @click="showNotesEditor = true"
@@ -200,7 +199,7 @@ onMounted(async () => {
     <v-btn
       v-if="showDeleteBtn"
       class="hidden sm:block"
-      color="primary"
+      color="error"
       icon="ph:trash"
       variant="text"
       @click="emit('remove-reference')"

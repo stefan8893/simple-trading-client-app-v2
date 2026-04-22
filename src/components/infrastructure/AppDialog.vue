@@ -40,7 +40,6 @@ function onCancel() {
               <v-icon
                 v-if="props.headerIcon"
                 class="font-light"
-                color="primary"
                 :icon="props.headerIcon"
                 size="small"
               ></v-icon>

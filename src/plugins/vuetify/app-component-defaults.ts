@@ -25,6 +25,9 @@ export const appComponentDefaults = {
   },
   VCardActions: {
     class: 'grid justify-items-end pb-6 pr-6',
+    VBtn: {
+      variant: 'tonal',
+    },
   },
   VSheet: {
     rounded: 'xl',

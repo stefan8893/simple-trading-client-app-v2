@@ -95,12 +95,13 @@ function edit() {
           v-if="showCancelBtn"
           color="error"
           :text="$t(MessageKeys.cancel)"
+          variant="text"
           @click="cancel"
         />
         <v-btn
           v-if="showCloseBtn"
-          color="accent"
           :text="$t(MessageKeys.close)"
+          variant="text"
           @click="close"
         />
         <v-btn
@@ -109,23 +110,20 @@ function edit() {
           color="primary"
           :disabled="!isSaveBtnEnabled"
           :text="$t(MessageKeys.save)"
-          variant="tonal"
           @click="save"
         />
         <v-btn
           v-if="showApplyBtn"
           class="ml-4"
-          color="primary"
+          color="secondary"
           :text="$t(MessageKeys.apply)"
-          variant="tonal"
           @click="apply"
         />
         <v-btn
           v-if="showEditBtn"
           class="ml-4"
-          color="primary"
+          color="secondary"
           :text="$t(MessageKeys.edit)"
-          variant="tonal"
           @click="edit"
         />
       </div>
