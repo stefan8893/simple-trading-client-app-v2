@@ -1,6 +1,7 @@
 import { useLocalStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { type Ref, ref, watch } from 'vue';
+import { useDate } from 'vuetify';
 import {
   getSupportedLocale,
   type SupportedLocale,
@@ -9,17 +10,19 @@ import {
 export const defaultLocale: SupportedLocale = 'de-AT';
 
 const localeInLocalStorage = useLocalStorage<SupportedLocale>(
-  'dateLocale',
+  'dateFormat',
   defaultLocale,
 );
 
 export const useDateFormatStore = defineStore('dateFormat', () => {
   const locale: Ref<SupportedLocale> = ref(getInitialLocale());
+  const { locale: vuetifyDateLocal } = useDate();
 
   watch(
     locale,
-    () => {
-      localeInLocalStorage.value = locale.value;
+    (newValue) => {
+      localeInLocalStorage.value = newValue;
+      vuetifyDateLocal.value = newValue;
     },
     { immediate: true },
   );

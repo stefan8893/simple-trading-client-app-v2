@@ -2,7 +2,7 @@
 import { useDateFormatStore } from './stores/useDateFormatStore';
 import { useLanguageStore } from './stores/useLanguageStore';
 
-// initialize language store
+// initialize stores
 useLanguageStore();
 useDateFormatStore();
 </script>
