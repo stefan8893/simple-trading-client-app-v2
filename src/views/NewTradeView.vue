@@ -74,7 +74,7 @@ watch(opened, () => {
             />
             <StepperNumberInput
               v-model="stopLoss"
-              currency="USD"
+              currency="EUR"
               error-message=""
               :initial-stepper-value="1.149"
               :label="$t(MessageKeys.trading.stopLoss)"

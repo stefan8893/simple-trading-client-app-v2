@@ -8,9 +8,24 @@ export function formatNumber(
 ) {
   const numberFormatStore = useNumberFormatStore();
 
-  return new Intl.NumberFormat(locale ?? numberFormatStore.locale, {
+  return new Intl.NumberFormat(locale ?? numberFormatStore.baseLocale, {
     maximumFractionDigits: 15,
     minimumFractionDigits: 0,
+    ...options,
+  }).format(value);
+}
+
+export function formatCurrency(
+  value: number,
+  options: Intl.NumberFormatOptions = {},
+  locale?: SupportedRegionalFormatLocale,
+) {
+  const numberFormatStore = useNumberFormatStore();
+
+  return new Intl.NumberFormat(locale ?? numberFormatStore.baseLocale, {
+    style: 'currency',
+    currency: 'EUR',
+    currencyDisplay: 'symbol',
     ...options,
   }).format(value);
 }

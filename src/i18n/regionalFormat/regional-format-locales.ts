@@ -4,6 +4,11 @@ export const supportedRegionalFormatLocales = [
   'de-DE',
   'en-US',
   'en-GB',
+  'es-MX',
+  'en-AU',
+  'en-NZ',
+  'ja-JP',
+  'en-CA',
 ] as const;
 
 export type SupportedLanguage =

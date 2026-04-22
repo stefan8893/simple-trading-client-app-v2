@@ -42,6 +42,7 @@ export const MessageKeys = {
 	genericErrorMessage: 'genericErrorMessage',
 	german: 'german',
 	english: 'english',
+	preview: 'preview',
 	light: 'light',
 	auto: 'auto',
 	dark: 'dark',

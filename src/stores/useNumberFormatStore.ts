@@ -1,53 +1,85 @@
+import type { NumberFormatOption } from '@/composables/useNumberFormatOptions';
+import type { SupportedRegionalFormatLocale } from '@/i18n/regionalFormat/regional-format-locales';
 import { useLocalStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
-import { readonly, ref, type Ref, watch } from 'vue';
-import {
-  isSupportedRegionalFormatLocale,
-  type SupportedRegionalFormatLocale,
-} from '@/i18n/regionalFormat/regional-format-locales';
+import { computed, readonly, ref, type Ref, watch } from 'vue';
 import { useLocaleOptionsStore } from './useLocaleOptionsStore';
 
-export const defaultLocale: SupportedRegionalFormatLocale = 'de-AT';
+export type NumberFormat = {
+  fingerprint: string;
+  baseLocale: SupportedRegionalFormatLocale;
+};
 
-const numberFormatInLocalStorage = useLocalStorage<
-  SupportedRegionalFormatLocale | undefined
->('numberFormat', undefined);
+const numberFormatInLocalStorage = useLocalStorage<string | undefined>(
+  'numberFormat',
+  undefined,
+);
 
 export const useNumberFormatStore = defineStore('numberFormat', () => {
   const { numberFormatOptions } = useLocaleOptionsStore();
-  const locale: Ref<SupportedRegionalFormatLocale> = ref(
-    getInitialLocale(numberFormatOptions),
+  const fingerprint: Ref<string> = ref(
+    getInitialFingerprint(numberFormatOptions),
+  );
+
+  const baseLocale = computed(
+    () =>
+      numberFormatOptions.find((x) => x.value === fingerprint.value)
+        ?.baseLocale ??
+      // fallback
+      numberFormatOptions[0].baseLocale,
+  );
+
+  const countryFlags = computed(
+    () =>
+      numberFormatOptions.find((x) => x.value === fingerprint.value)
+        ?.countryFlags ??
+      // fallback
+      numberFormatOptions[0].countryFlags,
   );
 
   watch(
-    locale,
+    fingerprint,
     (newValue) => {
       numberFormatInLocalStorage.value = newValue;
     },
     { immediate: true },
   );
 
-  function update(newLanguage: SupportedRegionalFormatLocale) {
-    locale.value = newLanguage;
+  function update(newFingerprint: string) {
+    const newNumberFormat = numberFormatOptions.find(
+      (x) => x.value === newFingerprint,
+    );
+
+    if (!newNumberFormat) return;
+
+    fingerprint.value = newFingerprint;
   }
 
   return {
-    locale: readonly(locale),
+    fingerprint: readonly(fingerprint),
+    baseLocale,
+    countryFlags,
     update,
   };
 });
 
-function getInitialLocale(
-  numberFormatOptions: { title: string; value: string }[],
-): SupportedRegionalFormatLocale {
+function getInitialFingerprint(
+  numberFormatOptions: NumberFormatOption[],
+): string {
   if (numberFormatInLocalStorage.value) {
     return numberFormatInLocalStorage.value;
   }
 
   const browserLocale = new Intl.Locale(navigator.language).baseName;
-  const isSupported =
-    numberFormatOptions.some((x) => x.value === browserLocale) &&
-    isSupportedRegionalFormatLocale(browserLocale);
+  const isLanguageOnly = browserLocale.length === 2;
 
-  return isSupported ? browserLocale : defaultLocale;
+  const supportedLocale = numberFormatOptions.find((x) =>
+    isLanguageOnly
+      ? (x.locales as string[]).some((x) => x.startsWith(browserLocale))
+      : (x.locales as string[]).includes(browserLocale),
+  );
+
+  const fallback = numberFormatOptions[0].value!;
+
+  return supportedLocale ? supportedLocale.value : fallback;
 }

@@ -21,6 +21,8 @@ export const appThemes = {
         'on-footer': colors.shades.white,
         'header-avatar-background': colors.shades.white,
         'on-header-avatar-background': colors.grey.darken3,
+        'surface-variant': colors.grey.lighten5,
+        'on-surface-variant': colors.grey.darken1,
 
         'trade-icon': convertOklchToHex(tailwindColors.blue[400]),
         'reference-icon': convertOklchToHex(tailwindColors.stone[500]),

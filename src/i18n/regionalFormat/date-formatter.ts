@@ -20,12 +20,10 @@ function getBcpTag(): string {
 
   const regionSuffix = locale.includes('-') ? locale.split('-')[1] : locale;
 
-  console.log('region:', `${language}-${regionSuffix}`);
   return `${language}-${regionSuffix}`;
 }
 
 export function formatDate(date: Date, options = DEFAULT_DATE_OPTIONS) {
-  console.log('bcpTag', getBcpTag());
   return new Intl.DateTimeFormat(getBcpTag(), options).format(date);
 }
 

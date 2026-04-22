@@ -39,7 +39,7 @@ const { inputRef, numberValue, formattedValue, setValue } = useCurrencyInput({
   currencyDisplay: props.showCurrency
     ? CurrencyDisplay.narrowSymbol
     : CurrencyDisplay.hidden,
-  locale: numberFormatStore.locale,
+  locale: numberFormatStore.baseLocale,
   hideGroupingSeparatorOnFocus: false,
   precision: props.precision,
   hideNegligibleDecimalDigitsOnFocus: true,

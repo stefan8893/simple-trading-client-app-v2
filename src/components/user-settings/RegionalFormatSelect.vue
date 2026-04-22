@@ -12,10 +12,8 @@ const model = defineModel<string>();
 <template>
   <BaseSelect
     v-model="model"
-    :hint="$t(MessageKeys.settings.regionalFormatHint)"
     :items="regionalFormatOptions"
     :label="$t(MessageKeys.settings.regionalFormat)"
-    :persistent-hint="true"
   ></BaseSelect>
 </template>
 
