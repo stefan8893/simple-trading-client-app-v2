@@ -25,11 +25,6 @@ const props = withDefaults(
 
 const displayValue = ref<string | null>(null);
 
-// Declare emitted events to avoid Vue warnings.
-// - 'change' is emitted by Vuetify's v-text-field internally (e.g., on stepper button clicks or input changes).
-//   While I don't explicitly emit it, declaring it silences Vue's warning about undeclared events.
-defineEmits(['change']);
-
 defineExpose({ increment, decrement });
 
 const numberFormatStore = useNumberFormatStore();
@@ -37,7 +32,7 @@ const { inputRef, numberValue, formattedValue, setValue } = useCurrencyInput({
   currency: props.currency,
   autoDecimalDigits: false,
   currencyDisplay: props.showCurrency
-    ? CurrencyDisplay.symbol
+    ? CurrencyDisplay.narrowSymbol
     : CurrencyDisplay.hidden,
   locale: numberFormatStore.locale,
   hideGroupingSeparatorOnFocus: false,
