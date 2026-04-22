@@ -5,7 +5,7 @@ import { useLocaleOptionsStore } from '@/stores/useLocaleOptionsStore';
 import BaseSelect from '../infrastructure/BaseSelect.vue';
 
 const { numberFormatOptions } = storeToRefs(useLocaleOptionsStore());
-
+console.log(numberFormatOptions.value);
 const model = defineModel<string>();
 </script>
 

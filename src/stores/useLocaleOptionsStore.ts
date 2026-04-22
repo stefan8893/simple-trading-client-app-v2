@@ -1,7 +1,17 @@
 import { defineStore, storeToRefs } from 'pinia';
 import { computed } from 'vue';
-import { supportedRegionalFormatLocales } from '@/i18n/regionalFormat/regional-format-locales';
+import {
+  type SupportedRegionalFormatLocale,
+  supportedRegionalFormatLocales,
+} from '@/i18n/regionalFormat/regional-format-locales';
 import { useLanguageStore } from './useLanguageStore';
+
+export type NumberFormatOption = {
+  title: string;
+  value: string;
+  baseLocale: SupportedRegionalFormatLocale;
+  locales: SupportedRegionalFormatLocale[];
+};
 
 function getFlagEmoji(countryCode: string) {
   return Array.from(countryCode.toUpperCase(), (char) =>
@@ -73,28 +83,46 @@ export const useLocaleOptionsStore = defineStore('localeOptions', () => {
   });
 
   const numberFormatOptions = computed(() => {
-    const TEST_NUMBER = 1234.56;
+    const TEST_NUMBER = 1234.5;
     const uniqueFormats = new Map<
       string,
-      { locales: string[]; flags: string[] }
+      {
+        locales: string[];
+        flags: string[];
+        formatted: string;
+        baseLocale: string;
+      }
     >();
 
     for (const item of localeMetadata.value) {
-      const formatted = new Intl.NumberFormat(item.locale).format(TEST_NUMBER);
+      const parts = new Intl.NumberFormat(item.locale).formatToParts(
+        TEST_NUMBER,
+      );
+      const group = parts.find((p) => p.type === 'group')?.value || '';
+      const decimal = parts.find((p) => p.type === 'decimal')?.value || '';
 
-      const entry = uniqueFormats.get(formatted) || { locales: [], flags: [] };
+      const fingerprint = `g:${group}|d:${decimal}`;
+
+      const entry = uniqueFormats.get(fingerprint) || {
+        locales: [],
+        flags: [],
+        formatted: new Intl.NumberFormat(item.locale).format(1234.56),
+        baseLocale: item.locale, // store the first locale as base
+      };
+
       entry.locales.push(item.locale);
       if (!entry.flags.includes(item.flag)) entry.flags.push(item.flag);
-      uniqueFormats.set(formatted, entry);
+      uniqueFormats.set(fingerprint, entry);
     }
 
-    return Array.from(uniqueFormats, ([formattedNumber, info]) => {
+    return Array.from(uniqueFormats, ([fingerprint, info]) => {
       return {
-        title: `${info.flags.join('')} ${formattedNumber}`,
-        value: info.locales.toSorted((a, b) => a.localeCompare(b))[0],
-        description: info.locales.join(', '),
-      };
-    }).toSorted((a, b) => a.value.localeCompare(b.value));
+        title: `${info.flags.join('')} ${info.formatted}`,
+        value: fingerprint,
+        baseLocale: info.baseLocale,
+        locales: info.locales,
+      } as NumberFormatOption;
+    }).toSorted((a, b) => a.baseLocale.localeCompare(b.baseLocale));
   });
 
   return {

@@ -23,8 +23,8 @@ watch(selectedRegionalFormat, (newValue) => {
 });
 
 const numberFormatStore = useNumberFormatStore();
-const selectedNumberFormat = ref(numberFormatStore.locale);
-
+const selectedNumberFormat = ref(numberFormatStore.fingerprint);
+console.log(selectedNumberFormat.value);
 watch(selectedNumberFormat, (newValue) => {
   numberFormatStore.update(newValue);
 });

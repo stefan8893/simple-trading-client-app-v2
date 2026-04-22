@@ -8,7 +8,7 @@ export function formatNumber(
 ) {
   const numberFormatStore = useNumberFormatStore();
 
-  return new Intl.NumberFormat(locale ?? numberFormatStore.locale, {
+  return new Intl.NumberFormat(locale ?? numberFormatStore.baseLocale, {
     maximumFractionDigits: 15,
     minimumFractionDigits: 0,
     ...options,
