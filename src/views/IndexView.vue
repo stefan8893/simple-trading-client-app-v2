@@ -6,11 +6,8 @@ import DateTimePicker from '@/components/infrastructure/dateTimePicker/DateTimeP
 import NumberInput from '@/components/infrastructure/numberInput/NumberInput.vue';
 import StepperNumberInput from '@/components/infrastructure/numberInput/StepperNumberInput.vue';
 import { MessageKeys } from '@/i18n/language/message-keys.g';
-import { useDateFormatStore } from '@/stores/useDateFormatStore';
 
 const { cycle } = useTheme();
-const localeStore = useDateFormatStore();
-localeStore.locale = 'de-AT';
 
 const dateTime = ref<Date | null>(null);
 </script>

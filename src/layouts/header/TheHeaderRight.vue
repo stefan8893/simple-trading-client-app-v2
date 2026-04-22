@@ -51,7 +51,7 @@ function logout() {
 
         <v-list nav slim>
           <v-list-item
-            :title="$t(MessageKeys.settings)"
+            :title="$t(MessageKeys.settings.settings)"
             @click="closeMenuAndNavigateTo('user-settings')"
           >
             <template #prepend>

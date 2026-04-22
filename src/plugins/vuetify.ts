@@ -1,5 +1,3 @@
-import AdapterDateFns from '@date-io/date-fns';
-import { deAT, enUS } from 'date-fns/locale';
 import { createVuetify } from 'vuetify';
 import { de, en } from 'vuetify/locale';
 import { appComponentDefaults } from './vuetify/app-component-defaults';
@@ -26,13 +24,9 @@ export default createVuetify({
   locale: {
     locale: 'de',
     fallback: 'en',
-    messages: { de, en },
-  },
-  date: {
-    adapter: AdapterDateFns,
-    locale: {
-      de: deAT,
-      en: enUS,
+    messages: {
+      de,
+      en,
     },
   },
 });

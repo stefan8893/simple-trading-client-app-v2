@@ -7,9 +7,7 @@
 export const MessageKeys = {
 	trading: { trade: 'trading.trade', asset: 'trading.asset', investment: 'trading.investment', newTrade: 'trading.newTrade', opened: 'trading.opened', finished: 'trading.finished', finishedOn: 'trading.finishedOn', finish: 'trading.finish', entryPrice: 'trading.entryPrice', exitPrice: 'trading.exitPrice', stopLoss: 'trading.stopLoss', takeProfit: 'trading.takeProfit', currency: 'trading.currency', profitLoss: 'trading.profitLoss', profit: 'trading.profit', loss: 'trading.loss', size: 'trading.size', reference: 'trading.reference', results: { result: 'trading.results.result', loss: 'trading.results.loss', breakEven: 'trading.results.breakEven', mediocre: 'trading.results.mediocre', win: 'trading.results.win', determineAutomatically: 'trading.results.determineAutomatically', }, note: 'trading.note', typeNotesInMarkdownEllipsis: 'trading.typeNotesInMarkdownEllipsis', emptyNote: 'trading.emptyNote', },
 	appearance: 'appearance',
-	language: 'language',
 	profile: 'profile',
-	settings: 'settings',
 	logout: 'logout',
 	login: 'login',
 	home: 'home',
@@ -39,6 +37,8 @@ export const MessageKeys = {
 	edit: 'edit',
 	delete: 'delete',
 	dates: { date: 'dates.date', time: 'dates.time', on: 'dates.on', at: 'dates.at', },
+	locales: { locale: 'locales.locale', de_AT: 'locales.de_AT', en_US: 'locales.en_US', },
+	settings: { settings: 'settings.settings', language: 'settings.language', regionalFormat: 'settings.regionalFormat', regionalFormatHint: 'settings.regionalFormatHint', },
 	genericErrorMessage: 'genericErrorMessage',
 	german: 'german',
 	english: 'english',

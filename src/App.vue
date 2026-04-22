@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { useDateFormatStore } from './stores/useDateFormatStore';
 import { useLanguageStore } from './stores/useLanguageStore';
+import { useRegionalFormatStore as useRegionalFormatStore } from './stores/useRegionalFormatStore';
 
-// initialize stores
+// initialize language and regional Stores
 useLanguageStore();
-useDateFormatStore();
+useRegionalFormatStore();
 </script>
 
 <template>

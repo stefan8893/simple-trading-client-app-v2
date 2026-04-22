@@ -31,9 +31,7 @@
     "emptyNote": "Keine Anmerkung"
   },
   "appearance": "Erscheinung",
-  "language": "Sprache",
   "profile": "Profil | Profile",
-  "settings": "Einstellungen",
   "logout": "Abmelden",
   "login": "Anmelden",
   "home": "Home",
@@ -67,6 +65,17 @@
     "time": "Zeit",
     "on": "Am",
     "at": "Um"
+  },
+  "locales": {
+    "locale": "Region",
+    "de_AT": "🇦🇹 Deutsch (Österreich)",
+    "en_US": "🇺🇸 Englisch (USA)"
+  },
+  "settings": {
+    "settings": "Einstellungen",
+    "language": "Sprache",
+    "regionalFormat": "Regionalformat",
+    "regionalFormatHint": "Steuert Datumsanzeige und Kalenderwochen."
   },
   "genericErrorMessage": "Beim Ausführen der Aktion ist ein Fehler aufgetreten.",
   "german": "Deutsch",

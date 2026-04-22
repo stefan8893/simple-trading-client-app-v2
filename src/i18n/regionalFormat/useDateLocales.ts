@@ -1,8 +1,8 @@
 import { deAT, enUS, type Locale } from 'date-fns/locale';
-import { useDateFormatStore } from '@/stores/useDateFormatStore';
+import { useRegionalFormatStore } from '@/stores/useRegionalFormatStore';
 
 export function useDateLocales() {
-  const localeStore = useDateFormatStore();
+  const localeStore = useRegionalFormatStore();
   const supportedLocales = [deAT, enUS];
 
   const getLocale = (code: string): Locale => {

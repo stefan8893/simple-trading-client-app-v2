@@ -23,11 +23,7 @@ export const useLanguageStore = defineStore('language', () => {
     language,
     (newValue) => {
       languageInLocalStorage.value = newValue;
-
-      (
-        i18n.global.locale as unknown as WritableComputedRef<SupportedLanguage>
-      ).value = newValue;
-
+      updateI18nLanguage(newValue);
       vuetifyLocale.value = newValue;
     },
     { immediate: true },
@@ -39,9 +35,16 @@ export const useLanguageStore = defineStore('language', () => {
 
   return {
     language: readonly(language),
-    udpateLanguage,
+    udpate: udpateLanguage,
   };
 });
+
+function updateI18nLanguage(newValue: SupportedLanguage) {
+  const i18nGlobalConfig = i18n.global
+    .locale as unknown as WritableComputedRef<SupportedLanguage>;
+
+  i18nGlobalConfig.value = newValue;
+}
 
 function getInitialLanguage(): SupportedLanguage {
   if (languageInLocalStorage.value) {

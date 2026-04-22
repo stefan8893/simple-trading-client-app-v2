@@ -44,7 +44,7 @@ const items: Ref<NavigationItem[]> = ref([
   },
   {
     icon: 'ph:gear-six',
-    messageKey: MessageKeys.settings,
+    messageKey: MessageKeys.settings.settings,
     routeName: 'user-settings',
     showTooltip: true,
   },

@@ -8,12 +8,12 @@ const { t } = useI18n();
 
 const items = computed(() => [
   {
-    title: t(MessageKeys.german),
-    value: 'de',
+    title: t(MessageKeys.locales.de_AT),
+    value: 'de-AT',
   },
   {
-    title: t(MessageKeys.english),
-    value: 'en',
+    title: t(MessageKeys.locales.en_US),
+    value: 'en-US',
   },
 ]);
 
@@ -23,8 +23,10 @@ const model = defineModel<string>();
 <template>
   <BaseSelect
     v-model="model"
+    :hint="$t(MessageKeys.settings.regionalFormatHint)"
     :items="items"
-    :label="$t(MessageKeys.settings.language)"
+    :label="$t(MessageKeys.settings.regionalFormat)"
+    :persistent-hint="true"
   ></BaseSelect>
 </template>
 

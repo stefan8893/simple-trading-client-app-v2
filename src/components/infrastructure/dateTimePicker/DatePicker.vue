@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { formatDate } from '@/i18n/dates/date-utils';
 import { MessageKeys } from '@/i18n/language/message-keys.g';
+import { formatDate } from '@/i18n/regionalFormat/date-utils';
+import { useDateLocales } from '@/i18n/regionalFormat/useDateLocales';
 
 const props = withDefaults(
   defineProps<{
@@ -21,6 +22,9 @@ const displayDate = computed(() =>
   model.value ? formatDate(model.value) : '',
 );
 const showDatePickerDialog = ref(false);
+
+const { getCurrentLocale } = useDateLocales();
+const weekStartsOn = getCurrentLocale().options?.weekStartsOn ?? 1;
 </script>
 
 <template>
@@ -40,6 +44,8 @@ const showDatePickerDialog = ref(false);
           <v-date-picker
             v-model="model"
             class="overflow-y-auto"
+            :first-day-of-week="weekStartsOn"
+            header-date-format="normalDate"
             show-adjacent-months
           />
         </template>

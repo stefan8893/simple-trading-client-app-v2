@@ -9,8 +9,8 @@ import MarkdownNotes from '@/components/trading/notes/MarkdownNotes.vue';
 import ProfileSelect from '@/components/trading/ProfileSelect.vue';
 import TradeReferences from '@/components/trading/references/TradeReferences.vue';
 import ResultSelect from '@/components/trading/ResultSelect.vue';
-import { formatDateTime } from '@/i18n/dates/date-utils';
 import { MessageKeys } from '@/i18n/language/message-keys.g';
+import { formatDateTime } from '@/i18n/regionalFormat/date-utils';
 
 const opened = ref<Date | null>(null);
 const closed = ref<Date | null>(null);

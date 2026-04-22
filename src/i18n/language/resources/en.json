@@ -31,9 +31,7 @@
     "emptyNote": "No note"
   },
   "appearance": "Appearence",
-  "language": "Language",
   "profile": "Profile | Profiles",
-  "settings": "Settings",
   "logout": "Logout",
   "login": "Login",
   "home": "Home",
@@ -67,6 +65,17 @@
     "time": "Time",
     "on": "On",
     "at": "At"
+  },
+  "locales": {
+    "locale": "Region",
+    "de_AT": "🇦🇹 German (Austria)",
+    "en_US": "🇺🇸 English (United States)"
+  },
+  "settings": {
+    "settings": "Settings",
+    "language": "Language",
+    "regionalFormat": "Regional Format",
+    "regionalFormatHint": "Sets the format for dates and calendar weeks."
   },
   "genericErrorMessage": "An error occurred while processing your request.",
   "german": "German",
