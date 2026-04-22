@@ -1,4 +1,4 @@
-import { usePreferredLanguages, useStorage } from '@vueuse/core';
+import { useLocalStorage, usePreferredLanguages } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { readonly, ref, type Ref, watch, type WritableComputedRef } from 'vue';
 import { useLocale } from 'vuetify';
@@ -10,10 +10,9 @@ import i18n from '../i18n/language/i18n-config';
 
 export const defaultLanguage: SupportedLanguage = 'de';
 
-const languageInLocalStorage = useStorage<SupportedLanguage | undefined>(
+const languageInLocalStorage = useLocalStorage<SupportedLanguage>(
   'language',
-  undefined,
-  localStorage,
+  defaultLanguage,
 );
 
 export const useLanguageStore = defineStore('language', () => {
