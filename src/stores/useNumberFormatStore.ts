@@ -5,6 +5,7 @@ import {
   isSupportedRegionalFormatLocale,
   type SupportedRegionalFormatLocale,
 } from '@/i18n/regionalFormat/regional-format-locales';
+import { useLocaleOptionsStore } from './useLocaleOptionsStore';
 
 export const defaultLocale: SupportedRegionalFormatLocale = 'de-AT';
 
@@ -13,7 +14,10 @@ const numberFormatInLocalStorage = useLocalStorage<
 >('numberFormat', undefined);
 
 export const useNumberFormatStore = defineStore('numberFormat', () => {
-  const locale: Ref<SupportedRegionalFormatLocale> = ref(getInitialLocale());
+  const { numberFormatOptions } = useLocaleOptionsStore();
+  const locale: Ref<SupportedRegionalFormatLocale> = ref(
+    getInitialLocale(numberFormatOptions),
+  );
 
   watch(
     locale,
@@ -33,13 +37,17 @@ export const useNumberFormatStore = defineStore('numberFormat', () => {
   };
 });
 
-function getInitialLocale(): SupportedRegionalFormatLocale {
+function getInitialLocale(
+  numberFormatOptions: { title: string; value: string }[],
+): SupportedRegionalFormatLocale {
   if (numberFormatInLocalStorage.value) {
     return numberFormatInLocalStorage.value;
   }
 
   const browserLocale = new Intl.Locale(navigator.language).baseName;
-  const isSupported = isSupportedRegionalFormatLocale(browserLocale);
+  const isSupported =
+    numberFormatOptions.some((x) => x.value === browserLocale) &&
+    isSupportedRegionalFormatLocale(browserLocale);
 
   return isSupported ? browserLocale : defaultLocale;
 }
