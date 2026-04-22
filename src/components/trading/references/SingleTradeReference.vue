@@ -145,7 +145,7 @@ onMounted(async () => {
           @click="startEditing"
         >
           <template #prepend>
-            <v-icon color="primary" size="small" />
+            <v-icon color="secondary" size="small" />
           </template>
         </v-list-item>
 
@@ -157,12 +157,12 @@ onMounted(async () => {
         >
           <template #prepend>
             <v-badge
-              color="secondary"
+              color="info"
               dot
               location="top right"
               :model-value="!!model.notes"
             >
-              <v-icon color="primary" size="small" />
+              <v-icon color="info" size="small" />
             </v-badge>
           </template>
         </v-list-item>
@@ -173,7 +173,7 @@ onMounted(async () => {
           @click="emit('remove-reference')"
         >
           <template #prepend>
-            <v-icon color="primary" size="small" />
+            <v-icon color="error" size="small" />
           </template>
         </v-list-item>
       </v-list>
@@ -181,7 +181,7 @@ onMounted(async () => {
 
     <v-badge
       class="hidden sm:block"
-      color="secondary"
+      color="info"
       dot
       location="top right"
       :model-value="!!model.notes"
@@ -189,7 +189,7 @@ onMounted(async () => {
       <v-btn
         v-if="showNotesBtn"
         class="hidden sm:block"
-        color="secondary"
+        color="info"
         icon="ph:note"
         variant="text"
         @click="showNotesEditor = true"
