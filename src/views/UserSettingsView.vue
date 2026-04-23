@@ -44,6 +44,7 @@ watch(selectedNumberFormat, (newValue) => {
 const previewDate = set(startOfMonth(addMonths(new Date(), 1)), {
   hours: 14,
   minutes: 30,
+  seconds: 45,
 });
 
 const numberPreview = computed(() => formatNumber(4567.89));
