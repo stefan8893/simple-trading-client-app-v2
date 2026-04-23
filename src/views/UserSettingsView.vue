@@ -109,9 +109,11 @@ const weekStartsOn = computed(
 
           <div class="flex flex-row justify-center mt-2">
             <span class="font-semibold font-mono">
-              <v-slide-y-transition :key="numberPreview" mode="out-in">{{
-                numberPreview
-              }}</v-slide-y-transition>
+              <v-slide-y-transition mode="out-in">
+                <div :key="numberPreview">
+                  {{ numberPreview }}
+                </div>
+              </v-slide-y-transition>
             </span>
           </div>
 
