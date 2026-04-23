@@ -103,8 +103,11 @@ const weekStartsOn = computed(
         <LanguageSelect v-model="selectedLanguage" class="mt-4" />
         <NumberFormatSelect v-model="selectedNumberFormat" class="mt-4" />
 
-        <v-sheet class="px-4 py-2.5 mt-8 w-full" elevation="0">
-          <span class="text-lg font-semibold">{{
+        <v-sheet
+          class="py-2.5 mt-8 w-full flex flex-col flex-nowrap justify-start items-center"
+          elevation="0"
+        >
+          <span class="text-lg font-semibold self-start">{{
             $t(MessageKeys.preview)
           }}</span>
 
@@ -118,7 +121,7 @@ const weekStartsOn = computed(
             </span>
           </div>
 
-          <v-divider class="my-2"></v-divider>
+          <v-divider class="my-2 max-w-96 w-full"></v-divider>
 
           <div class="flex flex-row justify-center">
             <span class="font-semibold font-mono">
@@ -140,7 +143,7 @@ const weekStartsOn = computed(
             </span>
           </div>
 
-          <v-divider class="my-2"></v-divider>
+          <v-divider class="my-2 max-w-96 w-full"></v-divider>
 
           <div class="flex flex-row justify-center">
             <span class="font-semibold font-mono">
@@ -162,7 +165,7 @@ const weekStartsOn = computed(
             </span>
           </div>
 
-          <v-divider class="my-2"></v-divider>
+          <v-divider class="my-2 max-w-96 w-full"></v-divider>
 
           <div class="flex flex-row justify-center">
             <span class="font-semibold font-mono">
@@ -184,7 +187,8 @@ const weekStartsOn = computed(
             </span>
           </div>
 
-          <v-divider class="my-2"></v-divider>
+          <v-divider class="my-2 max-w-96 w-full"></v-divider>
+
           <div class="flex flex-row justify-center">
             <span class="font-semibold font-mono">
               <v-slide-y-transition mode="out-in">
