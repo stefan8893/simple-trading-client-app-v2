@@ -8,8 +8,6 @@ import {
 } from '@/i18n/regionalFormat/regional-format-locales';
 import i18n from '../i18n/language/i18n-config';
 
-export const defaultLanguage: SupportedLanguage = 'de';
-
 const languageInLocalStorage = useLocalStorage<SupportedLanguage | undefined>(
   'language',
   undefined,
@@ -51,9 +49,16 @@ function getInitialLanguage(): SupportedLanguage {
     return languageInLocalStorage.value;
   }
 
-  const languages = usePreferredLanguages();
-  const browserLanguage = languages.value?.[0]?.split('-')[0];
-  const isSupported = isSupportedLanguage(browserLanguage);
+  const preferred = usePreferredLanguages();
+  const fallback: SupportedLanguage = 'en';
 
-  return isSupported ? browserLanguage : defaultLanguage;
+  for (const pref of preferred.value) {
+    const langCode = pref.split('-')[0] as SupportedLanguage;
+
+    if (isSupportedLanguage(langCode)) {
+      return langCode;
+    }
+  }
+
+  return fallback;
 }

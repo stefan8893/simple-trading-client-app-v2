@@ -1,12 +1,11 @@
-import { useLocalStorage } from '@vueuse/core';
+import { useLocalStorage, usePreferredLanguages } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { readonly, type Ref, ref, watch } from 'vue';
 import {
   isSupportedRegionalFormatLocale,
   type SupportedRegionalFormatLocale,
+  supportedRegionalFormatLocales,
 } from '@/i18n/regionalFormat/regional-format-locales';
-
-export const defaultLocale: SupportedRegionalFormatLocale = 'de-AT';
 
 const regionalFormatInLocalStorage = useLocalStorage<
   SupportedRegionalFormatLocale | undefined
@@ -38,8 +37,26 @@ function getInitialLocale(): SupportedRegionalFormatLocale {
     return regionalFormatInLocalStorage.value;
   }
 
-  const browserLocale = new Intl.Locale(navigator.language).baseName;
-  const isSupported = isSupportedRegionalFormatLocale(browserLocale);
+  const preferredLanguages = usePreferredLanguages();
+  const fallback: SupportedRegionalFormatLocale = 'en-US';
 
-  return isSupported ? browserLocale : defaultLocale;
+  for (const lang of preferredLanguages.value) {
+    const locale = new Intl.Locale(lang);
+    const base = locale.baseName;
+
+    if (isSupportedRegionalFormatLocale(base)) {
+      return base;
+    }
+
+    if (!locale.region) {
+      const match = supportedRegionalFormatLocales.find((x) =>
+        x.startsWith(`${locale.language}-`),
+      );
+      if (match) {
+        return match;
+      }
+    }
+  }
+
+  return fallback;
 }

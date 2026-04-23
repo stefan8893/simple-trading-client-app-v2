@@ -1,6 +1,6 @@
 import type { NumberFormatOption } from '@/composables/useNumberFormatOptions';
 import type { SupportedRegionalFormatLocale } from '@/i18n/regionalFormat/regional-format-locales';
-import { useLocalStorage } from '@vueuse/core';
+import { useLocalStorage, usePreferredLanguages } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { computed, readonly, ref, type Ref, watch } from 'vue';
 import { useLocaleOptionsStore } from './useLocaleOptionsStore';
@@ -62,7 +62,6 @@ export const useNumberFormatStore = defineStore('numberFormat', () => {
     update,
   };
 });
-
 function getInitialFingerprint(
   numberFormatOptions: NumberFormatOption[],
 ): string {
@@ -70,16 +69,33 @@ function getInitialFingerprint(
     return numberFormatInLocalStorage.value;
   }
 
-  const browserLocale = new Intl.Locale(navigator.language).baseName;
-  const isLanguageOnly = browserLocale.length === 2;
+  const preferredLanguages = usePreferredLanguages();
+  const fallbackLocale: SupportedRegionalFormatLocale = 'en-US';
 
-  const supportedLocale = numberFormatOptions.find((x) =>
-    isLanguageOnly
-      ? (x.locales as string[]).some((x) => x.startsWith(browserLocale))
-      : (x.locales as string[]).includes(browserLocale),
-  );
+  const findOption = (localeOfInterest: string, exact: boolean) => {
+    return numberFormatOptions.find((opt) => {
+      const locales = opt.locales as string[];
+      return exact
+        ? locales.includes(localeOfInterest)
+        : locales.some((l) => l.startsWith(localeOfInterest));
+    });
+  };
 
-  const fallback = numberFormatOptions[0].value!;
+  for (const lang of preferredLanguages.value) {
+    const locale = new Intl.Locale(lang);
+    const base = locale.baseName;
 
-  return supportedLocale ? supportedLocale.value : fallback;
+    let match = findOption(base, true);
+    if (match) {
+      return match.value;
+    }
+
+    if (!locale.region) {
+      match = findOption(base, false);
+      if (match) return match.value;
+    }
+  }
+
+  const fallback = findOption(fallbackLocale, true) ?? numberFormatOptions[0];
+  return fallback.value;
 }
