@@ -1,21 +1,23 @@
 <script setup lang="ts">
 import { addMonths, set, startOfMonth } from 'date-fns';
 import { storeToRefs } from 'pinia';
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import LanguageSelect from '@/components/user-settings/LanguageSelect.vue';
 import NumberFormatSelect from '@/components/user-settings/NumberFormatSelect.vue';
 import RegionalFormatSelect from '@/components/user-settings/RegionalFormatSelect.vue';
 import { MessageKeys } from '@/i18n/language/message-keys.g';
 import { formatCurrency, formatNumber } from '@/i18n/numbers/number-formatter';
-import { formatDate, formatTime } from '@/i18n/regionalFormat/date-formatter';
+import {
+  formatDate,
+  formatTime,
+  getFirstDayOfWeek,
+} from '@/i18n/regionalFormat/date-formatter';
 import { useLanguageStore } from '@/stores/useLanguageStore';
 import { useNumberFormatStore } from '@/stores/useNumberFormatStore';
 import { useRegionalFormatStore } from '@/stores/useRegionalFormatStore';
 
-const dummyDateTime = set(startOfMonth(addMonths(new Date(), 1)), {
-  hours: 14,
-  minutes: 30,
-});
+const { t } = useI18n();
 
 const languageStore = useLanguageStore();
 const selectedLanguage = ref(languageStore.language);
@@ -38,6 +40,54 @@ const selectedNumberFormat = ref(fingerprint.value);
 watch(selectedNumberFormat, (newValue) => {
   numberFormatStore.update(newValue);
 });
+
+const previewDate = set(startOfMonth(addMonths(new Date(), 1)), {
+  hours: 14,
+  minutes: 30,
+});
+
+const numberPreview = computed(() => formatNumber(4567.89));
+
+const currencyPreviewEUR = computed(() =>
+  formatCurrency(12_345.67, {
+    currency: 'EUR',
+    currencyDisplay: 'symbol',
+  }),
+);
+
+const currencyPreviewUSD = computed(() =>
+  formatCurrency(12_345.67, {
+    currency: 'USD',
+    currencyDisplay: 'symbol',
+  }),
+);
+
+const datePreviewMedium = computed(() => formatDate(previewDate));
+const timePreviewMedium = computed(() => formatTime(previewDate));
+
+const dateTimePreviewShort = computed(() =>
+  formatTime(previewDate, {
+    dateStyle: 'short',
+    timeStyle: 'short',
+  }),
+);
+
+const dateTimePreviewLong = computed(() =>
+  formatTime(previewDate, {
+    dateStyle: 'full',
+    timeStyle: 'medium',
+  }),
+);
+
+const firstDayOfWeekStartsOn = computed(() =>
+  getFirstDayOfWeek(regionalFormatStore.locale) === 1
+    ? t(MessageKeys.dates.weekdays.monday)
+    : t(MessageKeys.dates.weekdays.sunday),
+);
+
+const weekStartsOn = computed(
+  () => `${t(MessageKeys.dates.weekStartsOn)} ${firstDayOfWeekStartsOn.value}`,
+);
 </script>
 
 <template>
@@ -52,60 +102,94 @@ watch(selectedNumberFormat, (newValue) => {
         <LanguageSelect v-model="selectedLanguage" class="mt-4" />
         <NumberFormatSelect v-model="selectedNumberFormat" class="mt-4" />
 
-        <v-sheet
-          class="px-4 py-2.5 mt-8 w-full border"
-          elevation="0"
-          rounded="xl"
-        >
+        <v-sheet class="px-4 py-2.5 mt-8 w-full" elevation="0">
           <span class="text-lg font-semibold">{{
             $t(MessageKeys.preview)
           }}</span>
 
           <div class="flex flex-row justify-center mt-2">
-            <span class="font-semibold font-mono">{{
-              formatNumber(4567.89)
-            }}</span>
-          </div>
-
-          <div class="flex flex-row justify-center">
-            <span class="font-semibold font-mono">{{
-              formatCurrency(12345.67, {
-                currency: 'EUR',
-                currencyDisplay: 'narrowSymbol',
-              })
-            }}</span>
+            <span class="font-semibold font-mono">
+              <v-slide-y-transition :key="numberPreview" mode="out-in">{{
+                numberPreview
+              }}</v-slide-y-transition>
+            </span>
           </div>
 
           <v-divider class="my-2"></v-divider>
 
           <div class="flex flex-row justify-center">
-            <span class="font-semibold font-mono">{{
-              formatDate(dummyDateTime)
-            }}</span>
+            <span class="font-semibold font-mono">
+              <v-slide-y-transition mode="out-in">
+                <div :key="currencyPreviewEUR">
+                  {{ currencyPreviewEUR }}
+                </div>
+              </v-slide-y-transition>
+            </span>
           </div>
 
           <div class="flex flex-row justify-center">
-            <span class="font-semibold font-mono">{{
-              formatTime(dummyDateTime)
-            }}</span>
+            <span class="font-semibold font-mono">
+              <v-slide-y-transition mode="out-in">
+                <div :key="currencyPreviewUSD">
+                  {{ currencyPreviewUSD }}
+                </div>
+              </v-slide-y-transition>
+            </span>
+          </div>
+
+          <v-divider class="my-2"></v-divider>
+
+          <div class="flex flex-row justify-center">
+            <span class="font-semibold font-mono">
+              <v-slide-y-transition mode="out-in">
+                <div :key="datePreviewMedium">
+                  {{ datePreviewMedium }}
+                </div>
+              </v-slide-y-transition>
+            </span>
           </div>
 
           <div class="flex flex-row justify-center">
-            <span class="font-semibold font-mono">{{
-              formatTime(dummyDateTime, {
-                dateStyle: 'short',
-                timeStyle: 'short',
-              })
-            }}</span>
+            <span class="font-semibold font-mono">
+              <v-slide-y-transition mode="out-in">
+                <div :key="timePreviewMedium">
+                  {{ timePreviewMedium }}
+                </div>
+              </v-slide-y-transition>
+            </span>
+          </div>
+
+          <v-divider class="my-2"></v-divider>
+
+          <div class="flex flex-row justify-center">
+            <span class="font-semibold font-mono">
+              <v-slide-y-transition mode="out-in">
+                <div :key="dateTimePreviewShort">
+                  {{ dateTimePreviewShort }}
+                </div>
+              </v-slide-y-transition>
+            </span>
           </div>
 
           <div class="flex flex-row justify-center">
-            <span class="font-semibold font-mono">{{
-              formatTime(dummyDateTime, {
-                dateStyle: 'full',
-                timeStyle: 'medium',
-              })
-            }}</span>
+            <span class="font-semibold font-mono">
+              <v-slide-y-transition mode="out-in">
+                <div :key="dateTimePreviewLong">
+                  {{ dateTimePreviewLong }}
+                </div>
+              </v-slide-y-transition>
+            </span>
+          </div>
+
+          <v-divider class="my-2"></v-divider>
+          <div class="flex flex-row justify-center">
+            <span class="font-semibold font-mono">
+              <v-slide-y-transition mode="out-in">
+                <div :key="weekStartsOn">
+                  {{ weekStartsOn }}
+                </div>
+              </v-slide-y-transition>
+            </span>
           </div>
         </v-sheet>
       </v-card-text>

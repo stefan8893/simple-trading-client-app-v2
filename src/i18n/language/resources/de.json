@@ -64,12 +64,15 @@
     "date": "Datum",
     "time": "Zeit",
     "on": "Am",
-    "at": "Um"
+    "at": "Um",
+    "weekdays": {
+      "monday": "Montag",
+      "sunday": "Sonntag"
+    },
+    "weekStartsOn": "Woche startet am"
   },
   "locales": {
-    "locale": "Region",
-    "de_AT": "🇦🇹 Deutsch (Österreich)",
-    "en_US": "🇺🇸 Englisch (USA)"
+    "locale": "Region"
   },
   "settings": {
     "settings": "Einstellungen",
