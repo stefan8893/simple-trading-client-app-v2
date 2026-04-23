@@ -49,14 +49,14 @@ function getInitialLanguage(): SupportedLanguage {
     return languageInLocalStorage.value;
   }
 
-  const preferred = usePreferredLanguages();
+  const preferredLanguages = usePreferredLanguages();
   const fallback: SupportedLanguage = 'en';
 
-  for (const pref of preferred.value) {
-    const langCode = pref.split('-')[0] as SupportedLanguage;
+  for (const language of preferredLanguages.value) {
+    const languageCode = language.split('-')[0] as SupportedLanguage;
 
-    if (isSupportedLanguage(langCode)) {
-      return langCode;
+    if (isSupportedLanguage(languageCode)) {
+      return languageCode;
     }
   }
 

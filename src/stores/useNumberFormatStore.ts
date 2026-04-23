@@ -21,21 +21,13 @@ export const useNumberFormatStore = defineStore('numberFormat', () => {
     getInitialFingerprint(numberFormatOptions),
   );
 
-  const baseLocale = computed(
-    () =>
+  const baseLocale = computed(() => {
+    const fallback = numberFormatOptions[0].baseLocale;
+    return (
       numberFormatOptions.find((x) => x.value === fingerprint.value)
-        ?.baseLocale ??
-      // fallback
-      numberFormatOptions[0].baseLocale,
-  );
-
-  const countryFlags = computed(
-    () =>
-      numberFormatOptions.find((x) => x.value === fingerprint.value)
-        ?.countryFlags ??
-      // fallback
-      numberFormatOptions[0].countryFlags,
-  );
+        ?.baseLocale ?? fallback
+    );
+  });
 
   watch(
     fingerprint,
@@ -58,10 +50,10 @@ export const useNumberFormatStore = defineStore('numberFormat', () => {
   return {
     fingerprint: readonly(fingerprint),
     baseLocale,
-    countryFlags,
     update,
   };
 });
+
 function getInitialFingerprint(
   numberFormatOptions: NumberFormatOption[],
 ): string {
@@ -81,8 +73,8 @@ function getInitialFingerprint(
     });
   };
 
-  for (const lang of preferredLanguages.value) {
-    const locale = new Intl.Locale(lang);
+  for (const language of preferredLanguages.value) {
+    const locale = new Intl.Locale(language);
     const base = locale.baseName;
 
     let match = findOption(base, true);

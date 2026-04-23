@@ -7,3 +7,8 @@ export type LocaleMetadata = {
   regionName: string;
   countryFlag: string;
 };
+
+export type OptionBase = {
+  title: string;
+  value: string;
+};

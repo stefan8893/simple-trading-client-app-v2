@@ -1,10 +1,8 @@
-import type { LocaleMetadata } from './composable.types';
+import type { LocaleMetadata, OptionBase } from './composable.types';
 import type { SupportedRegionalFormatLocale } from '@/i18n/regionalFormat/regional-format-locales';
 import { computed, type ComputedRef } from 'vue';
 
-export type NumberFormatOption = {
-  title: string;
-  value: string;
+export type NumberFormatOption = OptionBase & {
   baseLocale: SupportedRegionalFormatLocale;
   locales: SupportedRegionalFormatLocale[];
   countryFlags: string[];
@@ -49,19 +47,38 @@ export function useNumberFormatOptions(
   return numberFormatOptions;
 }
 
-function getSeparator(
-  parts: Intl.NumberFormatPart[],
-  currencyIndex: number,
-  integerIndex: number,
+function merge(
+  localeMetadata: LocaleMetadata,
+  acc: Map<string, UniqueNumberFormat>,
+  next: UniqueNumberFormat,
 ) {
-  const separatorPart = parts.find((p, i) => {
-    const isBetween =
-      (i === currencyIndex + 1 && i < integerIndex) ||
-      (i === currencyIndex - 1 && i > integerIndex);
-    return isBetween && p.type === 'literal';
+  const entry = acc.get(next.fingerprint) ?? next;
+
+  if (!entry.locales.includes(localeMetadata.locale))
+    entry.locales.push(localeMetadata.locale);
+
+  if (!entry.countryFlags.includes(localeMetadata.countryFlag))
+    entry.countryFlags.push(localeMetadata.countryFlag);
+
+  return acc.set(next.fingerprint, entry);
+}
+
+function createUniqueNumberFormat(
+  localeMetadata: LocaleMetadata,
+): UniqueNumberFormat {
+  const exampleFormat = new Intl.NumberFormat(localeMetadata.locale, {
+    style: 'decimal',
   });
 
-  return separatorPart ? encodeURIComponent(separatorPart.value) : 'none';
+  const fingerprint = createFingerprint(localeMetadata);
+
+  return {
+    fingerprint,
+    locales: [localeMetadata.locale],
+    countryFlags: [localeMetadata.countryFlag],
+    formatted: exampleFormat.format(1234.56),
+    baseLocale: localeMetadata.locale,
+  };
 }
 
 function createFingerprint(localeMetadata: LocaleMetadata) {
@@ -85,36 +102,17 @@ function createFingerprint(localeMetadata: LocaleMetadata) {
   return `cur:${currency}|cp:${position}|g:${group}|d:${decimal}|s:${separator}`;
 }
 
-function createUniqueNumberFormat(
-  localeMetadata: LocaleMetadata,
-): UniqueNumberFormat {
-  const exampleFormat = new Intl.NumberFormat(localeMetadata.locale, {
-    style: 'decimal',
+function getSeparator(
+  parts: Intl.NumberFormatPart[],
+  currencyIndex: number,
+  integerIndex: number,
+) {
+  const separatorPart = parts.find((p, i) => {
+    const isBetween =
+      (i === currencyIndex + 1 && i < integerIndex) ||
+      (i === currencyIndex - 1 && i > integerIndex);
+    return isBetween && p.type === 'literal';
   });
 
-  const fingerprint = createFingerprint(localeMetadata);
-
-  return {
-    fingerprint,
-    locales: [localeMetadata.locale],
-    countryFlags: [localeMetadata.countryFlag],
-    formatted: exampleFormat.format(1234.56),
-    baseLocale: localeMetadata.locale,
-  };
-}
-
-function merge(
-  localeMetadata: LocaleMetadata,
-  acc: Map<string, UniqueNumberFormat>,
-  next: UniqueNumberFormat,
-) {
-  const entry = acc.get(next.fingerprint) ?? next;
-
-  if (!entry.locales.includes(localeMetadata.locale))
-    entry.locales.push(localeMetadata.locale);
-
-  if (!entry.countryFlags.includes(localeMetadata.countryFlag))
-    entry.countryFlags.push(localeMetadata.countryFlag);
-
-  return acc.set(next.fingerprint, entry);
+  return separatorPart ? encodeURIComponent(separatorPart.value) : 'none';
 }

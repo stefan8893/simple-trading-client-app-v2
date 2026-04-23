@@ -1,9 +1,9 @@
-import type { LocaleMetadata } from './composable.types';
+import type { LocaleMetadata, OptionBase } from './composable.types';
 import { computed, type ComputedRef } from 'vue';
 
 export function useLanguageOptions(
   localeMetadata: ComputedRef<LocaleMetadata[]>,
-) {
+): ComputedRef<OptionBase[]> {
   const languageOptions = computed(() => {
     const uniqueLanguageCodes = new Set<string>(
       localeMetadata.value.map((x) => x.languageCode),

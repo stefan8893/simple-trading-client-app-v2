@@ -40,8 +40,8 @@ function getInitialLocale(): SupportedRegionalFormatLocale {
   const preferredLanguages = usePreferredLanguages();
   const fallback: SupportedRegionalFormatLocale = 'en-US';
 
-  for (const lang of preferredLanguages.value) {
-    const locale = new Intl.Locale(lang);
+  for (const language of preferredLanguages.value) {
+    const locale = new Intl.Locale(language);
     const base = locale.baseName;
 
     if (isSupportedRegionalFormatLocale(base)) {
