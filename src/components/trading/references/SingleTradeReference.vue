@@ -8,6 +8,7 @@ const model = defineModel<ReferenceModel>({ required: true });
 const props = defineProps<{
   tradeId?: string;
   sortableHandleClass: string;
+  isDragging: boolean;
 }>();
 
 const showNotesEditor = ref(false);
@@ -74,8 +75,11 @@ onMounted(async () => {
 <template>
   <div class="flex flex-row flex-wrap items-center grow shrink min-w-0">
     <v-icon
-      class="sortable-reference-handle cursor-grab mr-2"
-      :class="props.sortableHandleClass"
+      class="sortable-reference-handle mr-2"
+      :class="[
+        props.sortableHandleClass,
+        props.isDragging ? 'cursor-grabbing' : 'cursor-grab',
+      ]"
       color="primary"
       icon="ph:list-bold"
     />
@@ -216,6 +220,10 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.sortable-reference-handle:active {
+  cursor: grabbing;
+}
+
 .sortable-reference-ghost button {
   color: transparent;
 }

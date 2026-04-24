@@ -75,6 +75,7 @@ watch(
 );
 
 const sortableContainer = useTemplateRef('sortable-references');
+const isDragging = ref(false);
 useSortable(sortableContainer, internalReferences, {
   animation: 200,
   handle: '.sortable-reference-handle',
@@ -83,6 +84,7 @@ useSortable(sortableContainer, internalReferences, {
   ghostClass: 'sortable-reference-ghost',
   forceFallback: true,
   onStart: (event) => {
+    isDragging.value = true;
     const container = event.to;
     const currentHeight = container.offsetHeight;
 
@@ -91,6 +93,7 @@ useSortable(sortableContainer, internalReferences, {
   },
 
   onEnd: (event) => {
+    isDragging.value = false;
     const container = event.to;
 
     container.style.height = '';
@@ -135,7 +138,15 @@ function highlight(internalKey: string) {
 </script>
 
 <template>
-  <div ref="sortable-references">
+  <div
+    ref="sortable-references"
+    :class="{
+      // cursor needs to be set in two different places in order to provide a smooth user experience
+      // 1. Here
+      // 2. In SingleTradeReference component
+      'cursor-grabbing': isDragging,
+    }"
+  >
     <div
       v-for="item in internalReferences"
       :key="item.internalKey"
@@ -147,6 +158,7 @@ function highlight(internalKey: string) {
     >
       <SingleTradeReference
         v-model="item as ReferenceModel"
+        :is-dragging="isDragging"
         sortable-handle-class="sortable-reference-handle"
         :trade-id="props.tradeId"
         @highlight="highlight(item.internalKey)"
