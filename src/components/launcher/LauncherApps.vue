@@ -38,7 +38,7 @@ onClickOutside(sortableContainer, () => {
 <template>
   <div
     ref="launcher-apps"
-    class="launcher-apps-container grid justify-items-center"
+    class="launcher-apps-container grid justify-items-center select-none"
   >
     <div
       ref="sortable-apps"
