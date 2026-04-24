@@ -19,4 +19,24 @@
   .is-highlighted-primary {
     background-color: rgba(var(--v-theme-primary), 0.1);
   }
+
+  .glow-bg-enter-active {
+    animation: glow-bg-effect 0.6s ease-out;
+  }
+
+  @keyframes glow-bg-effect {
+    0% {
+      background-color: rgba(var(--v-theme-info), 0.7);
+      transform: scale(1.03);
+    }
+
+    50% {
+      background-color: rgba(var(--v-theme-info), 0.5);
+    }
+
+    100% {
+      background-color: transparent;
+      transform: scale(1);
+    }
+  }
 }

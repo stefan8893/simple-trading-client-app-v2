@@ -104,34 +104,43 @@ const firstDayOfWeek = computed(() =>
               {{ $t(MessageKeys.number, 2) }}
             </div>
 
-            <div class="flex flex-col flex-nowrap gap-0.5">
+            <div class="flex flex-col flex-nowrap gap-1">
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60">{{ $t(MessageKeys.number) }}</span>
-                <v-slide-y-transition mode="out-in">
-                  <div :key="numberPreview" class="font-mono font-medium">
+                <transition mode="out-in" name="glow-bg">
+                  <div
+                    :key="numberPreview"
+                    class="font-mono font-medium inline-block"
+                  >
                     {{ numberPreview }}
                   </div>
-                </v-slide-y-transition>
+                </transition>
               </div>
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60"
                   >{{ $t(MessageKeys.trading.currency) }} (EUR)</span
                 >
-                <v-slide-y-transition mode="out-in">
-                  <div :key="currencyPreviewEUR" class="font-mono font-medium">
+                <transition mode="out-in" name="glow-bg">
+                  <div
+                    :key="currencyPreviewEUR"
+                    class="font-mono font-medium inline-block"
+                  >
                     {{ currencyPreviewEUR }}
                   </div>
-                </v-slide-y-transition>
+                </transition>
               </div>
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60"
                   >{{ $t(MessageKeys.trading.currency) }} (USD)</span
                 >
-                <v-slide-y-transition mode="out-in">
-                  <div :key="currencyPreviewUSD" class="font-mono font-medium">
+                <transition mode="out-in" name="glow-bg">
+                  <div
+                    :key="currencyPreviewUSD"
+                    class="font-mono font-medium inline-block"
+                  >
                     {{ currencyPreviewUSD }}
                   </div>
-                </v-slide-y-transition>
+                </transition>
               </div>
             </div>
 
@@ -140,55 +149,64 @@ const firstDayOfWeek = computed(() =>
             >
               {{ $t(MessageKeys.calendar) }}
             </div>
-            <div class="flex flex-col flex-nowrap gap-0.5">
+            <div class="flex flex-col flex-nowrap gap-1">
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60"
                   >{{ $t(MessageKeys.dates.date) }}
                 </span>
-                <v-slide-y-transition mode="out-in">
-                  <div :key="datePreviewMedium" class="font-mono font-medium">
+                <transition mode="out-in" name="glow-bg">
+                  <div
+                    :key="datePreviewMedium"
+                    class="font-mono font-medium inline-block"
+                  >
                     {{ datePreviewMedium }}
                   </div>
-                </v-slide-y-transition>
+                </transition>
               </div>
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60">{{ $t(MessageKeys.dates.time) }}</span>
-                <v-slide-y-transition mode="out-in">
-                  <div :key="timePreviewMedium" class="font-mono font-medium">
+                <transition mode="out-in" name="glow-bg">
+                  <div
+                    :key="timePreviewMedium"
+                    class="font-mono font-medium inline-block"
+                  >
                     {{ timePreviewMedium }}
                   </div>
-                </v-slide-y-transition>
+                </transition>
               </div>
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60">{{
                   $t(MessageKeys.dates.calendarWeek)
                 }}</span>
-                <v-slide-y-transition mode="out-in">
-                  <div :key="week" class="font-mono font-medium">
+                <transition mode="out-in" name="glow-bg">
+                  <div :key="week" class="font-mono font-medium inline-block">
                     {{ week }}
                   </div>
-                </v-slide-y-transition>
+                </transition>
               </div>
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60">{{
                   $t(MessageKeys.dates.fullFormat)
                 }}</span>
-                <v-slide-y-transition mode="out-in">
-                  <div :key="dateTimePreviewLong" class="font-mono font-medium">
+                <transition mode="out-in" name="glow-bg">
+                  <div
+                    :key="dateTimePreviewLong"
+                    class="font-mono font-medium inline-block"
+                  >
                     {{ dateTimePreviewLong }}
                   </div>
-                </v-slide-y-transition>
+                </transition>
               </div>
               <v-divider class="my-4"></v-divider>
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60">{{
                   $t(MessageKeys.dates.weekStart)
                 }}</span>
-                <v-slide-y-transition mode="out-in">
-                  <div :key="firstDayOfWeek" class="font-medium">
+                <transition mode="out-in" name="glow-bg">
+                  <div :key="firstDayOfWeek" class="font-medium inline-block">
                     {{ firstDayOfWeek }}
                   </div>
-                </v-slide-y-transition>
+                </transition>
               </div>
             </div>
           </v-card-text>
