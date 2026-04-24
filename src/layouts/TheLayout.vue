@@ -55,11 +55,15 @@ watch(isMobile, (changedToMobile) => {
 });
 
 const main = useTemplateRef('main');
-const { isSwiping, direction } = useSwipe(main);
+const { isSwiping, direction, coordsStart } = useSwipe(main);
 
-watch(isSwiping, () => {
-  if (isMobile.value && direction.value === 'right') {
-    toggleSidebar(true);
+watch(isSwiping, (swiping) => {
+  if (swiping && isMobile.value && direction.value === 'right') {
+    const edgeThreshold = 50;
+
+    if (coordsStart.x > edgeThreshold) {
+      toggleSidebar(true);
+    }
   }
 });
 </script>
@@ -104,11 +108,12 @@ watch(isSwiping, () => {
   </v-navigation-drawer>
 
   <v-main class="grid justify-items-center">
-    <div
-      ref="main"
-      class="max-w-5xl min-w-75 w-full px-2.5 sm:px-5 mt-5 sm:mt-10 mb-36 grow"
-    >
-      <RouterView />
+    <div ref="main" class="w-full h-full">
+      <div
+        class="max-w-5xl min-w-75 w-full px-2.5 sm:px-5 mt-5 sm:mt-10 mb-36 grow"
+      >
+        <RouterView />
+      </div>
     </div>
   </v-main>
 </template>
