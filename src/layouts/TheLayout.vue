@@ -3,6 +3,7 @@ import { useLocalStorage } from '@vueuse/core';
 import { ref, watch } from 'vue';
 import { useDisplay } from 'vuetify';
 import packageInfo from '@/../package.json';
+import TextCopy from '@/components/infrastructure/TextCopy.vue';
 import TheHeaderRight from './header/TheHeaderRight.vue';
 import TheHeaderTitle from './header/TheHeaderTitle.vue';
 import TheNavigation from './TheNavigation.vue';
@@ -86,9 +87,9 @@ watch(isMobile, (changedToMobile) => {
       />
 
       <div v-if="isSidebarExpanded" class="mt-5">
-        <span class="float-end pr-4 pb-2.5 text-sm font-mono font-light">{{
-          packageInfo.version
-        }}</span>
+        <span class="float-end pr-4 pb-2.5 text-sm font-mono font-light">
+          <TextCopy :text="packageInfo.version" />
+        </span>
       </div>
     </div>
   </v-navigation-drawer>
