@@ -105,18 +105,16 @@ const firstDayOfWeek = computed(() =>
             </div>
 
             <div class="flex flex-col flex-nowrap gap-0.5">
-              <div class="flex flex-row flex-wrap justify-end gap-x-4">
-                <span class="opacity-60 mr-auto">{{
-                  $t(MessageKeys.number)
-                }}</span>
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
+                <span class="opacity-60">{{ $t(MessageKeys.number) }}</span>
                 <v-slide-y-transition mode="out-in">
                   <div :key="numberPreview" class="font-mono font-medium">
                     {{ numberPreview }}
                   </div>
                 </v-slide-y-transition>
               </div>
-              <div class="flex flex-row flex-wrap justify-end gap-x-4">
-                <span class="opacity-60 mr-auto"
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
+                <span class="opacity-60"
                   >{{ $t(MessageKeys.trading.currency) }} (EUR)</span
                 >
                 <v-slide-y-transition mode="out-in">
@@ -125,8 +123,8 @@ const firstDayOfWeek = computed(() =>
                   </div>
                 </v-slide-y-transition>
               </div>
-              <div class="flex flex-row flex-wrap justify-end gap-x-4">
-                <span class="opacity-60 mr-auto"
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
+                <span class="opacity-60"
                   >{{ $t(MessageKeys.trading.currency) }} (USD)</span
                 >
                 <v-slide-y-transition mode="out-in">
@@ -143,8 +141,8 @@ const firstDayOfWeek = computed(() =>
               {{ $t(MessageKeys.calendar) }}
             </div>
             <div class="flex flex-col flex-nowrap gap-0.5">
-              <div class="flex flex-row flex-wrap justify-end gap-x-4">
-                <span class="opacity-60 mr-auto"
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
+                <span class="opacity-60"
                   >{{ $t(MessageKeys.dates.date) }}
                 </span>
                 <v-slide-y-transition mode="out-in">
@@ -153,18 +151,16 @@ const firstDayOfWeek = computed(() =>
                   </div>
                 </v-slide-y-transition>
               </div>
-              <div class="flex flex-row flex-wrap justify-end gap-x-4">
-                <span class="opacity-60 mr-auto">{{
-                  $t(MessageKeys.dates.time)
-                }}</span>
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
+                <span class="opacity-60">{{ $t(MessageKeys.dates.time) }}</span>
                 <v-slide-y-transition mode="out-in">
                   <div :key="timePreviewMedium" class="font-mono font-medium">
                     {{ timePreviewMedium }}
                   </div>
                 </v-slide-y-transition>
               </div>
-              <div class="flex flex-row flex-wrap justify-end gap-x-4">
-                <span class="opacity-60 mr-auto">{{
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
+                <span class="opacity-60">{{
                   $t(MessageKeys.dates.calendarWeek)
                 }}</span>
                 <v-slide-y-transition mode="out-in">
@@ -173,8 +169,8 @@ const firstDayOfWeek = computed(() =>
                   </div>
                 </v-slide-y-transition>
               </div>
-              <div class="flex flex-row flex-wrap justify-end gap-x-4">
-                <span class="opacity-60 mr-auto">{{
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
+                <span class="opacity-60">{{
                   $t(MessageKeys.dates.fullFormat)
                 }}</span>
                 <v-slide-y-transition mode="out-in">
@@ -184,8 +180,8 @@ const firstDayOfWeek = computed(() =>
                 </v-slide-y-transition>
               </div>
               <v-divider class="my-4"></v-divider>
-              <div class="flex flex-row flex-wrap justify-end gap-x-4">
-                <span class="opacity-60 mr-auto">{{
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
+                <span class="opacity-60">{{
                   $t(MessageKeys.dates.weekStart)
                 }}</span>
                 <v-slide-y-transition mode="out-in">
