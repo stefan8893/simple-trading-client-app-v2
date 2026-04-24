@@ -93,13 +93,14 @@ function edit() {
       <div>
         <v-btn
           v-if="showCancelBtn"
-          color="error"
+          color="accent"
           :text="$t(MessageKeys.cancel)"
           variant="text"
           @click="cancel"
         />
         <v-btn
           v-if="showCloseBtn"
+          color="accent"
           :text="$t(MessageKeys.close)"
           variant="text"
           @click="close"
