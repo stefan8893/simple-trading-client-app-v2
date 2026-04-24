@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { addMonths, set, startOfMonth } from 'date-fns';
 import { storeToRefs } from 'pinia';
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -41,11 +40,7 @@ watch(selectedNumberFormat, (newValue) => {
   numberFormatStore.update(newValue);
 });
 
-const previewDate = set(startOfMonth(addMonths(new Date(), 1)), {
-  hours: 14,
-  minutes: 30,
-  seconds: 45,
-});
+const previewDate = new Date();
 
 const numberPreview = computed(() => formatNumber(4567.89));
 
@@ -66,13 +61,6 @@ const currencyPreviewUSD = computed(() =>
 const datePreviewMedium = computed(() => formatDate(previewDate));
 const timePreviewMedium = computed(() => formatTime(previewDate));
 
-const dateTimePreviewShort = computed(() =>
-  formatTime(previewDate, {
-    dateStyle: 'short',
-    timeStyle: 'short',
-  }),
-);
-
 const dateTimePreviewLong = computed(() =>
   formatTime(previewDate, {
     dateStyle: 'full',
@@ -80,21 +68,17 @@ const dateTimePreviewLong = computed(() =>
   }),
 );
 
-const firstDayOfWeekStartsOn = computed(() =>
+const firstDayOfWeek = computed(() =>
   getFirstDayOfWeek(regionalFormatStore.locale) === 1
     ? t(MessageKeys.dates.weekdays.monday)
     : t(MessageKeys.dates.weekdays.sunday),
-);
-
-const weekStartsOn = computed(
-  () => `${t(MessageKeys.dates.weekStartsOn)} ${firstDayOfWeekStartsOn.value}`,
 );
 </script>
 
 <template>
   <div class="grid justify-items-center">
     <v-card
-      class="max-w-lg w-full"
+      class="max-w-xl w-full"
       tag="form"
       :title="$t(MessageKeys.settings.settings)"
     >
@@ -103,102 +87,97 @@ const weekStartsOn = computed(
         <LanguageSelect v-model="selectedLanguage" class="mt-4" />
         <NumberFormatSelect v-model="selectedNumberFormat" class="mt-4" />
 
-        <v-sheet
-          class="py-2.5 mt-8 w-full flex flex-col flex-nowrap justify-start items-center"
-          elevation="0"
-        >
-          <span class="text-lg font-semibold self-start">{{
-            $t(MessageKeys.preview)
-          }}</span>
+        <v-card class="mt-10" variant="tonal">
+          <v-card-title>
+            {{ $t(MessageKeys.preview) }}
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <div
+              class="text-xs font-bold uppercase tracking-wider opacity-40 mt-6 mb-2"
+            >
+              {{ $t(MessageKeys.number, 2) }}
+            </div>
 
-          <div class="flex flex-row justify-center mt-2">
-            <span class="font-semibold font-mono">
-              <v-slide-y-transition mode="out-in">
-                <div :key="numberPreview">
-                  {{ numberPreview }}
-                </div>
-              </v-slide-y-transition>
-            </span>
-          </div>
+            <div class="flex flex-col flex-nowrap gap-1">
+              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+                <span class="opacity-60">{{ $t(MessageKeys.number) }}</span>
+                <v-slide-y-transition mode="out-in">
+                  <div :key="numberPreview" class="font-mono font-medium">
+                    {{ numberPreview }}
+                  </div>
+                </v-slide-y-transition>
+              </div>
+              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+                <span class="opacity-60"
+                  >{{ $t(MessageKeys.trading.currency) }} (EUR)</span
+                >
+                <v-slide-y-transition mode="out-in">
+                  <div :key="currencyPreviewEUR" class="font-mono font-medium">
+                    {{ currencyPreviewEUR }}
+                  </div>
+                </v-slide-y-transition>
+              </div>
+              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+                <span class="opacity-60"
+                  >{{ $t(MessageKeys.trading.currency) }} (USD)</span
+                >
+                <v-slide-y-transition mode="out-in">
+                  <div :key="currencyPreviewUSD" class="font-mono font-medium">
+                    {{ currencyPreviewUSD }}
+                  </div>
+                </v-slide-y-transition>
+              </div>
+            </div>
 
-          <v-divider class="my-2 max-w-96 w-full"></v-divider>
-
-          <div class="flex flex-row justify-center">
-            <span class="font-semibold font-mono">
-              <v-slide-y-transition mode="out-in">
-                <div :key="currencyPreviewEUR">
-                  {{ currencyPreviewEUR }}
-                </div>
-              </v-slide-y-transition>
-            </span>
-          </div>
-
-          <div class="flex flex-row justify-center">
-            <span class="font-semibold font-mono">
-              <v-slide-y-transition mode="out-in">
-                <div :key="currencyPreviewUSD">
-                  {{ currencyPreviewUSD }}
-                </div>
-              </v-slide-y-transition>
-            </span>
-          </div>
-
-          <v-divider class="my-2 max-w-96 w-full"></v-divider>
-
-          <div class="flex flex-row justify-center">
-            <span class="font-semibold font-mono">
-              <v-slide-y-transition mode="out-in">
-                <div :key="datePreviewMedium">
-                  {{ datePreviewMedium }}
-                </div>
-              </v-slide-y-transition>
-            </span>
-          </div>
-
-          <div class="flex flex-row justify-center">
-            <span class="font-semibold font-mono">
-              <v-slide-y-transition mode="out-in">
-                <div :key="timePreviewMedium">
-                  {{ timePreviewMedium }}
-                </div>
-              </v-slide-y-transition>
-            </span>
-          </div>
-
-          <v-divider class="my-2 max-w-96 w-full"></v-divider>
-
-          <div class="flex flex-row justify-center">
-            <span class="font-semibold font-mono">
-              <v-slide-y-transition mode="out-in">
-                <div :key="dateTimePreviewShort">
-                  {{ dateTimePreviewShort }}
-                </div>
-              </v-slide-y-transition>
-            </span>
-          </div>
-
-          <div class="flex flex-row justify-center">
-            <span class="font-semibold font-mono">
-              <v-slide-y-transition mode="out-in">
-                <div :key="dateTimePreviewLong">
-                  {{ dateTimePreviewLong }}
-                </div>
-              </v-slide-y-transition>
-            </span>
-          </div>
-
-          <v-divider class="my-2 max-w-96 w-full"></v-divider>
-
-          <div class="flex flex-row justify-center">
-            <span class="font-semibold font-mono">
-              <v-slide-y-transition mode="out-in">
-                <div :key="weekStartsOn">
-                  {{ weekStartsOn }}
-                </div>
-              </v-slide-y-transition>
-            </span>
-          </div>
-        </v-sheet>
+            <div
+              class="text-xs font-bold uppercase tracking-wider opacity-40 mt-6 mb-2"
+            >
+              {{ $t(MessageKeys.calendar) }}
+            </div>
+            <div class="flex flex-col flex-nowrap gap-1">
+              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+                <span class="opacity-60"
+                  >{{ $t(MessageKeys.dates.date) }}
+                </span>
+                <v-slide-y-transition mode="out-in">
+                  <div :key="datePreviewMedium" class="font-mono font-medium">
+                    {{ datePreviewMedium }}
+                  </div>
+                </v-slide-y-transition>
+              </div>
+              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+                <span class="opacity-60">{{ $t(MessageKeys.dates.time) }}</span>
+                <v-slide-y-transition mode="out-in">
+                  <div :key="timePreviewMedium" class="font-mono font-medium">
+                    {{ timePreviewMedium }}
+                  </div>
+                </v-slide-y-transition>
+              </div>
+              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+                <span class="opacity-60">{{
+                  $t(MessageKeys.dates.fullFormat)
+                }}</span>
+                <v-slide-y-transition mode="out-in">
+                  <div :key="dateTimePreviewLong" class="font-mono font-medium">
+                    {{ dateTimePreviewLong }}
+                  </div>
+                </v-slide-y-transition>
+              </div>
+              <v-divider class="my-4"></v-divider>
+              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+                <span class="opacity-60">{{
+                  $t(MessageKeys.dates.weekStart)
+                }}</span>
+                <v-slide-y-transition mode="out-in">
+                  <div :key="firstDayOfWeek" class="font-medium">
+                    {{ firstDayOfWeek }}
+                  </div>
+                </v-slide-y-transition>
+              </div>
+            </div>
+          </v-card-text>
+        </v-card>
       </v-card-text>
     </v-card>
   </div>

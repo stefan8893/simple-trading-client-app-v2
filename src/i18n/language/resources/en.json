@@ -69,11 +69,14 @@
       "monday": "Monday",
       "sunday": "Sunday"
     },
-    "weekStartsOn": "Week starts on"
+    "weekStart": "Week starts on",
+    "fullFormat": "Full format"
   },
   "locales": {
     "locale": "Region"
   },
+  "number": "Number | Numbers",
+  "calendar": "Calendar",
   "settings": {
     "settings": "Settings",
     "language": "Language",

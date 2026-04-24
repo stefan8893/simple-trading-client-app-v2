@@ -25,6 +25,11 @@ export const appThemes = {
         'trade-icon': convertOklchToHex(tailwindColors.blue[400]),
         'reference-icon': convertOklchToHex(tailwindColors.stone[500]),
       },
+      variables: {
+        // this controls how much of the color comes through in 'tonal' variant
+        'activated-opacity': 0.05,
+        'idle-opacity': 0.05,
+      },
     },
     dark: {
       dark: true,

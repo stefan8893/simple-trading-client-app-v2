@@ -69,11 +69,14 @@
       "monday": "Montag",
       "sunday": "Sonntag"
     },
-    "weekStartsOn": "Woche startet am"
+    "weekStart": "Wochenstart",
+    "fullFormat": "Vollständig"
   },
   "locales": {
     "locale": "Region"
   },
+  "number": "Zahl | Zahlen",
+  "calendar": "Kalender",
   "settings": {
     "settings": "Einstellungen",
     "language": "Sprache",
