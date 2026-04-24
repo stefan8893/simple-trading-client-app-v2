@@ -24,7 +24,7 @@ export default defineConfig({
         families: [
           {
             name: 'JetBrains Mono',
-            weights: [400, 700],
+            weights: [300, 400, 700],
             subset: 'latin',
           },
           {

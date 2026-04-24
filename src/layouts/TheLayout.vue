@@ -85,8 +85,10 @@ watch(isMobile, (changedToMobile) => {
         @toggle-sidebar="toggleSidebar"
       />
 
-      <div v-if="isSidebarExpanded" class="text-sm mt-5">
-        <pre class="float-end pr-4 pb-2.5">{{ packageInfo.version }}</pre>
+      <div v-if="isSidebarExpanded" class="mt-5">
+        <span class="float-end pr-4 pb-2.5 text-sm font-mono font-light">{{
+          packageInfo.version
+        }}</span>
       </div>
     </div>
   </v-navigation-drawer>
