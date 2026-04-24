@@ -1,3 +1,19 @@
+import type {
+  SupportedLanguage,
+  SupportedRegionalFormatLocale,
+} from './regional-format-locales';
+import { getWeek, type Locale } from 'date-fns';
+import {
+  de,
+  deAT,
+  enAU,
+  enCA,
+  enGB,
+  enNZ,
+  enUS,
+  es,
+  ja,
+} from 'date-fns/locale';
 import { useLanguageStore } from '@/stores/useLanguageStore';
 import { useRegionalFormatStore } from '@/stores/useRegionalFormatStore';
 
@@ -13,6 +29,28 @@ const DEFAULT_DATETIME_OPTIONS: Intl.DateTimeFormatOptions = {
   dateStyle: 'long',
   timeStyle: 'short',
 };
+
+const supportedLocales: Record<
+  SupportedRegionalFormatLocale | SupportedLanguage,
+  Locale
+> = {
+  'de-AT': deAT,
+  'de-DE': de,
+  'en-US': enUS,
+  'en-GB': enGB,
+  'de-CH': de,
+  'es-MX': es,
+  'en-AU': enAU,
+  'en-NZ': enNZ,
+  'ja-JP': ja,
+  'en-CA': enCA,
+  de: deAT,
+  en: enUS,
+  es,
+  ja,
+};
+
+const fallbackLocale: SupportedRegionalFormatLocale = 'en-US';
 
 function getBcpTag(): string {
   const { language } = useLanguageStore();
@@ -45,26 +83,23 @@ export function isHour12(locale: string): boolean {
 }
 
 /**
- * Determines the first day of the week for a given locale.
- * Uses the modern `Intl.Locale` API to retrieve region-specific calendar data.
- *
- * @param locale - The BCP 47 language tag (e.g., 'de-DE', 'en-US').
- * @returns The weekday as a number according to ISO standards:
- * - `1`: Monday
- * - `2`: Tuesday
- * - `3`: Wednesday
- * - `4`: Thursday
- * - `5`: Friday
- * - `6`: Saturday
- * - `7`: Sunday
- * * @example
- * getFirstDayOfWeek('de-DE'); // returns 1
- * getFirstDayOfWeek('en-US'); // returns 7
+ * determines the first day of the week based on the given locale
+ * @returns 1 (Mo) to 0 (Su)
  */
-export function getFirstDayOfWeek(locale: string): number {
-  try {
-    return (new Intl.Locale(locale) as any).getWeekInfo?.().firstDay ?? 1;
-  } catch {
-    return 1;
-  }
+export function getFirstDayOfWeek(
+  localeId: SupportedRegionalFormatLocale | SupportedLanguage,
+): number {
+  const locale = supportedLocales[localeId] ?? supportedLocales[fallbackLocale];
+
+  // 0 = Sunday, 1 = Monday
+  return locale.options?.weekStartsOn ?? 0;
+}
+
+export function getCalendarWeek(
+  date: Date,
+  localeId: SupportedRegionalFormatLocale | SupportedLanguage,
+) {
+  const locale = supportedLocales[localeId] ?? supportedLocales[fallbackLocale];
+
+  return getWeek(date, { locale });
 }

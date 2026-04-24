@@ -70,6 +70,7 @@
       "sunday": "Sunday"
     },
     "weekStart": "Week starts on",
+    "calendarWeek": "Week",
     "fullFormat": "Full format"
   },
   "locales": {

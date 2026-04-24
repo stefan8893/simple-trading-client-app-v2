@@ -70,6 +70,7 @@
       "sunday": "Sonntag"
     },
     "weekStart": "Wochenstart",
+    "calendarWeek": "Kalenderwoche",
     "fullFormat": "Vollständig"
   },
   "locales": {

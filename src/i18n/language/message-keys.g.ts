@@ -36,7 +36,7 @@ export const MessageKeys = {
 	apply: 'apply',
 	edit: 'edit',
 	delete: 'delete',
-	dates: { date: 'dates.date', time: 'dates.time', on: 'dates.on', at: 'dates.at', weekdays: { monday: 'dates.weekdays.monday', sunday: 'dates.weekdays.sunday', }, weekStart: 'dates.weekStart', fullFormat: 'dates.fullFormat', },
+	dates: { date: 'dates.date', time: 'dates.time', on: 'dates.on', at: 'dates.at', weekdays: { monday: 'dates.weekdays.monday', sunday: 'dates.weekdays.sunday', }, weekStart: 'dates.weekStart', calendarWeek: 'dates.calendarWeek', fullFormat: 'dates.fullFormat', },
 	locales: { locale: 'locales.locale', },
 	number: 'number',
 	calendar: 'calendar',

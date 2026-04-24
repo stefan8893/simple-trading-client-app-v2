@@ -40,8 +40,7 @@ const datePickerHeaderDate = computed(() =>
 const showDatePickerDialog = ref(false);
 
 const { locale } = useRegionalFormatStore();
-const weekStartsOn = getFirstDayOfWeek(locale);
-const firstDayOfWeek = weekStartsOn === 7 ? 0 : weekStartsOn;
+const firstDayOfWeek = getFirstDayOfWeek(locale);
 </script>
 
 <template>

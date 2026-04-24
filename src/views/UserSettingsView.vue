@@ -10,6 +10,7 @@ import { formatCurrency, formatNumber } from '@/i18n/numbers/number-formatter';
 import {
   formatDate,
   formatTime,
+  getCalendarWeek,
   getFirstDayOfWeek,
 } from '@/i18n/regionalFormat/date-formatter';
 import { useLanguageStore } from '@/stores/useLanguageStore';
@@ -61,6 +62,10 @@ const currencyPreviewUSD = computed(() =>
 const datePreviewMedium = computed(() => formatDate(previewDate));
 const timePreviewMedium = computed(() => formatTime(previewDate));
 
+const week = computed(() =>
+  getCalendarWeek(previewDate, regionalFormatStore.locale),
+);
+
 const dateTimePreviewLong = computed(() =>
   formatTime(previewDate, {
     dateStyle: 'full',
@@ -94,7 +99,7 @@ const firstDayOfWeek = computed(() =>
           <v-divider></v-divider>
           <v-card-text>
             <div
-              class="text-xs font-bold uppercase tracking-wider opacity-40 mt-6 mb-2"
+              class="text-xs font-bold uppercase tracking-wider opacity-40 mt-4 mb-2"
             >
               {{ $t(MessageKeys.number, 2) }}
             </div>
@@ -151,6 +156,16 @@ const firstDayOfWeek = computed(() =>
                 <v-slide-y-transition mode="out-in">
                   <div :key="timePreviewMedium" class="font-mono font-medium">
                     {{ timePreviewMedium }}
+                  </div>
+                </v-slide-y-transition>
+              </div>
+              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+                <span class="opacity-60">{{
+                  $t(MessageKeys.dates.calendarWeek)
+                }}</span>
+                <v-slide-y-transition mode="out-in">
+                  <div :key="week" class="font-mono font-medium">
+                    {{ week }}
                   </div>
                 </v-slide-y-transition>
               </div>
