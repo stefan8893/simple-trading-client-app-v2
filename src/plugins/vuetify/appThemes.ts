@@ -22,13 +22,10 @@ export const appThemes = {
         'header-avatar-background': colors.shades.white,
         'on-header-avatar-background': colors.grey.darken3,
 
+        'result-background': colors.grey.lighten4,
+
         'trade-icon': convertOklchToHex(tailwindColors.blue[400]),
         'reference-icon': convertOklchToHex(tailwindColors.stone[500]),
-      },
-      variables: {
-        // this controls how much of the color comes through in 'tonal' variant
-        'activated-opacity': 0.05,
-        'idle-opacity': 0.05,
       },
     },
     dark: {

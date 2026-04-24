@@ -92,7 +92,7 @@ const firstDayOfWeek = computed(() =>
         <LanguageSelect v-model="selectedLanguage" class="mt-4" />
         <NumberFormatSelect v-model="selectedNumberFormat" class="mt-4" />
 
-        <v-card class="mt-10" variant="tonal">
+        <v-card class="mt-10" color="result-background" variant="flat">
           <v-card-title>
             {{ $t(MessageKeys.preview) }}
           </v-card-title>
@@ -104,8 +104,8 @@ const firstDayOfWeek = computed(() =>
               {{ $t(MessageKeys.number, 2) }}
             </div>
 
-            <div class="flex flex-col flex-nowrap gap-1">
-              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+            <div class="flex flex-col flex-nowrap gap-0.5">
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60">{{ $t(MessageKeys.number) }}</span>
                 <v-slide-y-transition mode="out-in">
                   <div :key="numberPreview" class="font-mono font-medium">
@@ -113,7 +113,7 @@ const firstDayOfWeek = computed(() =>
                   </div>
                 </v-slide-y-transition>
               </div>
-              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60"
                   >{{ $t(MessageKeys.trading.currency) }} (EUR)</span
                 >
@@ -123,7 +123,7 @@ const firstDayOfWeek = computed(() =>
                   </div>
                 </v-slide-y-transition>
               </div>
-              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60"
                   >{{ $t(MessageKeys.trading.currency) }} (USD)</span
                 >
@@ -140,8 +140,8 @@ const firstDayOfWeek = computed(() =>
             >
               {{ $t(MessageKeys.calendar) }}
             </div>
-            <div class="flex flex-col flex-nowrap gap-1">
-              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+            <div class="flex flex-col flex-nowrap gap-0.5">
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60"
                   >{{ $t(MessageKeys.dates.date) }}
                 </span>
@@ -151,7 +151,7 @@ const firstDayOfWeek = computed(() =>
                   </div>
                 </v-slide-y-transition>
               </div>
-              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60">{{ $t(MessageKeys.dates.time) }}</span>
                 <v-slide-y-transition mode="out-in">
                   <div :key="timePreviewMedium" class="font-mono font-medium">
@@ -159,7 +159,7 @@ const firstDayOfWeek = computed(() =>
                   </div>
                 </v-slide-y-transition>
               </div>
-              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60">{{
                   $t(MessageKeys.dates.calendarWeek)
                 }}</span>
@@ -169,7 +169,7 @@ const firstDayOfWeek = computed(() =>
                   </div>
                 </v-slide-y-transition>
               </div>
-              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60">{{
                   $t(MessageKeys.dates.fullFormat)
                 }}</span>
@@ -180,7 +180,7 @@ const firstDayOfWeek = computed(() =>
                 </v-slide-y-transition>
               </div>
               <v-divider class="my-4"></v-divider>
-              <div class="flex flex-row flex-wrap justify-between gap-x-6">
+              <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60">{{
                   $t(MessageKeys.dates.weekStart)
                 }}</span>
