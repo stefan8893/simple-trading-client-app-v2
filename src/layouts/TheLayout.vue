@@ -53,6 +53,14 @@ watch(isMobile, (changedToMobile) => {
     restoreDesktopSidebarState();
   }
 });
+
+function handleSwipeRight() {
+  const zoomLevel = window.visualViewport?.scale || 1;
+
+  if (zoomLevel <= 1.05) {
+    toggleSidebar(true);
+  }
+}
 </script>
 
 <template>
@@ -78,6 +86,7 @@ watch(isMobile, (changedToMobile) => {
     name="sidebar"
     :permanent="!isMobile"
     :rail="!isSidebarExpanded"
+    touchless
   >
     <div class="flex flex-col flex-nowrap h-full">
       <TheNavigation
@@ -94,7 +103,13 @@ watch(isMobile, (changedToMobile) => {
     </div>
   </v-navigation-drawer>
 
-  <v-main class="grid justify-items-center">
+  <v-main
+    v-touch="{
+      right: handleSwipeRight,
+      options: { touchAction: 'pan-x pan-y' },
+    }"
+    class="grid justify-items-center"
+  >
     <div
       class="max-w-5xl min-w-75 w-full px-2.5 sm:px-5 mt-5 sm:mt-10 mb-36 grow"
     >
