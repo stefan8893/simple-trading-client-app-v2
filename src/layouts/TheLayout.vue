@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useLocalStorage, useSwipe } from '@vueuse/core';
-import { ref, useTemplateRef, watch } from 'vue';
+import { useLocalStorage } from '@vueuse/core';
+import { ref, watch } from 'vue';
 import { useDisplay } from 'vuetify';
 import packageInfo from '@/../package.json';
 import TextCopy from '@/components/infrastructure/TextCopy.vue';
@@ -53,19 +53,6 @@ watch(isMobile, (changedToMobile) => {
     restoreDesktopSidebarState();
   }
 });
-
-const main = useTemplateRef('main');
-const { isSwiping, direction, coordsStart } = useSwipe(main);
-
-watch(isSwiping, (swiping) => {
-  if (swiping && isMobile.value && direction.value === 'right') {
-    const edgeThreshold = 50;
-
-    if (coordsStart.x > edgeThreshold) {
-      toggleSidebar(true);
-    }
-  }
-});
 </script>
 
 <template>
@@ -108,12 +95,10 @@ watch(isSwiping, (swiping) => {
   </v-navigation-drawer>
 
   <v-main class="grid justify-items-center">
-    <div ref="main" class="w-full h-full">
-      <div
-        class="max-w-5xl min-w-75 w-full px-2.5 sm:px-5 mt-5 sm:mt-10 mb-36 grow"
-      >
-        <RouterView />
-      </div>
+    <div
+      class="max-w-5xl min-w-75 w-full px-2.5 sm:px-5 mt-5 sm:mt-10 mb-36 grow"
+    >
+      <RouterView />
     </div>
   </v-main>
 </template>
