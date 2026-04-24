@@ -39,6 +39,8 @@ export const appThemes = {
         'header-avatar-background': colors.grey.lighten3,
         'on-header-avatar-background': colors.grey.darken4,
 
+        'result-background': colors.grey.darken3,
+
         'trade-icon': convertOklchToHex(tailwindColors.blue[400]),
         'reference-icon': convertOklchToHex(tailwindColors.stone[500]),
       },
