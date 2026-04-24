@@ -1,17 +1,21 @@
 <script setup lang="ts">
-import { onClickOutside } from '@vueuse/core';
+import { onClickOutside, useMediaQuery } from '@vueuse/core';
 import { useSortable } from '@vueuse/integrations/useSortable';
 import { ref, useTemplateRef } from 'vue';
 import SingleLauncherApp from '@/components/launcher/SingleLauncherApp.vue';
+import { MessageKeys } from '@/i18n/language/message-keys.g';
 import { useLaucherApp } from './useLaucherApps';
 
 const { launcherApps, resetOrder, isOriginalOrder } = useLaucherApp();
 const rearrangeApps = ref(false);
-const sortableContainer = useTemplateRef('sortable-apps');
+const launcherAppsContainer = useTemplateRef('sortable-apps');
 const isDragging = ref(false);
 const preventContextMenuToOpen = ref(false);
+// 'coarse' -> Touchscreen
+// 'fine' -> Mouse/Stylus
+const isTouchScreen = useMediaQuery('(pointer: coarse)');
 
-useSortable(sortableContainer, launcherApps, {
+useSortable(launcherAppsContainer, launcherApps, {
   animation: 300,
   handle: '.sortable-app-handle',
   dataIdAttr: 'data-id',
@@ -28,7 +32,7 @@ useSortable(sortableContainer, launcherApps, {
   },
 });
 
-onClickOutside(sortableContainer, () => {
+onClickOutside(launcherAppsContainer, () => {
   if (rearrangeApps.value) {
     rearrangeApps.value = false;
   }
@@ -38,7 +42,7 @@ onClickOutside(sortableContainer, () => {
 <template>
   <div
     ref="launcher-apps"
-    class="launcher-apps-container grid justify-items-center select-none"
+    class="launcher-apps-container grid justify-items-center select-none relative"
   >
     <div
       ref="sortable-apps"
@@ -73,6 +77,30 @@ onClickOutside(sortableContainer, () => {
         @reset-apps-order="resetOrder"
       />
     </div>
+
+    <v-menu v-if="isTouchScreen" variant="tonal">
+      <template #activator="{ props: activatorProps }">
+        <v-btn
+          v-bind="activatorProps"
+          class="absolute -right-4 -bottom-4 cursor-pointer"
+          icon="ph:dots-three-circle-vertical"
+          variant="text"
+        >
+        </v-btn>
+      </template>
+      <v-list nav>
+        <v-list-item value="1" @click="rearrangeApps = true">
+          <v-list-item-title>{{
+            $t(MessageKeys.arrangeApps)
+          }}</v-list-item-title>
+        </v-list-item>
+        <v-list-item v-if="!isOriginalOrder" value="2" @click="resetOrder">
+          <v-list-item-title>{{
+            $t(MessageKeys.resetOrder)
+          }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
   </div>
 </template>
 
