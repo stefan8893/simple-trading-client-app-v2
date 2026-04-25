@@ -111,7 +111,7 @@ async function onContextMenuRearrangingApp() {
           <v-btn
             v-if="isTouchScreen && !rearrangeApps"
             v-bind="activatorProps"
-            class="absolute -right-4.5 -bottom-4.5 cursor-pointer no-visual-feedback"
+            class="absolute -right-4 -bottom-10 cursor-pointer no-visual-feedback"
             icon="ph:dots-three-circle-vertical"
             variant="text"
           >
@@ -151,6 +151,7 @@ async function onContextMenuRearrangingApp() {
 .launcher-apps-container {
   container-type: inline-size;
   container-name: launcher-apps;
+  margin-bottom: 1.5rem;
 }
 
 .launcher-apps {
