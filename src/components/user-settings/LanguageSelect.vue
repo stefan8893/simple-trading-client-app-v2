@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { MessageKeys } from '@/i18n/language/message-keys.g';
-import { useLocaleOptionsStore } from '@/stores/useLocaleOptionsStore';
+import { useLocaleOptionsStore } from '@/stores/i18n/useLocaleOptionsStore';
 import BaseSelect from '../infrastructure/BaseSelect.vue';
 
 const { languageOptions } = storeToRefs(useLocaleOptionsStore());

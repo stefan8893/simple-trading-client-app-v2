@@ -1,5 +1,5 @@
 import type { SupportedRegionalFormatLocale } from '../regionalFormat/regional-format-locales';
-import { useNumberFormatStore } from '@/stores/useNumberFormatStore';
+import { useNumberFormatStore } from '@/stores/i18n/useNumberFormatStore';
 
 export function formatNumber(
   value: number,

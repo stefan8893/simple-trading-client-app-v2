@@ -6,7 +6,7 @@ import {
   isSupportedLanguage,
   type SupportedLanguage,
 } from '@/i18n/regionalFormat/regional-format-locales';
-import i18n from '../i18n/language/i18n-config';
+import i18n from '../../i18n/language/i18n-config';
 
 const languageInLocalStorage = useLocalStorage<SupportedLanguage | undefined>(
   'language',

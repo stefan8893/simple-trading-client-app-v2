@@ -3,7 +3,7 @@ import { parse } from 'date-fns';
 import { computed, ref } from 'vue';
 import { MessageKeys } from '@/i18n/language/message-keys.g';
 import { formatTime, isHour12 } from '@/i18n/regionalFormat/date-formatter';
-import { useRegionalFormatStore } from '@/stores/useRegionalFormatStore';
+import { useRegionalFormatStore } from '@/stores/i18n/useRegionalFormatStore';
 const { locale } = useRegionalFormatStore();
 
 const is12HFormat = isHour12(locale);

@@ -6,7 +6,7 @@ import {
   formatDate,
   getFirstDayOfWeek,
 } from '@/i18n/regionalFormat/date-formatter';
-import { useRegionalFormatStore } from '@/stores/useRegionalFormatStore';
+import { useRegionalFormatStore } from '@/stores/i18n/useRegionalFormatStore';
 
 const props = withDefaults(
   defineProps<{

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { CurrencyDisplay, useCurrencyInput } from 'vue-currency-input';
-import { useNumberFormatStore } from '@/stores/useNumberFormatStore';
+import { useNumberFormatStore } from '@/stores/i18n/useNumberFormatStore';
 
 const model = defineModel<number | undefined | null>();
 const props = withDefaults(

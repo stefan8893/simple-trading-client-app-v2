@@ -14,8 +14,8 @@ import {
   es,
   ja,
 } from 'date-fns/locale';
-import { useLanguageStore } from '@/stores/useLanguageStore';
-import { useRegionalFormatStore } from '@/stores/useRegionalFormatStore';
+import { useLanguageStore } from '@/stores/i18n/useLanguageStore';
+import { useRegionalFormatStore } from '@/stores/i18n/useRegionalFormatStore';
 
 const DEFAULT_DATE_OPTIONS: Intl.DateTimeFormatOptions = {
   dateStyle: 'medium',

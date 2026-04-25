@@ -13,9 +13,9 @@ import {
   getCalendarWeek,
   getFirstDayOfWeek,
 } from '@/i18n/regionalFormat/date-formatter';
-import { useLanguageStore } from '@/stores/useLanguageStore';
-import { useNumberFormatStore } from '@/stores/useNumberFormatStore';
-import { useRegionalFormatStore } from '@/stores/useRegionalFormatStore';
+import { useLanguageStore } from '@/stores/i18n/useLanguageStore';
+import { useNumberFormatStore } from '@/stores/i18n/useNumberFormatStore';
+import { useRegionalFormatStore } from '@/stores/i18n/useRegionalFormatStore';
 
 const { t } = useI18n();
 

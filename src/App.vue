@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useLanguageStore } from './stores/useLanguageStore';
-import { useNumberFormatStore } from './stores/useNumberFormatStore';
-import { useRegionalFormatStore as useRegionalFormatStore } from './stores/useRegionalFormatStore';
+import { useLanguageStore } from './stores/i18n/useLanguageStore';
+import { useNumberFormatStore } from './stores/i18n/useNumberFormatStore';
+import { useRegionalFormatStore } from './stores/i18n/useRegionalFormatStore';
 
 // initialize language and regional Stores
 useLanguageStore();
