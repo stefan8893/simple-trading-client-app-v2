@@ -78,11 +78,12 @@ onClickOutside(launcherAppsContainer, () => {
       />
     </div>
 
-    <v-menu v-if="isTouchScreen" variant="tonal">
+    <v-menu variant="tonal">
       <template #activator="{ props: activatorProps }">
         <v-btn
+          v-if="isTouchScreen"
           v-bind="activatorProps"
-          class="absolute -right-4 -bottom-4 cursor-pointer"
+          class="absolute -right-4.5 -bottom-4.5 cursor-pointer no-visual-feedback"
           icon="ph:dots-three-circle-vertical"
           variant="text"
         >
@@ -133,5 +134,14 @@ onClickOutside(launcherAppsContainer, () => {
   .launcher-apps {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+.no-visual-feedback {
+  pointer-events: auto;
+  background-color: inherit;
+}
+
+.no-visual-feedback :deep(.v-btn__overlay) {
+  opacity: 0;
 }
 </style>
