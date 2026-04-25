@@ -4,6 +4,7 @@ import { ref, watch } from 'vue';
 import { useDisplay } from 'vuetify';
 import packageInfo from '@/../package.json';
 import TextCopy from '@/components/infrastructure/TextCopy.vue';
+import { useSwipeStore } from '@/stores/useSwipeStore';
 import TheHeaderRight from './header/TheHeaderRight.vue';
 import TheHeaderTitle from './header/TheHeaderTitle.vue';
 import TheNavigation from './TheNavigation.vue';
@@ -54,7 +55,10 @@ watch(isMobile, (changedToMobile) => {
   }
 });
 
+const swipeStore = useSwipeStore();
 function handleSwipeRight() {
+  if (!swipeStore.swipeRightEnabled) return;
+
   const zoomLevel = window.visualViewport?.scale || 1;
 
   if (zoomLevel <= 1.05) {

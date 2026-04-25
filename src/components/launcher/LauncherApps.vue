@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { onClickOutside, onKeyStroke, useMediaQuery } from '@vueuse/core';
 import { useSortable } from '@vueuse/integrations/useSortable';
-import { ref, useTemplateRef } from 'vue';
+import { storeToRefs } from 'pinia';
+import { ref, useTemplateRef, watch } from 'vue';
 import SingleLauncherApp from '@/components/launcher/SingleLauncherApp.vue';
+import { useSwipeStore } from '@/stores/useSwipeStore';
 import LauncherAppsContextMenuList from './LauncherAppsContextMenuList.vue';
 import { useLaucherApp } from './useLaucherApps';
 import { useSingleLauncherAppContextMenu } from './useSingleLauncherAppContextMenu';
@@ -49,6 +51,11 @@ onKeyStroke('Escape', (event) => {
     event.preventDefault();
     rearrangeApps.value = false;
   }
+});
+
+const { swipeRightEnabled } = storeToRefs(useSwipeStore());
+watch(rearrangeApps, (newValue) => {
+  swipeRightEnabled.value = !newValue;
 });
 </script>
 
