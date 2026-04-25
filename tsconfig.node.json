@@ -8,9 +8,9 @@
     "playwright.config.*"
   ],
   "compilerOptions": {
-    "target": "es2025",
+    "target": "esnext",
     "lib": [
-      "ES2025",
+      "ESNext",
     ],
     "composite": true,
     "noEmit": true,
