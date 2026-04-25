@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { onKeyStroke, onLongPress } from '@vueuse/core';
-import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
+import { onLongPress } from '@vueuse/core';
+import { computed, nextTick, ref, useTemplateRef } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
-import { MessageKeys } from '@/i18n/language/message-keys.g';
 import { vibrate } from '@/utils';
-import { useSingleLauncherAppContextMenu } from './useSingleLauncherAppContextMenu';
 
 const props = defineProps<{
   messageKey: string;
@@ -16,37 +14,27 @@ const props = defineProps<{
   editMode: boolean;
   isDragging: boolean;
   index: number;
-  showResetEntryInContextMenu: boolean;
-  preventContextMenu: boolean;
+  preventVisualFeedbackOnClick: boolean;
 }>();
 
 const router = useRouter();
 const { t } = useI18n();
 
-const emit = defineEmits([
-  'update:editMode',
-  'reset-apps-order',
-  'context-menu-toggle',
-]);
+const emit = defineEmits(['update:editMode']);
 
 const app = useTemplateRef('launcher-app');
 const showHapticPop = ref(false);
-const { showContextMenu, x, y } = useSingleLauncherAppContextMenu(app, {
-  editMode: () => props.editMode,
-  preventContextMenu: () => props.preventContextMenu,
-});
 const allowActive = computed(
-  () => !props.editMode && !showContextMenu.value && !showHapticPop.value,
+  () =>
+    !props.editMode &&
+    !props.preventVisualFeedbackOnClick &&
+    !showHapticPop.value,
 );
 
 const appName = computed(() => {
   return props.messageCount
     ? t(props.messageKey, props.messageCount)
     : t(props.messageKey);
-});
-
-watch(showContextMenu, (newValue: boolean) => {
-  emit('context-menu-toggle', newValue);
 });
 
 onLongPress(
@@ -69,13 +57,6 @@ onLongPress(
   },
   { delay: 600, distanceThreshold: 10 },
 );
-
-onKeyStroke('Escape', (event) => {
-  if (props.editMode) {
-    event.preventDefault();
-    emit('update:editMode', false);
-  }
-});
 
 async function navigateTo() {
   !showHapticPop.value &&
@@ -115,30 +96,6 @@ async function navigateTo() {
         {{ appName }}
       </div>
     </div>
-    <v-menu
-      v-model="showContextMenu"
-      absolute
-      offset-y
-      :style="{ top: `${y}px`, left: `${x}px` }"
-      variant="tonal"
-    >
-      <v-list nav>
-        <v-list-item value="1" @click="emit('update:editMode', true)">
-          <v-list-item-title>{{
-            $t(MessageKeys.arrangeApps)
-          }}</v-list-item-title>
-        </v-list-item>
-        <v-list-item
-          v-if="props.showResetEntryInContextMenu"
-          value="2"
-          @click="emit('reset-apps-order', true)"
-        >
-          <v-list-item-title>{{
-            $t(MessageKeys.resetOrder)
-          }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
   </div>
 </template>
 

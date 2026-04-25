@@ -1,13 +1,10 @@
-import type { MaybeRefOrGetter, Ref } from 'vue';
+import type { Ref } from 'vue';
 import { useEventListener } from '@vueuse/core';
-import { nextTick, readonly, ref, toValue } from 'vue';
+import { nextTick, readonly, ref } from 'vue';
 
 export function useSingleLauncherAppContextMenu(
   target: Ref<HTMLElement | null>,
-  options: {
-    editMode?: MaybeRefOrGetter<boolean>;
-    preventContextMenu?: MaybeRefOrGetter<boolean>;
-  } = {},
+  editMode: Ref<boolean>,
 ) {
   const showContextMenu = ref(false);
   const x = ref(0);
@@ -15,8 +12,7 @@ export function useSingleLauncherAppContextMenu(
 
   useEventListener(target, 'contextmenu', async (event) => {
     event.preventDefault();
-    if (toValue(options.editMode) || toValue(options.preventContextMenu))
-      return;
+    if (editMode.value) return;
 
     showContextMenu.value = false;
 

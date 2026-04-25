@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { onClickOutside, useMediaQuery } from '@vueuse/core';
+import { onClickOutside, onKeyStroke, useMediaQuery } from '@vueuse/core';
 import { useSortable } from '@vueuse/integrations/useSortable';
 import { ref, useTemplateRef } from 'vue';
 import SingleLauncherApp from '@/components/launcher/SingleLauncherApp.vue';
-import { MessageKeys } from '@/i18n/language/message-keys.g';
+import LauncherAppsContextMenuList from './LauncherAppsContextMenuList.vue';
 import { useLaucherApp } from './useLaucherApps';
+import { useSingleLauncherAppContextMenu } from './useSingleLauncherAppContextMenu';
 
 const { launcherApps, resetOrder, isOriginalOrder } = useLaucherApp();
 const rearrangeApps = ref(false);
 const launcherAppsContainer = useTemplateRef('sortable-apps');
 const isDragging = ref(false);
-const preventContextMenuToOpen = ref(false);
+
 // 'coarse' -> Touchscreen
 // 'fine' -> Mouse/Stylus
 const isTouchScreen = useMediaQuery('(pointer: coarse)');
@@ -34,6 +35,18 @@ useSortable(launcherAppsContainer, launcherApps, {
 
 onClickOutside(launcherAppsContainer, () => {
   if (rearrangeApps.value) {
+    rearrangeApps.value = false;
+  }
+});
+
+const { showContextMenu, x, y } = useSingleLauncherAppContextMenu(
+  launcherAppsContainer,
+  rearrangeApps,
+);
+
+onKeyStroke('Escape', (event) => {
+  if (rearrangeApps.value) {
+    event.preventDefault();
     rearrangeApps.value = false;
   }
 });
@@ -70,11 +83,8 @@ onClickOutside(launcherAppsContainer, () => {
         :is-dragging="isDragging"
         :message-count="app.messageCount"
         :message-key="app.messageKey"
-        :prevent-context-menu="preventContextMenuToOpen"
+        :prevent-visual-feedback-on-click="showContextMenu"
         :route-name="app.routeName"
-        :show-reset-entry-in-context-menu="!isOriginalOrder"
-        @context-menu-toggle="(opened) => (preventContextMenuToOpen = opened)"
-        @reset-apps-order="resetOrder"
       />
     </div>
 
@@ -89,18 +99,25 @@ onClickOutside(launcherAppsContainer, () => {
         >
         </v-btn>
       </template>
-      <v-list nav>
-        <v-list-item value="1" @click="rearrangeApps = true">
-          <v-list-item-title>{{
-            $t(MessageKeys.arrangeApps)
-          }}</v-list-item-title>
-        </v-list-item>
-        <v-list-item v-if="!isOriginalOrder" value="2" @click="resetOrder">
-          <v-list-item-title>{{
-            $t(MessageKeys.resetOrder)
-          }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
+      <LauncherAppsContextMenuList
+        v-model:edit-mode="rearrangeApps"
+        :show-reset-order-entry="!isOriginalOrder"
+        @reset-apps-order="resetOrder"
+      />
+    </v-menu>
+
+    <v-menu
+      v-model="showContextMenu"
+      absolute
+      offset-y
+      :style="{ top: `${y}px`, left: `${x}px` }"
+      variant="tonal"
+    >
+      <LauncherAppsContextMenuList
+        v-model:edit-mode="rearrangeApps"
+        :show-reset-order-entry="!isOriginalOrder"
+        @reset-apps-order="resetOrder"
+      />
     </v-menu>
   </div>
 </template>
@@ -137,7 +154,6 @@ onClickOutside(launcherAppsContainer, () => {
 }
 
 .no-visual-feedback {
-  pointer-events: auto;
   background-color: inherit;
 }
 
