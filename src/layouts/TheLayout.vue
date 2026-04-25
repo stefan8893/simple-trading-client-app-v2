@@ -59,9 +59,10 @@ const swipeStore = useSwipeStore();
 function handleSwipeRight() {
   if (!swipeStore.swipeRightEnabled) return;
 
-  const zoomLevel = window.visualViewport?.scale || 1;
+  const zoomLevel = window.visualViewport?.scale ?? 1;
+  const initialLevelIncludingTolerance = 1.05;
 
-  if (zoomLevel <= 1.05) {
+  if (zoomLevel <= initialLevelIncludingTolerance) {
     toggleSidebar(true);
   }
 }
