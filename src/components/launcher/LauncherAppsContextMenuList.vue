@@ -5,14 +5,12 @@ const props = defineProps<{
   showResetOrderEntry: boolean;
 }>();
 
-const emit = defineEmits(['reset-apps-order']);
-
-const editMode = defineModel<boolean>('editMode');
+const emit = defineEmits(['reset-apps-order', 'start-rearranging-app']);
 </script>
 
 <template>
   <v-list nav>
-    <v-list-item value="1" @click="editMode = true">
+    <v-list-item value="1" @click="emit('start-rearranging-app')">
       <v-list-item-title>{{ $t(MessageKeys.arrangeApps) }}</v-list-item-title>
     </v-list-item>
     <v-list-item

@@ -2,9 +2,10 @@
 import { onClickOutside, onKeyStroke, useMediaQuery } from '@vueuse/core';
 import { useSortable } from '@vueuse/integrations/useSortable';
 import { storeToRefs } from 'pinia';
-import { ref, useTemplateRef, watch } from 'vue';
+import { nextTick, ref, useTemplateRef, watch } from 'vue';
 import SingleLauncherApp from '@/components/launcher/SingleLauncherApp.vue';
 import { useSwipeStore } from '@/stores/useSwipeStore';
+import { delay } from '@/utils';
 import LauncherAppsContextMenuList from './LauncherAppsContextMenuList.vue';
 import { useLaucherApp } from './useLaucherApps';
 import { useSingleLauncherAppContextMenu } from './useSingleLauncherAppContextMenu';
@@ -57,75 +58,92 @@ const { swipeRightEnabled } = storeToRefs(useSwipeStore());
 watch(rearrangeApps, (newValue) => {
   swipeRightEnabled.value = !newValue;
 });
+
+async function onContextMenuRearrangingApp() {
+  showContextMenu.value = false;
+  // give the context menu some time to close
+  await delay(10);
+  await nextTick();
+  rearrangeApps.value = true;
+}
 </script>
 
 <template>
-  <div
-    ref="launcher-apps"
-    class="launcher-apps-container grid justify-items-center select-none relative"
-  >
+  <div>
     <div
-      ref="sortable-apps"
-      class="launcher-apps gap-3 sm:gap-6"
-      :class="[
-        // cursor needs to be set in two different places in order to provide a smooth user experience
-        // 1. Here
-        // 2. In SingleLauncherApp component
-        isDragging ? 'cursor-grabbing' : '',
-      ]"
+      ref="launcher-apps"
+      class="launcher-apps-container grid justify-items-center select-none relative"
+      :class="{ 'z-1007': rearrangeApps }"
     >
-      <SingleLauncherApp
-        v-for="(app, index) in launcherApps"
-        :key="app.identifier"
-        v-model:edit-mode="rearrangeApps"
-        :bg-color-class="app.bgColor"
+      <div
+        ref="sortable-apps"
+        class="launcher-apps gap-3 sm:gap-6"
         :class="[
-          {
-            'sortable-app-item': rearrangeApps,
-            'sortable-app-handle': rearrangeApps,
-          },
+          // cursor needs to be set in two different places in order to provide a smooth user experience
+          // 1. Here
+          // 2. In SingleLauncherApp component
+          isDragging ? 'cursor-grabbing' : '',
         ]"
-        :icon="app.icon"
-        :index="index"
-        :is-dragging="isDragging"
-        :message-count="app.messageCount"
-        :message-key="app.messageKey"
-        :prevent-visual-feedback-on-click="showContextMenu"
-        :route-name="app.routeName"
-      />
+      >
+        <SingleLauncherApp
+          v-for="(app, index) in launcherApps"
+          :key="app.identifier"
+          v-model:edit-mode="rearrangeApps"
+          :bg-color-class="app.bgColor"
+          :class="[
+            {
+              'sortable-app-item': rearrangeApps,
+              'sortable-app-handle': rearrangeApps,
+            },
+          ]"
+          :icon="app.icon"
+          :index="index"
+          :is-dragging="isDragging"
+          :message-count="app.messageCount"
+          :message-key="app.messageKey"
+          :prevent-visual-feedback-on-click="showContextMenu"
+          :route-name="app.routeName"
+        />
+      </div>
+
+      <v-menu variant="tonal">
+        <template #activator="{ props: activatorProps }">
+          <v-btn
+            v-if="isTouchScreen && !rearrangeApps"
+            v-bind="activatorProps"
+            class="absolute -right-4.5 -bottom-4.5 cursor-pointer no-visual-feedback"
+            icon="ph:dots-three-circle-vertical"
+            variant="text"
+          >
+          </v-btn>
+        </template>
+        <LauncherAppsContextMenuList
+          :show-reset-order-entry="!isOriginalOrder"
+          @reset-apps-order="resetOrder"
+          @start-rearranging-app="onContextMenuRearrangingApp"
+        />
+      </v-menu>
+
+      <v-menu
+        v-model="showContextMenu"
+        absolute
+        offset-y
+        :style="{ top: `${y}px`, left: `${x}px` }"
+        variant="tonal"
+      >
+        <LauncherAppsContextMenuList
+          :show-reset-order-entry="!isOriginalOrder"
+          @reset-apps-order="resetOrder"
+          @start-rearranging-app="onContextMenuRearrangingApp"
+        />
+      </v-menu>
     </div>
-
-    <v-menu variant="tonal">
-      <template #activator="{ props: activatorProps }">
-        <v-btn
-          v-if="isTouchScreen"
-          v-bind="activatorProps"
-          class="absolute -right-4.5 -bottom-4.5 cursor-pointer no-visual-feedback"
-          icon="ph:dots-three-circle-vertical"
-          variant="text"
-        >
-        </v-btn>
-      </template>
-      <LauncherAppsContextMenuList
-        v-model:edit-mode="rearrangeApps"
-        :show-reset-order-entry="!isOriginalOrder"
-        @reset-apps-order="resetOrder"
-      />
-    </v-menu>
-
-    <v-menu
-      v-model="showContextMenu"
-      absolute
-      offset-y
-      :style="{ top: `${y}px`, left: `${x}px` }"
-      variant="tonal"
-    >
-      <LauncherAppsContextMenuList
-        v-model:edit-mode="rearrangeApps"
-        :show-reset-order-entry="!isOriginalOrder"
-        @reset-apps-order="resetOrder"
-      />
-    </v-menu>
+    <!-- Freeze UI while rearranging apps -->
+    <v-overlay
+      v-model="rearrangeApps"
+      :scrim="'rgba(0, 0, 0, 0)'"
+      z-index="1006"
+    />
   </div>
 </template>
 
