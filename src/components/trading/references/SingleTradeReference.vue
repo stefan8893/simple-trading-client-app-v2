@@ -83,6 +83,7 @@ onMounted(async () => {
       color="primary"
       icon="ph:list-bold"
     />
+
     <v-text-field
       v-if="!isReferenceAlreadyPersisted || editReference"
       ref="reference-input"
@@ -93,6 +94,7 @@ onMounted(async () => {
       @keydown.esc.prevent="referenceInput?.blur()"
       @keyup.enter="saveLink"
     />
+
     <div v-else class="flex-1 truncate">
       <a
         class="underline"

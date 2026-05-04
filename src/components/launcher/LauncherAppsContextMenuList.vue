@@ -13,6 +13,7 @@ const emit = defineEmits(['reset-apps-order', 'start-rearranging-app']);
     <v-list-item value="1" @click="emit('start-rearranging-app')">
       <v-list-item-title>{{ $t(MessageKeys.arrangeApps) }}</v-list-item-title>
     </v-list-item>
+
     <v-list-item
       v-if="props.showResetOrderEntry"
       value="2"

@@ -96,7 +96,9 @@ const firstDayOfWeek = computed(() =>
           <v-card-title>
             {{ $t(MessageKeys.preview) }}
           </v-card-title>
+
           <v-divider></v-divider>
+
           <v-card-text>
             <div
               class="text-xs font-bold uppercase tracking-wider opacity-40 mt-4 mb-2"
@@ -107,6 +109,7 @@ const firstDayOfWeek = computed(() =>
             <div class="flex flex-col flex-nowrap gap-1">
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60">{{ $t(MessageKeys.number) }}</span>
+
                 <transition mode="out-in" name="glow-bg">
                   <div
                     :key="numberPreview"
@@ -116,10 +119,12 @@ const firstDayOfWeek = computed(() =>
                   </div>
                 </transition>
               </div>
+
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60"
                   >{{ $t(MessageKeys.trading.currency) }} (EUR)</span
                 >
+
                 <transition mode="out-in" name="glow-bg">
                   <div
                     :key="currencyPreviewEUR"
@@ -129,10 +134,12 @@ const firstDayOfWeek = computed(() =>
                   </div>
                 </transition>
               </div>
+
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60"
                   >{{ $t(MessageKeys.trading.currency) }} (USD)</span
                 >
+
                 <transition mode="out-in" name="glow-bg">
                   <div
                     :key="currencyPreviewUSD"
@@ -149,11 +156,13 @@ const firstDayOfWeek = computed(() =>
             >
               {{ $t(MessageKeys.calendar) }}
             </div>
+
             <div class="flex flex-col flex-nowrap gap-1">
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60"
                   >{{ $t(MessageKeys.dates.date) }}
                 </span>
+
                 <transition mode="out-in" name="glow-bg">
                   <div
                     :key="datePreviewMedium"
@@ -163,8 +172,10 @@ const firstDayOfWeek = computed(() =>
                   </div>
                 </transition>
               </div>
+
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60">{{ $t(MessageKeys.dates.time) }}</span>
+
                 <transition mode="out-in" name="glow-bg">
                   <div
                     :key="timePreviewMedium"
@@ -174,20 +185,24 @@ const firstDayOfWeek = computed(() =>
                   </div>
                 </transition>
               </div>
+
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60">{{
                   $t(MessageKeys.dates.calendarWeek)
                 }}</span>
+
                 <transition mode="out-in" name="glow-bg">
                   <div :key="week" class="font-mono font-medium inline-block">
                     {{ week }}
                   </div>
                 </transition>
               </div>
+
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60">{{
                   $t(MessageKeys.dates.fullFormat)
                 }}</span>
+
                 <transition mode="out-in" name="glow-bg">
                   <div
                     :key="dateTimePreviewLong"
@@ -197,11 +212,14 @@ const firstDayOfWeek = computed(() =>
                   </div>
                 </transition>
               </div>
+
               <v-divider class="my-4"></v-divider>
+
               <div class="flex flex-row flex-wrap justify-between gap-x-4">
                 <span class="opacity-60">{{
                   $t(MessageKeys.dates.weekStart)
                 }}</span>
+
                 <transition mode="out-in" name="glow-bg">
                   <div :key="firstDayOfWeek" class="font-medium inline-block">
                     {{ firstDayOfWeek }}

@@ -17,6 +17,7 @@ const props = defineProps<{
           v-model="model"
           class="flex-1 min-w-40"
         />
+
         <div class="flex-1">
           <MarkdownNotesPreview v-model="model" class="min-w-40" />
         </div>

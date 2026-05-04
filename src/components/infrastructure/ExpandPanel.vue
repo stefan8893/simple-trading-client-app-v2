@@ -22,6 +22,7 @@ const props = defineProps<{
             <slot name="header">
               <span class="font-light text-xl">{{ props.headerTitle }}</span>
             </slot>
+
             <v-icon
               :icon="model ? 'ph:caret-up' : 'ph:caret-down'"
               size="large"

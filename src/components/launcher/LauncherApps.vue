@@ -117,6 +117,7 @@ async function onContextMenuRearrangingApp() {
           >
           </v-btn>
         </template>
+
         <LauncherAppsContextMenuList
           :show-reset-order-entry="!isOriginalOrder"
           @reset-apps-order="resetOrder"

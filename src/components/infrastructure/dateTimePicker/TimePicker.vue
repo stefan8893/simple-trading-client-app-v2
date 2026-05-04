@@ -53,6 +53,7 @@ const showTimePickerDialog = ref(false);
           :format="timeFormat"
           use-seconds
         />
+
         <template #actions>
           <v-btn @click="showTimePickerDialog = false">{{
             $t(MessageKeys.close)

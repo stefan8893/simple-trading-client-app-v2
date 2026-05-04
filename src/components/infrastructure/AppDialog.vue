@@ -37,6 +37,7 @@ function onCancel() {
               <h2 class="text-2xl font-light">
                 {{ props.headerTitle }}
               </h2>
+
               <v-icon
                 v-if="props.headerIcon"
                 class="font-light"

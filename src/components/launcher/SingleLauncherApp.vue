@@ -92,6 +92,7 @@ async function navigateTo() {
       >
         <v-icon :icon="props.icon" size="x-large"></v-icon>
       </div>
+
       <div class="text-sm max-w-24 truncate mt-2">
         {{ appName }}
       </div>

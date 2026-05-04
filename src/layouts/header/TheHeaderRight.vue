@@ -30,6 +30,7 @@ function logout() {
       variant="tonal"
       @click="cycle()"
     ></v-btn>
+
     <v-menu v-model="showUserMenu" :close-on-content-click="false">
       <template #activator="{ props }">
         <UserAvatar v-bind="props" class="cursor-pointer" size="small" />
@@ -41,6 +42,7 @@ function logout() {
             <template #title>
               <TextCopy text="John Doe" />
             </template>
+
             <template #subtitle>
               <TextCopy text="john.doe@mail.com" />
             </template>

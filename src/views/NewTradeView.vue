@@ -49,8 +49,10 @@ watch(opened, () => {
               :date-label="$t(MessageKeys.dates.on)"
               :time-label="$t(MessageKeys.dates.at)"
             />
+
             <ProfileSelect />
             <AssetSelect />
+
             <StepperNumberInput
               v-model="positionSize"
               :initial-stepper-value="5000"
@@ -61,6 +63,7 @@ watch(opened, () => {
               :step="100"
             />
           </div>
+
           <div class="right">
             <StepperNumberInput
               v-model="entry"
@@ -72,6 +75,7 @@ watch(opened, () => {
               show-currency
               :step="0.0001"
             />
+
             <StepperNumberInput
               v-model="stopLoss"
               currency="EUR"
@@ -82,6 +86,7 @@ watch(opened, () => {
               show-currency
               :step="0.0001"
             />
+
             <StepperNumberInput
               v-model="takeProfit"
               currency="USD"
@@ -131,6 +136,7 @@ watch(opened, () => {
                   :date-label="$t(MessageKeys.trading.finishedOn)"
                   :time-label="$t(MessageKeys.dates.at)"
                 />
+
                 <StepperNumberInput
                   v-model="profitLoss"
                   currency="EUR"
@@ -141,6 +147,7 @@ watch(opened, () => {
                   :step="1"
                 />
               </div>
+
               <div class="right">
                 <div class="flex flex-col flex-nowrap gap-2">
                   <StepperNumberInput
@@ -152,6 +159,7 @@ watch(opened, () => {
                     show-currency
                     :step="0.0001"
                   />
+
                   <ResultSelect />
                 </div>
               </div>

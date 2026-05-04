@@ -15,6 +15,7 @@ const dateTime = ref<Date | null>(null);
 <template>
   <v-card>
     <v-card-title> FooBar </v-card-title>
+
     <v-card-text>
       <div>index.vue works!</div>
       <v-btn color="primary"> Primary </v-btn>
@@ -31,6 +32,7 @@ const dateTime = ref<Date | null>(null);
         <v-btn class="" color="info" :to="{ name: 'new-trade' }">
           {{ $t(MessageKeys.trading.newTrade) }}
         </v-btn>
+
         <Icon icon="ph:plus" width="24" />
       </div>
 
@@ -49,10 +51,12 @@ const dateTime = ref<Date | null>(null);
       <div class="my-6 flex flex-col flex-nowrap gap-4">
         <DateTimePicker v-model="dateTime" date-label="Am" time-label="Um" />
         <NumberInput label="Wert" />
+
         <StepperNumberInput
           :initial-stepper-value="5000"
           label="Noch ein Wert"
         />
+
         <div>
           <v-btn color="primary">{{ $t(MessageKeys.save) }}</v-btn>
         </div>

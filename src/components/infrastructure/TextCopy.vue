@@ -43,6 +43,7 @@ async function copyText() {
           <slot :text="props.text">{{ props.text }}</slot>
         </span>
       </template>
+
       <span>Kopiert!</span>
     </v-tooltip>
   </div>

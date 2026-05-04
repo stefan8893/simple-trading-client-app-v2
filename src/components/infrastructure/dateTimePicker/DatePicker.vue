@@ -80,6 +80,7 @@ const firstDayOfWeek = getFirstDayOfWeek(locale);
             </template>
           </v-date-picker>
         </template>
+
         <template #actions>
           <v-btn @click="showDatePickerDialog = false">{{
             $t(MessageKeys.close)
