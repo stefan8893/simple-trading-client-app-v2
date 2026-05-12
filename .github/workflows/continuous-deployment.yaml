@@ -48,6 +48,7 @@ jobs:
     permissions:
       id-token: write
       packages: read
+      contents: read
 
     env:
       Version: ${{ needs.metadata.outputs.version }}
