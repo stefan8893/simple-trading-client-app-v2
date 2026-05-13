@@ -18,13 +18,7 @@ jobs:
       - name: Extract version from tag
         id: extract_version
         run: |
-          if ($env:GITHUB_REF -like "refs/tags/*") {
-            $Version = $env:GITHUB_REF -replace 'refs/tags/', ''
-          } else {
-            Write-Host "No version found. Use default version instead."
-            $Version = "0.0.0"
-          }
-
+          $Version = $env:GITHUB_REF -replace 'refs/tags/', ''
           Write-Host "Version: $Version"
           echo "version=$Version" >> $env:GITHUB_OUTPUT
 
@@ -68,7 +62,7 @@ jobs:
       - name: Install packages
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
-          npm install
+          npm ci
 
       - name: Lint
         env:
