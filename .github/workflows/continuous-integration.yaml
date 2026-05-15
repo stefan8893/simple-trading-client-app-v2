@@ -24,7 +24,7 @@ jobs:
       - name: Install packages
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
-          npm ci
+          npm ci --ignore-scripts
 
       - name: Audit packages
         run: npm audit --audit-level=high
