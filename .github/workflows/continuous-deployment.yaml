@@ -60,7 +60,9 @@ jobs:
           node-version: '24'
 
       - name: Install packages
-        run: npm ci
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+          npm ci
 
       - name: Audit packages
         run: npm audit --audit-level=high
