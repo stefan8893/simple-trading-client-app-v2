@@ -20,7 +20,7 @@ const props = defineProps<{
 const router = useRouter();
 const { t } = useI18n();
 
-const emit = defineEmits(['update:editMode']);
+const emit = defineEmits(['update:edit-mode']);
 
 const app = useTemplateRef('launcher-app');
 const showHapticPop = ref(false);
@@ -50,7 +50,7 @@ onLongPress(
       setTimeout(() => {
         showHapticPop.value = false;
         nextTick(() => {
-          emit('update:editMode', true);
+          emit('update:edit-mode', true);
         });
       }, 300);
     }

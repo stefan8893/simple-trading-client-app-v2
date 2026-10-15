@@ -17,7 +17,7 @@ function isEqual(a: ReferenceModel, b: ReferenceModel) {
   return a.link === b.link && a.notes === b.notes;
 }
 
-const model = defineModel({ type: Array<ReferenceModel>, default: [] });
+const model = defineModel<ReferenceModel[]>({ type: Array, default: () => [] });
 const props = defineProps<{
   tradeId?: string;
 }>();

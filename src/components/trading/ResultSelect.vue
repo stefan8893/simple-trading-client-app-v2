@@ -11,7 +11,7 @@ type ResultSelectItem = {
   value: ResultDto | null;
 };
 
-const model = defineModel<string | null>({ default: undefined });
+const model = defineModel<string | null>();
 
 const items = [
   {

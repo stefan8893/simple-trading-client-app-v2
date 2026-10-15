@@ -38,7 +38,7 @@ export const useNumberFormatStore = defineStore('numberFormat', () => {
   );
 
   function update(newFingerprint: string) {
-    const newNumberFormat = numberFormatOptions.find(
+    const newNumberFormat = numberFormatOptions.some(
       (x) => x.value === newFingerprint,
     );
 

@@ -56,7 +56,7 @@ function getBcpTag(): string {
   const { language } = useLanguageStore();
   const { locale } = useRegionalFormatStore();
 
-  const regionSuffix = locale.includes('-') ? locale.split('-')[1] : locale;
+  const regionSuffix = locale.includes('-') ? locale.split('-', 2)[1] : locale;
 
   return `${language}-${regionSuffix}`;
 }

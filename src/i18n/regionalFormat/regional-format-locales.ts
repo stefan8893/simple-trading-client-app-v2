@@ -21,7 +21,7 @@ const supportedRegionalFormatLocalesSet = new Set<string>(
 );
 
 const supportedLanguagesSet = new Set<string>(
-  supportedRegionalFormatLocales.map((locale) => locale.split('-')[0]),
+  supportedRegionalFormatLocales.map((locale) => locale.split('-', 2)[0]),
 );
 
 export type SupportedRegionalFormatLocale =

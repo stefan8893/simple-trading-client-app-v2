@@ -53,7 +53,7 @@ function getInitialLanguage(): SupportedLanguage {
   const fallback: SupportedLanguage = 'en';
 
   for (const language of preferredLanguages.value) {
-    const languageCode = language.split('-')[0] as SupportedLanguage;
+    const languageCode = language.split('-', 2)[0] as SupportedLanguage;
 
     if (isSupportedLanguage(languageCode)) {
       return languageCode;

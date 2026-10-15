@@ -17,7 +17,7 @@ const isDragging = ref(false);
 
 // 'coarse' -> Touchscreen
 // 'fine' -> Mouse/Stylus
-const isTouchScreen = useMediaQuery('(pointer: coarse)');
+const isTouchscreen = useMediaQuery('(pointer: coarse)');
 
 useSortable(launcherAppsContainer, launcherApps, {
   animation: 300,
@@ -109,7 +109,7 @@ async function onContextMenuRearrangingApp() {
       <v-menu variant="tonal">
         <template #activator="{ props: activatorProps }">
           <v-btn
-            v-if="isTouchScreen && !rearrangeApps"
+            v-if="isTouchscreen && !rearrangeApps"
             v-bind="activatorProps"
             class="absolute -right-4 -bottom-10 cursor-pointer no-visual-feedback"
             icon="ph:dots-three-circle-vertical"

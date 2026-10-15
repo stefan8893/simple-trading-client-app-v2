@@ -111,7 +111,7 @@ function handleSwipeRight() {
   <v-main
     v-touch="{
       right: handleSwipeRight,
-      options: { touchAction: 'pan-x pan-y' },
+      options: { touchAction: 'pan-x pan-y' } as Record<string, string>,
     }"
     class="grid justify-items-center"
   >
